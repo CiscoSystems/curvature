@@ -15,7 +15,6 @@ class Nodes.Subnet extends Nodes.Deployable
     rest.postRequest('/openstack/subnets', "{\"network_id\" : \"#{@network_id}\", \"cidr\" : \"#{@cidr}\"}", (resp) =>
       super()
       this.setDataFromOpenstackData(resp['subnet'])
-      console.log "Deployed Subnet #{@id}"
     )
 
   # Terminate a subnet

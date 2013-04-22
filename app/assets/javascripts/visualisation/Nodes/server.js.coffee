@@ -15,13 +15,11 @@ class Nodes.Server extends Nodes.Deployable
     if data.image != undefined
       imgSvg = Nodes.Server.calculateImageSVG(App.openstack.images.get(data.image.id))
     else if data.image_name != undefined
-      console.log data.image_name
       imgSvg = Nodes.Server.calculateImageSVG(data.image_name)
     else
       imgSvg = "undefined"
 
     if !data.networks?
-      console.log "ASDASDASDASDASD"
       data.networks = []
     super(data, imgSvg, deployStatus)
     @newNICs = []
@@ -63,7 +61,6 @@ class Nodes.Server extends Nodes.Deployable
     data = "#{data},\"key_name\" : \"#{@key_name}\"" if @key_name && @key_name isnt "none"
     data = "#{data},\"security_group\" : \"#{@security_group}\"" if @security_group && @security_group isnt "none"
     data = "#{data}}"
-    console.log data
     return data
 
   # Deploy a Server
@@ -72,7 +69,6 @@ class Nodes.Server extends Nodes.Deployable
     unless @deployStatus == "deployed"
       rest.postRequest('/openstack/servers', @createData(), (resp) =>
         this.setDataFromOpenstackData(resp['server'])
-        console.log "Deployed Server #{@id}"
         super()
         this.poll("ACTIVE")
       )
@@ -163,7 +159,6 @@ class Nodes.Server extends Nodes.Deployable
     ).then(=>
       switch server.status
         when status
-          console.log "WOOO Server #{@id} is #{status}"
           if status is "ACTIVE"
             this.fireAction(Nodes.Server.PORTS_CHANGED)
           else
