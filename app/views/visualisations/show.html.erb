@@ -1,0 +1,45 @@
+<div id="wrapper" class="wrap">
+  <%= render 'menubar' %>
+	
+  <div id="overviewsContainer">
+    <div class="overviewSlider">
+      <div id="instancesSlider" class="overviewBarContainer"><div id="instanceText" class="overviewBarLabel">Instances Used</div></div>
+    </div>
+    <div class="overviewSlider">
+      <div id="cpusSlider" class="overviewBarContainer"><div id="cpusText" class="overviewBarLabel">CPUs Used</div></div>
+    </div>
+    <div class="overviewSlider">
+        <div id="ramSlider" class="overviewBarContainer"><div id="ramText" class="overviewBarLabel">RAM Used</div></div>	
+    </div>
+  </div>
+	
+  <div id="graphTabs" class="GraphContainers">
+    <div id="graph" class="D3Graph" tabindex="0">
+      <button id="deployButton" onMouseDown="return curvy.deploy.start()">Deploy</button>
+      <div id="toolTabs" class="toolTabsCSS">
+        <ul id="toolName">
+          <li><a href='#t' onClick='curvy.networkVisualisation.tools.drawTools("tools")'>Tools</a></li>
+          <li><a href='#t' onClick='curvy.networkVisualisation.tools.drawTools("images")'>Images</a></li>
+          <li><a href='#t' onClick='curvy.networkVisualisation.tools.drawTools("networking")'>Network</a></li>
+
+	  <% if @containers %>
+      <li><a href='#t' onClick='curvy.networkVisualisation.tools.drawTools("containers")'>Containers</a></li>
+    <% end %>      
+
+
+        </ul>
+        <div id='t' style="display:none;"></div>
+      </div>
+      
+      <!--<div id="slider"><div id="zoomSlider"></div></div>-->
+      
+      <div id="controlsOverlay">
+        <img src="/assets/Controls Overlay - Curvature.png">
+      </div>
+      <img id="ciscologo" src="/assets/cisco_logo.png">
+    </div>
+  </div>
+
+</div>
+
+<%= render 'popups' %>

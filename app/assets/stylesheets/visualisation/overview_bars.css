@@ -1,0 +1,31 @@
+/* ===================================================================== */
+/* =                           Overview Bars                           = */
+/* ===================================================================== */
+
+#overviewsContainer{
+  display:table-row;
+  height: 37px;
+  position: relative;
+}
+
+.overviewSlider {
+  position: relative;
+  width: 33.333%;
+  float: left;
+}
+
+.overviewBarContainer {
+  position: relative;
+  height: 40px;
+}
+
+.overviewBarLabel {
+  position: absolute;
+  top: 50%;
+  height: 10px;
+  margin-top: -7px;
+  text-align: center;
+  font-weight: bold;
+  left: 0px;
+  right: 0px;
+}

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  temp_id: MyString
+  network_design: 
+
+two:
+  name: MyString
+  temp_id: MyString
+  network_design: 

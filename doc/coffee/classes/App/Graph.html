@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset='UTF-8'>
+  <title>Curvature Coffee Docs</title>
+  <link rel='stylesheet' href='../../assets/codo.css' type='text/css'>
+  <script src='../../assets/codo.js'></script>
+  <script src='../../assets/search_data.js'></script>
+</head>
+  <body>
+    <div id='base' data-path='../../'></div>
+<div id='header'>
+  <div id='menu'>
+    <a href='../../README.md.html' title='Curvature Coffee Docs'>Curvature Coffee Docs</a>
+    &raquo;
+    <a href='../../class_index.html' title='Index'>Index</a>
+    &raquo;
+    <span class='title'>App</span>
+    &raquo;
+    <span class='title'>Graph</span>
+    <nav>
+      <ul>
+        <li class='noframes'>
+          (<a class='noframes' href='#'>no frames</a>)
+        </li>
+      </ul>
+    </nav>
+    <div id='search'>
+      <a id='class_list_link' href='../../class_list.html'>Classes</a>
+      <a id='file_list_link' href='../../file_list.html'>Files</a>
+      <a id='method_list_link' href='../../method_list.html'>Methods</a>
+      <a id='extra_list_link' href='../../extra_list.html'>Extras</a>
+    </div>
+  </div>
+  <iframe id='search_frame'></iframe>
+  <div id='fuzzySearch'>
+    <input type='text'>
+    <ol></ol>
+  </div>
+  <div id='help'>
+    <p>
+      Quickly fuzzy find classes, mixins, methods, file:
+    </p>
+    <ul>
+      <li>
+        <span>Ctrl-T</span>
+        Open fuzzy finder dialog
+      </li>
+    </ul>
+    <p>
+      In frame mode you can toggle the list naviation frame on the left side:
+    </p>
+    <ul>
+      <li>
+        <span>Ctrl-L</span>
+        Toggle list view
+      </li>
+    </ul>
+    <p>
+      You can focus a list in frame mode or toggle a tab in frameless mode:
+    </p>
+    <ul>
+      <li>
+        <span>Ctrl-C</span>
+        Class list
+      </li>
+      <li>
+        <span>Ctrl-I</span>
+        Mixin list
+      </li>
+      <li>
+        <span>Ctrl-F</span>
+        File list
+      </li>
+      <li>
+        <span>Ctrl-M</span>
+        Method list
+      </li>
+      <li>
+        <span>Ctrl-E</span>
+        Extras list
+      </li>
+    </ul>
+    <p>
+      You can focus and blur the search input:
+    </p>
+    <ul>
+      <li>
+        <span>Ctrl-S</span>
+        Focus search input
+      </li>
+      <li>
+        <span>Esc</span>
+        Blur search input
+      </li>
+    </ul>
+    <p>
+      In frameless mode you can close the list tab:
+    </p>
+    <ul>
+      <li>
+        <span>Esc</span>
+        Close list tab
+      </li>
+    </ul>
+  </div>
+</div>
+    <div id='content'>
+      <h1>
+        Class:
+        App.Graph
+      </h1>
+      <table class='box'>
+        <tr>
+          <td>Defined in:</td>
+          <td>app&#47;assets&#47;javascripts&#47;visualisation&#47;D3&#47;Graph.js.coffee</td>
+        </tr>
+      </table>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <h1>D3 Graph</h1>
+<h2>Features</h2>
+<ul>
+<li>Tools</li>
+<li>Zooming</li>
+<li>Nodes</li>
+<li>Linking</li>
+</ul>
+
+</div>
+<div class='tags'>
+</div>
+      <h2>Direct Known Subclasses</h2>
+      <p class='children'>
+        <a href='../../classes/App/Visualisation.html'>App.Visualisation</a>
+      </p>
+      <h2>Property Summary</h2>
+      <dl class='properties'>
+        <dt id='w-property'>
+          <span class='signature'>
+            (Number) <strong>w</strong>
+          </span>
+        </dt>
+        <dd class='desc'>
+          <p>The width of the page </p>
+        </dd>
+        <dt id='h-property'>
+          <span class='signature'>
+            (Number) <strong>h</strong>
+          </span>
+        </dt>
+        <dd class='desc'>
+          <p>The height of the div containing D3</p>
+        </dd>
+        <dt id='zoom-property'>
+          <span class='signature'>
+            (D3 Zoom Object) <strong>zoom</strong>
+          </span>
+        </dt>
+        <dd class='desc'>
+          <p>Zoom object so the scale applies to all svg elements</p>
+        </dd>
+        <dt id='toolsDrag-property'>
+          <span class='signature'>
+            (D3 Drag Object) <strong>toolsDrag</strong>
+          </span>
+        </dt>
+        <dd class='desc'>
+          <p>Event handler for drag events from tools</p>
+        </dd>
+        <dt id='nodes-property'>
+          <span class='signature'>
+            (Array&lt;Node&gt;) <strong>nodes</strong>
+          </span>
+        </dt>
+        <dd class='desc'>
+          <p>Store the data to be displayed on the graph</p>
+        </dd>
+        <dt id='links-property'>
+          <span class='signature'>
+            (Array&lt;Link&gt;) <strong>links</strong>
+          </span>
+        </dt>
+        <dd class='desc'>
+          <p>Store links between nodes displayed on the graph</p>
+        </dd>
+        <dt id='tempLinks-property'>
+          <span class='signature'>
+            (Array&lt;Link&gt;) <strong>tempLinks</strong>
+          </span>
+        </dt>
+        <dd class='desc'>
+          <p>Store temporary links currently being drawn on the graph</p>
+        </dd>
+        <dt id='tools-property'>
+          <span class='signature'>
+            (Array&lt;Tool&gt;) <strong>tools</strong>
+          </span>
+        </dt>
+        <dd class='desc'>
+          <p>Holds the current tools that are being displayed   </p>
+        </dd>
+        <dt id='mouse-property'>
+          <span class='signature'>
+            (Object) <strong>mouse</strong>
+          </span>
+        </dt>
+        <dd class='desc'>
+          <p>x &amp; y positions of the cursor within D3 </p>
+        </dd>
+      </dl>
+      <h2>Instance Method Summary</h2>
+      <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#constructor-instance'>
+        - (void) <strong>constructor</strong>(divClass)
+      </a>
+    </span>
+    <span class='constructor note title'>Constructor</span>
+    <span class='desc'>
+      Contruct a new instance of the Graph Object Initialise all instance variables
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#createVis-instance'>
+        - (void) <strong>createVis</strong>()
+      </a>
+    </span>
+    <span class='desc'>
+      Setup the graph svg elements and add it to the div passed in the constructor
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#forceDirection-instance'>
+        - (void) <strong>forceDirection</strong>(grav, dist, char)
+      </a>
+    </span>
+    <span class='desc'>
+      Setup force direction
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#drawTools-instance'>
+        - (void) <strong>drawTools</strong>(tools, type)
+      </a>
+    </span>
+    <span class='desc'>
+      Draw tools to the Toolbar
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#setupNode-instance'>
+        - (Object) <strong>setupNode</strong>(d)
+      </a>
+    </span>
+    <span class='desc'>
+      Setup new node to be dragged onto graph Will create a new instance of the node type and add it to openstack data object
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#nodeActionFired-instance'>
+        - (void) <strong>nodeActionFired</strong>(obj, action)
+      </a>
+    </span>
+    <span class='desc'>
+      Catch node actions.
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#newNode-instance'>
+        - (void) <strong>newNode</strong>(data, displayLabel, x, y)
+      </a>
+    </span>
+    <span class='desc'>
+      Add new node to the nodes array and display on graph
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#removeNode-instance'>
+        - (void) <strong>removeNode</strong>(data)
+      </a>
+    </span>
+    <span class='desc'>
+      Remove a specific node from the graph based on its data object
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#newTemporaryLink-instance'>
+        - (void) <strong>newTemporaryLink</strong>(d)
+      </a>
+    </span>
+    <span class='desc'>
+      Add the node passed to the tempLinks array This function works out if it can create the new link or it is connecting multiple nodes to a single node
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#drawTemporaryLinks-instance'>
+        - (void) <strong>drawTemporaryLinks</strong>()
+      </a>
+    </span>
+    <span class='desc'>
+      Draw the temporary links to the screen
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#newLink-instance'>
+        - (void) <strong>newLink</strong>(source, target, deployStatus)
+      </a>
+    </span>
+    <span class='desc'>
+      Add new link to the links array and draw it
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#removeLink-instance'>
+        - (void) <strong>removeLink</strong>(link)
+      </a>
+    </span>
+    <span class='desc'>
+      Remove a single link
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#removeNodesLinks-instance'>
+        - (void) <strong>removeNodesLinks</strong>(node)
+      </a>
+    </span>
+    <span class='desc'>
+      Remove all links connected to a node
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#clearGraph-instance'>
+        - (void) <strong>clearGraph</strong>()
+      </a>
+    </span>
+    <span class='desc'>
+      Clear the Graph of all nodes and links
+    </span>
+  </li>
+</ul>
+      <h2>Constructor Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='constructor-instance'>
+      - (void) <strong>constructor</strong>(divClass)
+    </p>
+    <div class='docstring'>
+  <p>Contruct a new instance of the Graph Object
+Initialise all instance variables</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>divClass</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The class of the div that is to hold the D3 Graph</span>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
+      <h2>Instance Method Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='createVis-instance'>
+      - (void) <strong>createVis</strong>()
+    </p>
+    <div class='docstring'>
+  <p>Setup the graph svg elements and add it to the div passed in the constructor</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='forceDirection-instance'>
+      - (void) <strong>forceDirection</strong>(grav, dist, char)
+    </p>
+    <div class='docstring'>
+  <p>Setup force direction</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>grav</span>
+      <span class='type'>
+        (<tt>Number</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>Set the gravitational strength to the specified value </span>
+    </li>
+    <li>
+      <span class='name'>dist</span>
+      <span class='type'>
+        (<tt>Number</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>Set the link distance to the specified value </span>
+    </li>
+    <li>
+      <span class='name'>char</span>
+      <span class='type'>
+        (<tt>Number</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>Set the charge strength to the specified value </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='drawTools-instance'>
+      - (void) <strong>drawTools</strong>(tools, type)
+    </p>
+    <div class='docstring'>
+  <p>Draw tools to the Toolbar</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>tools</span>
+      <span class='type'>
+        (<tt>Array&lt;Tool&gt;</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The tools that should be drawn</span>
+    </li>
+    <li>
+      <span class='name'>type</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The type of tools that are being drawn (e.g. Tool, Image, Networking)</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='setupNode-instance'>
+      - (Object) <strong>setupNode</strong>(d)
+    </p>
+    <div class='docstring'>
+  <p>Setup new node to be dragged onto graph
+Will create a new instance of the node type and add it to
+openstack data object</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>d</span>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The data object for the node to be setup</span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (<tt>Object</tt>)
+      &mdash;
+      <span class='desc'>Node object that has been setup</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='nodeActionFired-instance'>
+      - (void) <strong>nodeActionFired</strong>(obj, action)
+    </p>
+    <div class='docstring'>
+  <p>Catch node actions.</p><p>This will listen to actions on node and update the graph according
+to the current state of the node data</p><p>@param obj the object which fired the action</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>action</span>
+      <span class='type'>
+        (<tt>Number</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The action performed, matches against a node constant</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='newNode-instance'>
+      - (void) <strong>newNode</strong>(data, displayLabel, x, y)
+    </p>
+    <div class='docstring'>
+  <p>Add new node to the nodes array and display on graph</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>data</span>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The data object for the new node</span>
+    </li>
+    <li>
+      <span class='name'>displayLabel</span>
+      <span class='type'>
+        (<tt>Boolean</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>Flag to determine whether or not to display labels. Should be true when adding nodes that are routers from other networks</span>
+    </li>
+    <li>
+      <span class='name'>x</span>
+      <span class='type'>
+        (<tt>Number</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>x coordinate for the new node to be placed</span>
+    </li>
+    <li>
+      <span class='name'>y</span>
+      <span class='type'>
+        (<tt>Number</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>y coordinate for the new node to be placed</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='removeNode-instance'>
+      - (void) <strong>removeNode</strong>(data)
+    </p>
+    <div class='docstring'>
+  <p>Remove a specific node from the graph based on its data object</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>data</span>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The data object for the node to be removed</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='newTemporaryLink-instance'>
+      - (void) <strong>newTemporaryLink</strong>(d)
+    </p>
+    <div class='docstring'>
+  <p>Add the node passed to the tempLinks array
+This function works out if it can create the new link
+or it is connecting multiple nodes to a single node</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>d</span>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The data object of the node to be linked to/from</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='drawTemporaryLinks-instance'>
+      - (void) <strong>drawTemporaryLinks</strong>()
+    </p>
+    <div class='docstring'>
+  <p>Draw the temporary links to the screen</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='newLink-instance'>
+      - (void) <strong>newLink</strong>(source, target, deployStatus)
+    </p>
+    <div class='docstring'>
+  <p>Add new link to the links array and draw it</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>source</span>
+      <span class='type'>
+        (<tt>Node</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The source of the link</span>
+    </li>
+    <li>
+      <span class='name'>target</span>
+      <span class='type'>
+        (<tt>Node</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The target of the link</span>
+    </li>
+    <li>
+      <span class='name'>deployStatus</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The deploy status of the new link</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='removeLink-instance'>
+      - (void) <strong>removeLink</strong>(link)
+    </p>
+    <div class='docstring'>
+  <p>Remove a single link</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>link</span>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The link object of the link to be removed</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='removeNodesLinks-instance'>
+      - (void) <strong>removeNodesLinks</strong>(node)
+    </p>
+    <div class='docstring'>
+  <p>Remove all links connected to a node</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>node</span>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The node object to have all its links removed</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='clearGraph-instance'>
+      - (void) <strong>clearGraph</strong>()
+    </p>
+    <div class='docstring'>
+  <p>Clear the Graph of all nodes and links</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
+</div>
+    </div>
+    <div id='footer'>
+  Generated on
+  Mon Mar 04 2013 13:38:18 GMT-0800 (PST)
+  by
+  <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
+  v1.5.6
+  (Node.js v0.8.21).
+  &#10034;
+  Press Ctrl-h to see the keyboard shortcuts
+  &#10034;
+  <a href='http://twitter.com/#!/netzpirat'>@netzpirat</a>
+  &#10034;
+  <a href='https://mksoft.ch'>mksoft.ch</a>
+</div>
+  </body>
+</html>

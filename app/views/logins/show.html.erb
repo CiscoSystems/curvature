@@ -1,0 +1,31 @@
+  <div id="login">
+
+          <img src="/assets/curvature_logo.png" style="display: block;margin-left:auto;margin-right:auto "></img>
+
+          <h2> Log In </h2>
+
+          <% if flash[:error] %>
+                  <p class="error"> <%= flash[:error] %></p>
+          <% end %>
+
+          <% if flash[:notice] %>
+                  <p class="notice"> <%= flash[:notice] %></p>
+          <% end %>
+          
+          <%= form_tag(:controller => "logins", :action => "create") do %> 
+                  <div class="field">
+                          <%= label_tag(:username) %>
+                          <%= text_field_tag(:username) %>
+                  </div>
+                  <div class="field">
+                          <%= label_tag(:password) %> <br />
+                          <%= password_field_tag(:password) %> 
+                  </div>
+                  <div class="actions">
+                          <%= submit_tag "Login" , :class => "button blue" %>
+                  </div>
+          <% end %>
+
+  </div>
+
+  <img id="ciscologo" src="/assets/cisco_logo.png">
