@@ -30,7 +30,6 @@ jQuery ->
   genericDialog "errorDialog"
 
   $('#moreDetails').on("click", ->
-    console.log('CLICK CLAK')
     $('#errorDetails').toggle('blind')
   )
 
@@ -136,12 +135,10 @@ jQuery ->
       click: =>
         $("#newNetwork").data('node').name = $("#newNetworkName").val()
         $("#newNetwork").data('node').cidr = $("#newNetworkCIDR").val()
-        console.log $("#newNetwork").data('graph')
         if $("#newNetwork").data('graph') instanceof D3.ContainerVisualisation
            $("#newNetwork").data('node').temp_id = $("#newNetwork").data('graph').nodes.createUUID()
         $("#newNetwork").data('graph').nodes.newNode($("#newNetwork").data('node'), false, curvy.networkVisualisation.mouse.x, curvy.networkVisualisation.mouse.y)
         $("#newNetwork").data('graph').force.start()
-        console.log $("#newNetwork").data('node')
         $("#newNetwork").dialog "close"
     ,
       text: "Random"
@@ -155,7 +152,6 @@ jQuery ->
       click: ->
         $(this).dialog "close"
         ##App.openstack.subnets._data.pop(index) TODO Remove from openstack object.
-        console.log $("#newNetwork")
         
         if not $("#newNetwork").dialog().data('node').cidr?
           $("#newNetwork").dialog().data('node').terminate()
@@ -185,7 +181,6 @@ jQuery ->
       click: ->
         $(this).dialog "close"
         ##App.openstack.subnets._data.pop(index) TODO Remove from openstack object.
-        console.log $("#subnet")
         
         if not $("#subnet").dialog().data('node').cidr?
           window.curvy.networkVisualisation.removeNode($("#subnet").dialog().data('node'))
@@ -304,7 +299,6 @@ jQuery ->
     open: =>
       $("#updateContainerButton").button("disable")
       @containerBuilder = new D3.ContainerVisualisation('D3containerEditor')
-      console.log @containerBuilder
       if $("#containerEditor").data('containerID') != null
         $("#updateContainerButton").button("enable")
         @containerBuilder.displayExistingContainer($("#containerEditor").data('containerID'))
@@ -331,7 +325,7 @@ jQuery ->
       text: "Back"
       click: ->
         if document.liveContainer.levels.length > 1
-          console.log document.liveContainer.levels.pop()
+          document.liveContainer.levels.pop()
           document.liveContainer.displayLiveContainer(document.liveContainer.levels[document.liveContainer.levels.length - 1 ])
         else
           $(this).dialog "close"  
@@ -342,10 +336,7 @@ jQuery ->
  
     ]
     open: =>
-      console.log "SAASASASASAS"
-      console.log this
       @liveContainer = new D3.LiveContainerVisualisation('D3containerViewer')
-      console.log @liveContainer
       @liveContainer.displayLiveContainer($("#liveContainerViewer").data('containerID'))
     close: =>
       $(".D3containerViewer").children('svg').remove()

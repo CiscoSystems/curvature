@@ -63,7 +63,6 @@ App.openstack =
     
         $.each f[0].files, (i, file) ->
           formData.append "image", file
-          console.log file
 
         $.ajax
           url: "/openstack/images"
@@ -258,7 +257,6 @@ App.openstack =
                 curvy.networkVisualisation.links.newLink(node, App.openstack.networks.internal.get(port.network_id), "deployed")
             for link in curvy.networkVisualisation.links.links
               if link.source.data is node || link.target.data is node
-                console.log "ASDASDASDASD"
                 link.deployStatus = 'deployed'
                 curvy.networkVisualisation.links.linkActionFired(link)
             if newPort

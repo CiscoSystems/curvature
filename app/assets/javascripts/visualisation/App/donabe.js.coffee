@@ -20,8 +20,6 @@ App.donabe =
         App.donabe.containers.populate()
       )
     save: (data, containerid) ->
-      console.log "DOING SAVE"
-      console.log containerid
       rest.putRequest('/donabe/containers/'+containerid+'', data, (resp) =>
         App.donabe.containers.populate()
       )
@@ -79,7 +77,6 @@ App.donabe =
       for container in @_data
         for router in container['routers']  
           if router['openstack_id'] is id 
-            console.log router
             isEndpoint = router.endpoint
             break
         for network in container['networks']
