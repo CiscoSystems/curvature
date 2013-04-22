@@ -2,11 +2,11 @@
 layout: default
 ---
 <ul class="updates">
-  {% for post in site.posts %}
+  {% for post in site.posts limit:4 %}
   <li>
     <h2> {{ post.title }} </h2>
     <p> {{ post.content }} </p>
-    <hr>
+    {% unless forloop.last %} <hr> {% endunless %}
   </li>
   {% endfor %}
 </ul>
