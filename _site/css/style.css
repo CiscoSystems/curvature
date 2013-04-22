@@ -16,7 +16,10 @@ body {
 }
 
 #main {
-  margin-top: 20px;
+  padding-left: 5px;
+  padding-top: 20px;
+  background-color: #d7ebf9;
+  border-radius: 0px 0px 15px 15px;
 }
 
 #nav {
@@ -42,7 +45,7 @@ body {
 #content {
   margin: 0px;
   padding: 0px;
-  width: 850px;
+  width: 845px;
   float: left;
   margin-left:20px;
 }
@@ -67,8 +70,5 @@ body {
 
 #footer {
   text-align:center;
-  border-radius: 0px 0px 15px 15px;
-  background: linear-gradient(to bottom, #1e5799 0%,#7db9e8 100%);
-  background: -webkit-linear-gradient(top, #1e5799 0%,#7db9e8 100%);
   margin-top: 20px;
 }
