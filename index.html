@@ -1,6 +1,12 @@
 ---
 layout: default
 ---
-<div id="message">
-  <p> You are on page index! </p>
-</div>
+<ul class="updates">
+  {% for post in site.posts %}
+  <li>
+    <h2> {{ post.title }} </h2>
+    <p> {{ post.content }} </p>
+    <hr>
+  </li>
+  {% endfor %}
+</ul>
