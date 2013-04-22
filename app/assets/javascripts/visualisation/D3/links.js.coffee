@@ -14,8 +14,6 @@ class D3.Links
     exists = false
     sameType = true
 
-    console.log d
-    console.log @tempLinks
     if not (d.data instanceof(Nodes.Container))
       # get object type of first temporary link
       if @tempLinks.length > 0
@@ -29,13 +27,11 @@ class D3.Links
 
       for l in @tempLinks
         exists = true if l.source is d
-      console.log exists
     
       if exists 
         if @tempLinks[0].source isnt d
           @tempLinks.push {source: d}
         else
-          console.log "REMOVE"
           @tempLinks.splice(0,@tempLinks.length)
           @graph.vis.selectAll("line.templink").data(@tempLinks).exit().remove()
       else
@@ -51,8 +47,6 @@ class D3.Links
           else if @tempLinks[0].source.data isnt d.data      
             # convert temporary links to perminant links
             for l in @tempLinks
-              console.log l.source
-              console.log d
               this.newLink(l.source.data,d.data,'undeployed')
             
             if @graph.tools.currentToolLocked
@@ -99,8 +93,6 @@ class D3.Links
   #
   newLink: (source, target, deployStatus) ->
     #Get d3 objects for source and target
-    console.log source
-    console.log target
     #Setting s & t to node when getting info from openstack
     for d in @graph.nodes.nodes
       s = d if d.data is source
@@ -115,13 +107,10 @@ class D3.Links
           
         # Code to make a server appear as if it is part of a network
         if s.data instanceof Nodes.Server and t.data instanceof Nodes.Network and !t.data.inContainerAsEndpoint?# and !(@graph instanceof D3.ContainerVisualisation)
-          #console.log s.data
           if s.data.networks
             if s.data.networks.indexOf(t.data) is -1
-              #console.log s.data.networks.indexOf(t.data)
               s.data.networks.push t.data 
           else
-            #console.log "creating"
             s.data.networks = []
             s.data.networks.push t.data
         else if s.data instanceof Nodes.Network and t.data instanceof Nodes.Server and !s.data.inContainerAsEndpoint?# and !(@graph instanceof D3.ContainerVisualisation)
@@ -130,16 +119,13 @@ class D3.Links
           else
             t.data.networks = []
             t.data.networks.push s.data
-        #console.log s.data
         
         #Routers
         if s.data instanceof Nodes.Router and t.data instanceof Nodes.Network and !t.data.inContainerAsEndpoint?
           if s.data.networks
             if s.data.networks.indexOf(t.data) is -1
-              #console.log s.data.networks.indexOf(t.data)
               s.data.networks.push t.data 
           else
-            #console.log "creating"
             s.data.networks = []
             s.data.networks.push t.data
         else if s.data instanceof Nodes.Network and t.data instanceof Nodes.Router and !s.data.inContainerAsEndpoint?
@@ -148,7 +134,6 @@ class D3.Links
           else
             t.data.networks = []
             t.data.networks.push s.data
-        #console.log s.data
 
         # If no connection between the two exists create one
         @links.push({source: s, target:t, deployStatus:deployStatus})
@@ -184,14 +169,10 @@ class D3.Links
     
     
   linkActionFired: (obj) ->
-    console.log obj
-    console.log "LINK FIRED"
     d3Links = d3.selectAll('line.link') # Get all of the svg nodes
     d3Links.each (d,i) ->
       link = d
       # find the correct node
       if link is obj
-        console.log "FOUND YOU"
-        console.log i
         #determine what type of node this is
         if link.deployStatus is 'deployed' then d3Links[0][i].style.stroke = 'black'

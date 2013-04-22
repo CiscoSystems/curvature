@@ -76,8 +76,6 @@ class D3.GraphNodes
         node = App.donabe.deployed_containers.add(d.data)   
       
       for x in App.donabe.containers.get()
-        console.log x.id
-        console.log d.data
         if x.id == d.data.id
           innerContainer = x
           break
@@ -116,9 +114,6 @@ class D3.GraphNodes
   # @param action [Number] The action performed, matches against a node constant
   #
   nodeActionFired: (obj, action) ->
-    console.log obj
-    console.log action
-    console.log "++++++^^^^++++++"
     switch action
       when Nodes.Node.DATA_CHANGED 
         d3Nodes = d3.selectAll('g.node') # Get all of the svg nodes
@@ -139,9 +134,6 @@ class D3.GraphNodes
             else if node instanceof Nodes.Network
               if node.deployStatus is 'deployed' then d3Paths[0][i].style.fill = 'black'
             else if node instanceof Nodes.Container
-              console.log "HELO HELO HELO"
-              console.log obj.deployStatus
-              console.log node.deployStatus
               if node.deployStatus is 'deployed' then d3Paths[0][i].style.fill = 'black'
       when Nodes.Deployable.TERMINATED
         @removeNode obj
@@ -186,7 +178,6 @@ class D3.GraphNodes
       .style("fill", "white")
       .call(@graph.force.drag)
       .on("mousedown", (d) ->
-        console.log d
         if _this.graph.tools.currentTool is 'link'
           _this.graph.links.newTemporaryLink(d)
           _this.graph.links.drawTemporaryLinks()
@@ -338,10 +329,6 @@ class D3.GraphNodes
       
       # Show dialogs on double click
       .on("dblclick", (d) -> 
-        console.log "Look AT THIS"
-        console.log _this.graph
-        console.log graph
-        console.log "LOOK"       
         if _this.graph instanceof D3.ContainerVisualisation
           if d.data instanceof Nodes.Server
             $("#vm").dialog().data 'node',  d.data
@@ -356,8 +343,6 @@ class D3.GraphNodes
             $("#subnet").dialog().data 'node',  d.data
             $("#subnetCIDR").val(d.data.cidr)
             $("#subnet").dialog('open')
-          if d.data instanceof Nodes.Container
-            console.log "Do nothing."
         else
           if _this.graph.tools.currentTool is "none"
             # Only allow the display of popup for undeployed nodes
@@ -379,7 +364,6 @@ class D3.GraphNodes
                 document.liveContainer.displayLiveContainer(d.data.id)
               else
                 $("#liveContainerViewer").dialog('close')
-                console.log d.data.id
                 $("#liveContainerViewer").data('containerID', d.data.id)
                 $("#liveContainerViewer").dialog('open')
       )
@@ -420,7 +404,6 @@ class D3.GraphNodes
       .attr("class","svgpath")
       .style("fill", (d) ->
         if _this.graph instanceof D3.ContainerVisualisation
-          #console.log "TRUE"
           if d.data.inContainerAsEndpoint?
             "green"
           else if d.data.endpoint
@@ -498,7 +481,6 @@ class D3.GraphNodes
           return obj is d.data
       filterNetwork = (obj) ->
         return (d, i) ->
-          console.log d.network.data
           return obj is d.network.data
       # remove the hull if a network
       if obj instanceof Nodes.Network

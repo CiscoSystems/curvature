@@ -144,7 +144,6 @@ class D3.Tools
       .style("fill","white") 
       
     _this = this
-    console.log @currentlyShowing
     switch @currentlyShowing
       when 'tools'
         toolEnter.on("click", (d) ->
@@ -155,8 +154,6 @@ class D3.Tools
           #VNC
           if d.data.svg is 'vnc'
             _this.currentTool = 'vnc'
-            console.log 'VNC'
-            console.log _this.graph.nodes.currentlySelectedNode
             curvy.displayVNCConsole(d3.select(_this.graph.nodes.currentlySelectedNode).data()[0].data)
             
           else if _this.currentTool isnt d.data.svg
@@ -178,7 +175,6 @@ class D3.Tools
         toolEnter.on("dblclick", (d) ->
           #reset so no tool is selected
           tool.style("fill", "white")
-          console.log _this.currentTool
           if _this.currentTool isnt d.data.svg and _this.currentTool isnt "vnc"
             _this.currentTool = d.data.svg
             _this.currentToolLocked = true
@@ -194,7 +190,6 @@ class D3.Tools
               .style("fill","black")
               .attr("d", App.d3SVGs["locked"])
               .attr("transform", "scale(1)")
-            console.log d3.select(this)
           else if _this.currentTool is d.data.svg
             _this.currentTool = "none"
             _this.currentToolLocked = false
@@ -288,7 +283,6 @@ class D3.Tools
               _this.listOfTools.containerIndex -= 1
             else if position is "right" and _this.listOfTools.containerIndex < _this.listOfTools.containers.length - 3
               _this.listOfTools.containerIndex += 1
-            console.log _this.listOfTools.containerIndex
           when 'volumes'
             if position is "left" and _this.listOfTools.volumeIndex > 0
               _this.listOfTools.volumeIndex -= 1
@@ -348,7 +342,6 @@ class D3.Tools
         node = App.openstack.networks.internal.add(n)
       else
         node = new Nodes.Network(n, 'undeployed')
-      console.log node
       ## Fire enter CIDR dialog
       $("#newNetwork").dialog().data 'node', node
       $("#newNetwork").dialog().data 'graph', @graph

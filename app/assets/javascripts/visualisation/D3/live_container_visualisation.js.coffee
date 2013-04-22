@@ -28,11 +28,7 @@ class D3.LiveContainerVisualisation extends D3.Graph
     
     @levels.push(containerid) if not found
     
-    console.log "LEVELS"
-    console.log @levels
-    
     @livecontainerid = containerid
-    console.log @livecontainerid
     this.clearGraph()
     
     # Draw containers
@@ -100,9 +96,6 @@ class D3.LiveContainerVisualisation extends D3.Graph
       if (App.donabe.deployed_containers.isEndpoint(port.network_id) or App.donabe.deployed_containers.isEndpoint(port.device_id) ) or ((App.donabe.deployed_containers.inContainer(port.network_id)) or ( App.donabe.deployed_containers.inContainer(port.device_id)))
         #Display links between router and network
         if port.device_owner is "network:router_interface"
-          console.log "!!!!!!!!!!!!"
-          console.log App.openstack.routers.get(port.device_id)
-          console.log App.openstack.networks.internal.get(port.network_id)
           this.links.newLink App.openstack.routers.get(port.device_id), App.openstack.networks.internal.get(port.network_id), 'deployed', 230
         #Display links between network and vm
         if port.device_owner is "compute:nova" or "compute:None"

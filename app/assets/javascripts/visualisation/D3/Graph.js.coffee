@@ -63,8 +63,6 @@ class D3.Graph
         p2.x = hull[(i + 1) % hull.length][0] - x
         p2.y = hull[(i + 1) % hull.length][1] - y
         angle += @getAngle(p1.x,p1.y,p2.x,p2.y)
-        console.log i
-        console.log angle
     
       if Math.abs(angle) < Math.PI
         false
@@ -114,7 +112,6 @@ class D3.Graph
               l.push [n.x + offset, n.y - offset]
               l.push [n.x + offset, n.y + offset]
           else if (n.data instanceof Nodes.Network) and (!n.data.inContainerAsEndpoint?)
-            #console.log n.data
             i = n.data #if n.data instanceof Nodes.Network
             idNetwork[i.id] = n if n.data instanceof Nodes.Network
             l = hulls[i.id] or (hulls[i.id] = [])
@@ -127,7 +124,6 @@ class D3.Graph
       # create convex hulls
       @hullset = []
       for i of hulls
-        #console.log i
         @hullset.push({group: i, network: idNetwork[i], path: d3.geom.hull(hulls[i])})
       
       @hullset
@@ -244,9 +240,6 @@ class D3.Graph
           .style("opacity", .2)
           .on("mouseup", (d) -> 
             #if _this.tools.currentTool is 'link'
-              #console.log "NEW TEMPORYLINKERE"
-              #console.log d.network
-              #console.log d
               #_this.links.newTemporaryLink(d.network)#PROBLEM?
               #_this.links.drawTemporaryLinks()
           )
