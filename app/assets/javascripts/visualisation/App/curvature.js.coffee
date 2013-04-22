@@ -172,7 +172,6 @@ class App.Curvature
     #@networkVisualisation.tools.listOfTools.containers.splice(0,@networkVisualisation.tools.listOfTools.containers.length)
     @networkVisualisation.tools.listOfTools.containers = []
     for container in App.donabe.containers.get()
-      console.log "yoyo"
       @networkVisualisation.tools.listOfTools.containers.push new Nodes.Container(container, "deployed")
 
     # Setup DropDowns
@@ -379,10 +378,8 @@ class App.Curvature
     $('#vm').dialog('open')
 
   populateKeyPairDialog: ->
-    console.log "POPUALTING KEYPAIR TABLE"
     $('#keyPairTable tbody').empty()
     for kp in App.openstack.keypairs.get()
-      console.log "KP"
       downloadbutton = ""
       downloadbutton = "<button id='download-#{kp.name}'> Download </button>" if kp.private_key
       $('#keyPairTable tbody').append("

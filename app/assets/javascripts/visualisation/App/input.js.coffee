@@ -18,7 +18,6 @@ CLICK_OFFSET = 20
   # Calculate midpoints for all links
   mid = []
   for l of links
-    console.log l
     mid.push midpoint(l.source.x, l.source.y, l.target.x, l.target.y)
   
   # Compare midpoints to the mouse position + CLICK_OFFSET
@@ -50,7 +49,6 @@ CLICK_OFFSET = 20
 document.onkeydown = (e) ->
   keyPress = event.keyCode
   
-  #console.log(keyPress);
   switch keyPress    
     # ESC
     when 27
@@ -76,7 +74,6 @@ document.onkeydown = (e) ->
 #return false;   // Prevents the default action
 document.onkeyup = (e) ->
   keyPress = event.keyCode  
-  #console.log(keyPress);
   switch keyPress     
     #Alt
     when 18

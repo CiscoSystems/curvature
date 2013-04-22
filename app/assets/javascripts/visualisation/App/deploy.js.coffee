@@ -31,14 +31,10 @@ class App.Deploy
 
     # Populate links deploy and delete lists
     deployableLinks = this.populateLinkLists(window.curvy.networkVisualisation.links.links)
-    console.log "THIS STEP FINISHED"
-    console.log deployableLinks
 
     # Run deploy!
     $.when.apply(this, this.deployContainers(containersToBeCommitted,deployableLinks)).done(=>
       # Initialise link deploy lists 
-      console.log "CONTAINER PROMISE RETURNED"
-      console.log deployableLinks
       interfacesToBeDestroyed = deployableLinks[0]
       interfacesToBeCommitted = deployableLinks[1]
       nicsToBeDestroyed = deployableLinks[2]
@@ -63,7 +59,6 @@ class App.Deploy
                           #Connection Stuff
                           tasks = this.terminateInterfaces(interfacesToBeDestroyed).concat(this.terminateGateways(gatewaysToBeDestroyed), this.terminateNics(nicsToBeDestroyed))
                           $.when.apply(this, tasks).done(=>
-                            console.log interfacesToBeCommitted
                             tasks = this.deployGateways(gatewaysToBeCommitted).concat(this.deployInterfaces(interfacesToBeCommitted))
                             $.when.apply(this, tasks).done(=>
                               $.when(App.openstack.ports.populate()).done(=>
@@ -89,11 +84,9 @@ class App.Deploy
   # Alert the user if the deploy has failed
   #
   deployFailed: (details) ->
-    console.log "DEPLOY FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     $('#deployButton').button("option", "disabled", false)
 
   deployFinished: ->
-    console.log "DEPLOY FINISHED!!!!!!!!!!!!!!!!!!!!!!!!!"
     $('#deployButton').button("option", "disabled", false)
     $('#deployButton').button("option", "label", "Deploy")
 
@@ -189,8 +182,6 @@ class App.Deploy
   # @param link [Object] The link object that connects the network and router
   #
   deployGateway: (router, network, link) ->
-    console.log "LETS FIX THIS FINAL BUG B!@CH"
-    console.log (router)
     rest.postRequest("/openstack/routers/#{router.id}/router_gateway", "{\"network_id\" : \"#{network.id}\"}" , (resp) =>
       router.setDataFromOpenstackData(resp['router'])
       link.deployStatus = "deployed"
@@ -261,10 +252,8 @@ class App.Deploy
   # @param link [Object] The link object that connects the subnet and router
   #
   deployInterface: (subnet, router) ->
-    console.log "DEPLOYING INDIVIDUAL INTERFACE!"
     rest.postRequest("/openstack/routers/#{router.id}/router_interfaces", "{\"subnet_id\" : \"#{subnet.id}\"}", (resp) ->
-      console.log "deployed Interface"
-      console.log resp
+      resp
       )
 
   # Generate promises to deploy multiple interfaces
@@ -278,8 +267,6 @@ class App.Deploy
         link.deployStatus = "deployed"
         curvy.networkVisualisation.links.linkActionFired(link)
         promise.resolve()
-    console.log "Deploying Interfaces!!!!!"
-    console.log list
     promises = []
     for link in list
       inter = []
@@ -310,8 +297,6 @@ class App.Deploy
   # @param link [Object] The link object that connects the subnet with the server
   #
   deployNic: (network, server, link) ->
-    console.log server
-    console.log network
     if server.deployStatus is "deployed"
       data = "{\"network_id\" : \"#{network.id}\",\"device_id\" : \"#{server.id}\"}"
       rest.postRequest("/openstack/ports", data, (resp) =>
@@ -413,9 +398,6 @@ class App.Deploy
       results[i] = []
       
     for link in list when not (link.target.data.inContainerAsEndpoint? or link.source.data.inContainerAsEndpoint)
-      console.log "THE TWO BELOW"
-      console.log link.target.data
-      console.log link.source.data
       if link.target.data instanceof Nodes.Server
         if link.source.data instanceof Nodes.Volume 
           key = 6
@@ -443,8 +425,6 @@ class App.Deploy
         results[key].push(link)
       else if link.deployStatus == "undeployed"
         results[key+1].push(link)
-      else
-        console.log("Doing nothing!")
     results
 
   # =============================================================
@@ -458,7 +438,6 @@ class App.Deploy
   #
   deployContainers: (list, deployableLinks) -> 
     #, endpoints, deployableLinks) ->
-    console.log "deployContainers called!"
     promises = []
     for container in list
       ##deploy container
