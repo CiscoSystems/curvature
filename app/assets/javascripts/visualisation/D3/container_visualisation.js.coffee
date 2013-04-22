@@ -29,17 +29,14 @@ class D3.ContainerVisualisation extends D3.Graph
     @containerid = containerid
 
     # Get containerJSON
-    console.log App.donabe.containers.get()
+    App.donabe.containers.get()
     
     container = null
     for i in App.donabe.containers.get()
-      console.log i['id']
-      console.log containerid
       if i["id"] == containerid        
         ##container = i
         container = {}
         $.extend(true, container, i)
-        console.log container
         break
 
     # Display Networks
@@ -70,7 +67,6 @@ class D3.ContainerVisualisation extends D3.Graph
     # Display Containers and their endpoints
     for xcontainer in container['containers']
       xcontainer.temp_id = this.nodes.createUUID()
-      console.log xcontainer
       this.nodes.newNode(new Nodes.Container(xcontainer))
       # add and connect endpoints   
       innerContainer = null
@@ -82,7 +78,6 @@ class D3.ContainerVisualisation extends D3.Graph
       for network in innerContainer['networks']
         if network.endpoint == true
           network.inContainerAsEndpoint = xcontainer.temp_id
-          console.log network
           network.innerContainerID = network.temp_id
           #delete network.temp_id     
           this.nodes.newNode(new Nodes.Network(network))      
@@ -121,11 +116,8 @@ class D3.ContainerVisualisation extends D3.Graph
       if ((node['data'] instanceof Nodes.Server) or (node['data'] instanceof Nodes.Router)) and (!node['data'].inContainerAsEndpoint?)
         
         tempids = []
-        console.log node.data.networks
         for network in node['data']['networks']# for each network in node
           tempids.push(network)
-        console.log tempids
-        console.log "____________________!!!!!!________"
         node.data.networks.splice(0, node.data.networks.length)
         
         for tid in tempids
@@ -147,7 +139,6 @@ class D3.ContainerVisualisation extends D3.Graph
   #
   saveContainer: (containerid) ->
       
-    console.log "SAVING CONTAINER"
 
     listOfRouters = []
     listOfNetworks = []
@@ -157,8 +148,6 @@ class D3.ContainerVisualisation extends D3.Graph
     newNodeList = []
     $.extend(true, newNodeList, @nodes.nodes)
     
-    console.log newNodeList
-    console.log @nodes.nodes
     
     for node in newNodeList
      if node.data.inContainerAsEndpoint?
@@ -224,9 +213,7 @@ class D3.ContainerVisualisation extends D3.Graph
       delete container.endpoint
 
     containerName = prompt("Container Name:", "-")
-    console.log "Logging for logging sake"
     if !(containerName == null)
-      console.log "did the conditional conditon?"
 
       ##build container
       container = container: {
@@ -237,10 +224,6 @@ class D3.ContainerVisualisation extends D3.Graph
         vms: listOfServers
         containers: listOfContainers
       }
-
-      console.log containerid
-      console.log container
-      console.log JSON.stringify container
 
       if containerid?
         return App.donabe.containers.save((JSON.stringify container), containerid)
