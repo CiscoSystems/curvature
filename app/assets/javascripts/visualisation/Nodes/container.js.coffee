@@ -10,20 +10,14 @@ class Nodes.Container extends Nodes.Deployable
     ##CAll super somehwre
     promise = new $.Deferred()
     
-    console.log this.id
-    console.log this.temp_id
-    console.log this.deployStatus
-    
     if this.temp_id? 
       oldTempID = this.temp_id
     else 
       oldTempID = this.id
     
-    console.log "HERE!!!"
     if @deployStatus == "undeployed"
       rest.postRequest('/donabe/deployed_containers', "{\"containerID\" : \"#{@id}\"}", (resp) =>
         this.setDataFromOpenstackData(resp['container'])
-        console.log "Deployed a Container!"
         super()
         
         $.when(
@@ -34,7 +28,6 @@ class Nodes.Container extends Nodes.Deployable
           App.openstack.servers.populate()
           App.openstack.routers.populate()
         ).then(=>
-          console.log App.openstack.routers.get()[0]
           endpoints = App.donabe.endpointsOnGraph.get()
           for endpoint in endpoints
             if endpoint.inContainerAsEndpoint == oldTempID
@@ -53,30 +46,20 @@ class Nodes.Container extends Nodes.Deployable
           promise.resolve()
         )
       )
-      console.log this.deployStatus
       return promise.promise()
      
   getOpenStackObject: (id, objectList) ->
     for component in objectList
       if component.id == id
-        console.log "hehe"
-        console.log component
         return component
     
   addLinks:(endpoint, openstackObj, list, deployableLinks) ->
     key = -1
     
     for link in list
-      console.log "-----==-=-=-=-=-"
-      console.log link.source.data
-      console.log link.target.data
-      console.log endpoint
-      console.log openstackObj
       if link.source.data.temp_id == endpoint.temp_id
-        console.log "SWAPPED"
         link.source.data = openstackObj ##TODO this maybe isnt WORKING CHECK IT OUT!
       else if link.target.data.temp_id == endpoint.temp_id
-        console.log "SWAPPED 2"
         link.target.data = openstackObj
       
       if link.target.data instanceof Nodes.Server 
@@ -106,8 +89,6 @@ class Nodes.Container extends Nodes.Deployable
         deployableLinks[key].push(link)
       else if link.deployStatus == "undeployed"
         deployableLinks[key+1].push(link)
-      else
-        console.log("Doing nothing!")
 
   #terminate: ->
 
