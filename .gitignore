@@ -2,6 +2,8 @@
 
 log/development.log
 
+public/assets
+
 *.lock
 
 tmp/**/*
