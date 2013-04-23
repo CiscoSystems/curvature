@@ -42,6 +42,10 @@ class D3.Links
           if (firstType is Nodes.Server and d.data instanceof(Nodes.Router)) or (firstType is Nodes.Router and d.data instanceof(Nodes.Server))
             @tempLinks.splice(0,@tempLinks.length)
             @graph.vis.selectAll("line.templink").data(@tempLinks).exit().remove()
+          # Check for connection from network to exnet
+          if (firstType is Nodes.Network and d.data instanceof(Nodes.ExternalNetwork)) or (firstType is Nodes.ExternalNetwork and d.data instanceof(Nodes.Network))
+            @tempLinks.splice(0,@tempLinks.length)
+            @graph.vis.selectAll("line.templink").data(@tempLinks).exit().remove()
           #Need to check it isn't drawing a link to itself!
           #Thanks past Brad I'm doing it now
           else if @tempLinks[0].source.data isnt d.data      
