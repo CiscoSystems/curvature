@@ -1,10 +1,6 @@
 source 'https://rubygems.org'
-
 gem 'rails', '3.2.8'
-
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'sqlite3'
-
 gem 'json'
 
 # This currently assumes that the intern_incubator repo has also been pulled into the parent directory
