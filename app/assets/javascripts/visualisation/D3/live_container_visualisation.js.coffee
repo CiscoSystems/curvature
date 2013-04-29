@@ -32,7 +32,10 @@ class D3.LiveContainerVisualisation extends D3.Graph
     this.clearGraph()
     
     # Draw containers
-    for activeContainer in App.donabe.deployed_containers.get()
+    activeContainers = [];
+    $.extend(true, activeContainers, App.donabe.deployed_containers.get());
+    
+    for activeContainer in activeContainers
       if App.donabe.deployed_containers.inContainer(activeContainer['id'], @livecontainerid)
         this.nodes.newNode(new Nodes.Container(activeContainer, 'deployed'))
         

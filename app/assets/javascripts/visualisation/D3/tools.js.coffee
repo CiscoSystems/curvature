@@ -359,15 +359,19 @@ class D3.Tools
       
     else
       # create new server/subnet/router node
-      @graph.nodes.newNode(@graph.nodes.setupNode(d), false, @graph.mouse.x, @graph.mouse.y)
-      d.x = d.xo
-      d.px = d.xo
-      d.y = d.yo
-      d.py = d.yo
+      # Copy tool data
+      newNode = {}
+      $.extend(true, newNode, d)
+      
+      @graph.nodes.newNode(@graph.nodes.setupNode(newNode), false, @graph.mouse.x, @graph.mouse.y)
+      newNode.x = newNode.xo
+      newNode.px = newNode.xo
+      newNode.y = newNode.yo
+      newNode.py = newNode.yo
 
       # move the tools back to their original position
       tool = @graph.outerGroup.selectAll(".tool").data(@tools)
-        .attr("transform", (d) -> "translate(" + d.x + "," + d.y + ")")
+        .attr("transform", (newNode) -> "translate(" + newNode.x + "," + newNode.y + ")")
 
     # start the force direction
     @graph.force.start()

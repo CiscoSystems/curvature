@@ -67,6 +67,8 @@ class D3.GraphNodes
         n.gateway = null
         node = App.openstack.routers.add(n)
     else if d.data instanceof Nodes.Container
+      
+      
       d.data.temp_id = this.createUUID()
       if d.data.endpoint == undefined
         d.data.endpoint = false
@@ -77,7 +79,8 @@ class D3.GraphNodes
       
       for x in App.donabe.containers.get()
         if x.id == d.data.id
-          innerContainer = x
+          innerContainer = {}
+          $.extend(true, innerContainer, x)
           break
 
       for network in innerContainer['networks']
