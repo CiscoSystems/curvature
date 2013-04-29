@@ -306,6 +306,21 @@ App.openstack =
   securityGroups:
     _data: []
     get: -> @_data
+    addRule: (sg, protocol, from, to, cidr) ->
+      data = "{
+        \"protocol\":\"#{protocol}\",
+        \"from\":\"#{from}\",
+        \"to\":\"#{to}\",
+        \"cidr\":\"#{cidr}\"
+      }"
+      rest.postRequest("/openstack/security_groups/#{sg}/rules", data, (resp) =>
+        console.log resp
+      )
+    new: (name, description) ->
+      data = "{\"name\":\"#{name}\",\"description\":\"#{description}\"}"
+      rest.postRequest('/openstack/security_groups', data, (resp) =>
+        @_data.push(resp['security_group'])
+      )
     populate: ->
       rest.getRequest('/openstack/security_groups', (resp) =>
         @_data = resp['security_groups']

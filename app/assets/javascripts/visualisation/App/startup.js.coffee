@@ -66,6 +66,15 @@ jQuery ->
         $(this).dialog "close"
     ]
 
+  $("#addNewSGRule").click(=>
+    sg = $('#securityRuleDialog').data('node')
+    $.when(
+      App.openstack.securityGroups.addRule(sg.id, $('#ruleProtocol').val(), $('#ruleFromPort').val(), $('#ruleToPort').val(), $('#ruleIpRange').val())
+    ).done(=>
+      curvy.populateKeyPairDialog()
+    )
+  )
+
   $("#keyPairDialog").dialog
     autoOpen: false
     hide: "explode"
@@ -95,6 +104,15 @@ jQuery ->
       click: ->
         $(this).dialog "close"
     ]
+
+  $("#newSGButton").click(=>
+    console.log "BUTTON"
+    $.when(
+      App.openstack.securityGroups.new($('#sgName').val(), $('#sgDescription').val())
+    ).done(=>
+      curvy.populateSecurityGroupDialog()
+    )
+  )
 
   $("#addImageDialog").dialog
     autoOpen: false
