@@ -224,6 +224,8 @@ class D3.ContainerVisualisation extends D3.Graph
         vms: listOfServers
         containers: listOfContainers
       }
+      
+      console.log JSON.stringify container
 
       if containerid?
         return App.donabe.containers.save((JSON.stringify container), containerid)
