@@ -316,6 +316,9 @@ App.openstack =
       rest.postRequest("/openstack/security_groups/#{sg}/rules", data, (resp) =>
         console.log resp
       )
+    deleteRule: (sg, id) ->
+      rest.deleteRequest("/openstack/security_groups/#{sg.id}/rules/#{id}", (resp) =>
+      )
     new: (name, description) ->
       data = "{\"name\":\"#{name}\",\"description\":\"#{description}\"}"
       rest.postRequest('/openstack/security_groups', data, (resp) =>

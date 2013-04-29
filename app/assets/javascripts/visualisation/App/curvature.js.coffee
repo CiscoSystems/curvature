@@ -440,8 +440,17 @@ class App.Curvature
           <td> #{rule.from_port} </td>
           <td> #{rule.to_port} </td>
           <td> #{rule.ip_range.cidr} </td>
-          <td> <button> Delete </button> </td>
+          <td> <button id='delete-#{rule.id}'> Delete </button> </td>
         </tr>")
+      $("#delete-#{rule.id}").click(@deleteRuleButton(sg, rule))
+
+  deleteRuleButton: (sg, rule) ->
+    return ->
+      $.when(
+        App.openstack.securityGroups.deleteRule(sg, rule.id)
+      ).done(=>
+        
+      )
 
   showSecurityGroupRuleDialog: (sg) ->
     console.log sg
