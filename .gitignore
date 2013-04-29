@@ -1,6 +1,7 @@
 .DS_Store
 
 log/development.log
+log/production.log
 
 public/assets
 
