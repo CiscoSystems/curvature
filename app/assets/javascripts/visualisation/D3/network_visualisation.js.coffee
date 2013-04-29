@@ -70,29 +70,42 @@ class D3.Visualisation extends D3.Graph
     
     if App.openstack.services.get().indexOf("donabe") >= 0
      # Draw containers
-     for activeContainer in App.donabe.deployed_containers.get()
+     
+     activeContainers = [];
+     $.extend(true, activeContainers, App.donabe.deployed_containers.get());
+     
+     for activeContainer in activeContainers
        if not App.donabe.deployed_containers.inContainer(activeContainer['id'])
          this.nodes.newNode(new Nodes.Container(activeContainer, 'deployed'))
  
-         for network in activeContainer['networks']
-           if network.endpoint == true
+         for originNetwork in activeContainer['networks']
+           if originNetwork.endpoint == true
              ##Swap for real openstack object
+             network= {}
+             $.extend(true, network, originNetwork)
+             
              temp_id = network.temp_id
              network = App.openstack.networks.internal.get(network.openstack_id)
              network.inContainerAsEndpoint = activeContainer.id
              network.innerContainerID = temp_id
              this.nodes.newNode(network) 
-         for router in activeContainer['routers']
-           if router.endpoint == true
+         for originRouter in activeContainer['routers']
+           if originRouter.endpoint == true
              ##Swap for real openstack object
+             router= {}
+             $.extend(true, router, originRouter)
+             
              temp_id = router.temp_id
              router = App.openstack.routers.get(router.openstack_id)
              router.inContainerAsEndpoint = activeContainer.id
              router.innerContainerID = temp_id
              this.nodes.newNode(router)
-         for vm in activeContainer['vms']
-           if vm.endpoint == true
+         for originVm in activeContainer['vms']
+           if originVm.endpoint == true
              ##Swap for real openstack object
+             vm= {}
+             $.extend(true, vm, originVm)
+             
              temp_id = vm.temp_id
              vm = App.openstack.servers.get(vm.openstack_id)
              vm.inContainerAsEndpoint = activeContainer.id
