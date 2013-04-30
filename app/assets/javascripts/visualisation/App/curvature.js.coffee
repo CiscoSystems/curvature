@@ -273,7 +273,8 @@ class App.Curvature
       if fIp.floating_network_id is ext_net.id
         associated = "----"
         unless fIp.port_id == null
-          associated = App.openstack.servers.get(App.openstack.ports.get(fIp.port_id).device_id).name
+          port = App.openstack.ports.get(fIp.port_id)
+          associated = App.openstack.servers.get(port.device_id).name
         $('#floatingIpTable tbody').append("
           <tr>
             <td> #{fIp.floating_ip_address} </td>

@@ -199,7 +199,12 @@ App.openstack =
       )
   ports:
     _data: []
-    get: -> @_data
+    get: (id) ->
+        if id?
+          for d in @_data
+            return d if d.id is id
+        else
+          @_data
     add: (port) -> @_data.push(port)
     remove: (port) -> @_data.splice(@_data.indexOf(port),1)
     populate: ->
