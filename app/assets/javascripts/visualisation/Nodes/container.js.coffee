@@ -90,5 +90,15 @@ class Nodes.Container extends Nodes.Deployable
       else if link.deployStatus == "undeployed"
         deployableLinks[key+1].push(link)
 
-  #terminate: ->
+  terminate: ->
+    ## find endpoint
+    ## detach endpoints
+    ## remove container
+    if @deployStatus == "marked"
+      rest.deleteRequest("/donabe/deployed_containers/#{@id}", (resp) =>
+        super()
+      )
+        
+    
+    
 

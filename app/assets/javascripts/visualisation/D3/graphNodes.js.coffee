@@ -332,6 +332,7 @@ class D3.GraphNodes
       
       # Show dialogs on double click
       .on("dblclick", (d) -> 
+        console.log d
         if _this.graph instanceof D3.ContainerVisualisation
           if d.data instanceof Nodes.Server
             $("#vm").dialog().data 'node',  d.data
