@@ -84,9 +84,15 @@ class App.Deploy
   # Alert the user if the deploy has failed
   #
   deployFailed: (details) ->
+    $('#deployButton').button("option", "label", "Deploy")
     $('#deployButton').button("option", "disabled", false)
 
   deployFinished: ->
+    $.when(
+      App.openstack.quotas.populate()
+    ).done(=>
+      curvy.displayQuotas()
+    )
     $('#deployButton').button("option", "disabled", false)
     $('#deployButton').button("option", "label", "Deploy")
 
