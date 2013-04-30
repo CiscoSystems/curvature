@@ -444,3 +444,14 @@ class App.Deploy
       promises.push(container.deploy(deployableLinks))
     return promises
     
+  # Generate promises for each container that needs to be terminated
+  #
+  # @param list [Array] The list of nodes to be terminated
+  # @return [Array] The list of promises to terminate nodes
+  #
+  terminateContainers: (list) ->
+    promises = []
+    for container in list
+      promises.push(container.terminate())
+    return promises
+    

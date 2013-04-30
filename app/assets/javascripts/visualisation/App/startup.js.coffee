@@ -35,7 +35,6 @@ jQuery ->
 
   $("#floatingIpDialog").dialog
     autoOpen: false
-    hide: "explode"
     modal: true
     buttons: [
       text: "Done"
@@ -52,7 +51,6 @@ jQuery ->
 
   $("#securityRuleDialog").dialog
     autoOpen: false
-    hide: "explode"
     width: 800
     modal: true
     buttons: [
@@ -68,7 +66,6 @@ jQuery ->
 
   $("#keyPairDialog").dialog
     autoOpen: false
-    hide: "explode"
     width: 800
     modal: true
     buttons: [
@@ -87,7 +84,6 @@ jQuery ->
 
   $("#securityGroupDialog").dialog
     autoOpen: false
-    hide: "explode"
     width: 800
     modal: true
     buttons: [
@@ -98,7 +94,6 @@ jQuery ->
 
   $("#addImageDialog").dialog
     autoOpen: false
-    hide: "explode"
     modal: true
     buttons: [
       text: "Create Image"
@@ -126,7 +121,6 @@ jQuery ->
 
   $("#newNetwork").dialog
     autoOpen: false
-    hide: "explode"
     modal: true
     buttons: [
       id: "editNetwork"
@@ -163,7 +157,6 @@ jQuery ->
 
   $("#subnet").dialog 
     autoOpen: false
-    hide: "explode"
     modal: true
     buttons: [
       id: "editSubnet"
@@ -188,7 +181,6 @@ jQuery ->
 
   $("#newContainer").dialog
     autoOpen: false
-    hide: "explode"
     modal: true
     buttons: [
       id: "newContainer"
@@ -208,7 +200,6 @@ jQuery ->
 
   $("#vm").dialog
     autoOpen: false
-    hide: "explode"
     width:500
     modal: true
     buttons: [
@@ -238,7 +229,6 @@ jQuery ->
 
   $("#router").dialog
     autoOpen: false
-    hide: "explode"
     modal: true
     buttons: [
       id: "editRouter"
@@ -255,7 +245,6 @@ jQuery ->
 
   $("#containerEditor").dialog
     autoOpen: false
-    hide: "explode"
     modal: true
     width: 800,
     height: 500,
@@ -352,7 +341,6 @@ jQuery ->
   
   $("#noNetworks").dialog
     autoOpen: false
-    hide: "explode"
     modal: true
     buttons: [
       text: "OK"
