@@ -20,7 +20,6 @@ class App.Deploy
     containersToBeDeleted = []
     containersToBeCommitted = []
 
-
     # Create Deploy and Remove lists for each deployable node type
     this.populateDeployLists(App.openstack.networks.internal.get(), networksToBeDeleted, networksToBeCommitted)
     this.populateDeployLists(App.openstack.routers.get(), routersToBeDeleted, routersToBeCommitted)
@@ -42,7 +41,7 @@ class App.Deploy
       gatewaysToBeDestroyed = deployableLinks[4]
       gatewaysToBeCommitted = deployableLinks[5]
       attachmentsToBeDestroyed = deployableLinks[6]
-      attachmentsToBeCommitted = deployableLinks[7] 
+      attachmentsToBeCommitted = deployableLinks[7]
       $.when.apply(this, this.terminateAttachments(attachmentsToBeDestroyed)).done(=>
         $.when.apply(this, this.terminateNics(nicsToBeDestroyed)).done(=>
           $.when.apply(this, this.terminateNodes(serversToBeDeleted)).done(=>
@@ -56,19 +55,13 @@ class App.Deploy
                     $.when.apply(this, this.deployNodes(routersToBeCommitted)).done(=>
                       $.when.apply(this, this.deployNics(nicsToBeCommitted)).done(=>
                         $.when.apply(this, this.deployNodes(serversToBeCommitted)).done(=>
-                          #Connection Stuff
                           tasks = this.terminateInterfaces(interfacesToBeDestroyed).concat(this.terminateGateways(gatewaysToBeDestroyed), this.terminateNics(nicsToBeDestroyed))
                           $.when.apply(this, tasks).done(=>
-                            tasks = this.deployGateways(gatewaysToBeCommitted).concat(this.deployInterfaces(interfacesToBeCommitted))
+                            tasks = this.deployGateways(gatewaysToBeCommitted).concat(this.deployInterfaces(interfacesToBeCommitted), this.deployAttachments(attachmentsToBeCommitted))
                             $.when.apply(this, tasks).done(=>
-                              $.when(App.openstack.ports.populate()).done(=>
-                                $.when.apply(this, this.deployAttachments(attachmentsToBeCommitted)).done(=>
-                                  this.deployFinished()
-                                ).fail(this.deployFailed)
-                              ).fail(this.deployFailed)
+                              this.deployFinished()
                             ).fail(this.deployFailed)
                           ).fail(this.deployFailed)
-                          #----------------
                         ).fail(this.deployFailed)
                       ).fail(this.deployFailed)
                     ).fail(this.deployFailed)
@@ -84,12 +77,13 @@ class App.Deploy
   # Alert the user if the deploy has failed
   #
   deployFailed: (details) ->
-    $('#deployButton').button("option", "label", "Deploy")
+    $('#deployButton').button("option", "label", "Error")
     $('#deployButton').button("option", "disabled", false)
 
   deployFinished: ->
     $.when(
       App.openstack.quotas.populate()
+      App.openstack.ports.populate()
     ).done(=>
       curvy.displayQuotas()
     )

@@ -12,6 +12,13 @@ class Openstack::NetworksController < ApplicationController
   end
 
   def destroy
-    json_respond quantum().delete_network(params[:id])
+    quan = quantum()
+    ports = quan.ports()
+    ports["ports"].each do |port|
+      if port["status"] == "DOWN" and port['network_id'] == params[:id]
+        quan.delete_port(port["id"])
+      end
+    end
+    json_respond quan.delete_network(params[:id])
   end
 end
