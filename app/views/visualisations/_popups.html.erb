@@ -144,10 +144,11 @@
     </thead>
     <tbody class="ui-widget-content">
     </tbody>
+    <tfoot class="ui-widget-footer">
+      <td> <input type="text" id="kpName"/> </td>
+      <td> <button id="newKPButton"> New KeyPair </button> </td>
+    </tfoot>
   </table>
-  <label> Name: </label>
-  <input type="text" id="kpName"/>
-  <button id="newKPButton"> New KeyPair </button>
   <iframe style="display:none" id="kpDownload"></iframe> 
 </div>
 
@@ -163,10 +164,14 @@
     </thead>
     <tbody class="ui-widget-content">
     </tbody>
+    <tfoot class="ui-widget-footer">
+      <tr>
+        <td> <input type="text" id="sgName"/> </td>
+        <td> <input type="text" id="sgDescription"/> </td>
+        <td> <button id="newSGButton"> New Security Group </button> </td>
+      </tr>
+    </tfoot>
   </table>
-  <input type="text" id="sgName"/>
-  <input type="text" id="sgDescription"/>
-  <button id="newSGButton"> New Security Group </button>
 </div>
 
 <div id="securityRuleDialog" title="Security Group Rules">
@@ -176,16 +181,24 @@
         <th> Protocol </th>
         <th> From Port </th>
         <th> To Port </th>
-        <th> IP Range </th>
+        <th> CIDR </th>
         <th></th>
       <tr>
     </thead>
     <tbody class="ui-widget-content">
     </tbody>
+    <tfoot class="ui-widget-footer">
+      <td> 
+        <select id="ruleProtocol"> 
+          <option value="tcp"> TCP </option>
+          <option value="udp"> UDP </option>
+          <option value="icmp"> ICMP </option>
+        </select>
+      </td>
+      <td> <input type="text" id="ruleFromPort"/> </td>
+      <td> <input type="text" id="ruleToPort"/> </td>
+      <td> <input type="text" id="ruleIpRange"/> </td>
+      <td> <button id="addNewSGRule"> Add New Rule </button> </td>
+    </tfoot>
   </table>
-  <select id="ruleProtocol"> </select>
-  <input type="text" id="ruleFromPort"/>
-  <input type="text" id="ruleToPort"/>
-  <input type="text" id="ruleIpRange"/>
-  <button id="addNewSGRule"> Add New Rule </button>
 </div>

@@ -273,7 +273,8 @@ class App.Curvature
       if fIp.floating_network_id is ext_net.id
         associated = "----"
         unless fIp.port_id == null
-          associated = App.openstack.servers.get(App.openstack.ports.get(fIp.port_id).device_id).name
+          port = App.openstack.ports.get(fIp.port_id)
+          associated = App.openstack.servers.get(port.device_id).name
         $('#floatingIpTable tbody').append("
           <tr>
             <td> #{fIp.floating_ip_address} </td>
@@ -408,7 +409,8 @@ class App.Curvature
     @populateKeyPairDialog()
     $('#keyPairDialog').dialog('open')
 
-  showSecurityGroupDialog: ->
+
+  populateSecurityGroupDialog: ->
     $('#securityGroupTable tbody').empty()
     for sg in App.openstack.securityGroups.get()
       $('#securityGroupTable tbody').append("
@@ -419,6 +421,9 @@ class App.Curvature
           <td> <button> Delete </button> </td>
         </tr>")
       $("#edit-#{sg.id}").click(@sgEditDialogButton(sg))
+
+  showSecurityGroupDialog: ->
+    @populateSecurityGroupDialog()
     $('#securityGroupDialog').dialog('open')
 
   sgEditDialogButton: (sg) ->
@@ -426,15 +431,30 @@ class App.Curvature
         $('#securityGroupDialog').dialog('close')
         @showSecurityGroupRuleDialog(sg)
 
-  showSecurityGroupRuleDialog: (sg) ->
+  populateSecurityRulesTable: (sg) ->
     $('#securityRuleTable tbody').empty()
     for rule in sg.rules
+      protocol = rule.ip_protocol || "Any"
       $('#securityRuleTable tbody').append("
         <tr>
-          <td> #{rule.ip_protocol} </td>
+          <td> #{protocol} </td>
           <td> #{rule.from_port} </td>
           <td> #{rule.to_port} </td>
           <td> #{rule.ip_range.cidr} </td>
-          <td> <button> Delete </button> </td>
+          <td> <button id='delete-#{rule.id}'> Delete </button> </td>
         </tr>")
+      $("#delete-#{rule.id}").click(@deleteRuleButton(sg, rule))
+
+  deleteRuleButton: (sg, rule) ->
+    return ->
+      $.when(
+        App.openstack.securityGroups.deleteRule(sg, rule.id)
+      ).done(=>
+        
+      )
+
+  showSecurityGroupRuleDialog: (sg) ->
+    console.log sg
+    $('#securityRuleDialog').dialog().data 'node', sg
+    @populateSecurityRulesTable(sg)
     $('#securityRuleDialog').dialog('open')

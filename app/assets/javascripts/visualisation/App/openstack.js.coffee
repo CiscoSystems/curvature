@@ -199,7 +199,12 @@ App.openstack =
       )
   ports:
     _data: []
-    get: -> @_data
+    get: (id) ->
+        if id?
+          for d in @_data
+            return d if d.id is id
+        else
+          @_data
     add: (port) -> @_data.push(port)
     remove: (port) -> @_data.splice(@_data.indexOf(port),1)
     populate: ->
@@ -306,6 +311,24 @@ App.openstack =
   securityGroups:
     _data: []
     get: -> @_data
+    addRule: (sg, protocol, from, to, cidr) ->
+      data = "{
+        \"protocol\":\"#{protocol}\",
+        \"from\":\"#{from}\",
+        \"to\":\"#{to}\",
+        \"cidr\":\"#{cidr}\"
+      }"
+      rest.postRequest("/openstack/security_groups/#{sg}/rules", data, (resp) =>
+        console.log resp
+      )
+    deleteRule: (sg, id) ->
+      rest.deleteRequest("/openstack/security_groups/#{sg.id}/rules/#{id}", (resp) =>
+      )
+    new: (name, description) ->
+      data = "{\"name\":\"#{name}\",\"description\":\"#{description}\"}"
+      rest.postRequest('/openstack/security_groups', data, (resp) =>
+        @_data.push(resp['security_group'])
+      )
     populate: ->
       rest.getRequest('/openstack/security_groups', (resp) =>
         @_data = resp['security_groups']

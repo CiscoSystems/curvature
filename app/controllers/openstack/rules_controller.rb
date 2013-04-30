@@ -4,6 +4,6 @@ class Openstack::RulesController < ApplicationController
   end
 
   def destroy
-    json_respond nova().delete_server(params[:id])
+    json_respond nova().destroy_security_group_rule(params[:id])
   end
 end
