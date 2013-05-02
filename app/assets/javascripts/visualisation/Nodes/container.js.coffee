@@ -18,7 +18,6 @@ class Nodes.Container extends Nodes.Deployable
     if @deployStatus == "undeployed"
       rest.postRequest('/donabe/deployed_containers', {containerID: @id}, (resp) =>
         this.setDataFromOpenstackData(resp['container'])
-        super()
         
         $.when(
           App.donabe.deployed_containers.populate()
@@ -43,6 +42,7 @@ class Nodes.Container extends Nodes.Deployable
                 if endpoint.innerContainerID == server.temp_id
                   openstackObj = new Nodes.Server(@getOpenStackObject(server.openstack_id, App.openstack.servers.get()))
                   @addLinks(endpoint, openstackObj, window.curvy.networkVisualisation.links.links,deployableLinks)
+          super()
           promise.resolve()
         )
       )
