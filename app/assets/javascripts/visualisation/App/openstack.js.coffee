@@ -57,7 +57,7 @@ App.openstack =
         isPublic = false
   
       if f
-        json = "{\"name\" : \"" + name + "\", \"disk_format\" : \"" + disk_format + "\", \"container_format\" : \"bare\", \"minDisk\" : \"" + minDisk + "\", \"minRam\" : \"" + minRam + "\",\"public\" : \"" + isPublic + "\"}"
+        json = {name:name, disk_format:disk_format, container_format:"bare", minDisk:minDisk, minRam:minRam, public:isPublic}
         formData = new FormData()
         formData.append "json", json
     
@@ -70,7 +70,7 @@ App.openstack =
           cache: false
           contentType: false
           processData: false
-          data: formData
+          data: JSON.stringify(formData)
           #success: (data) ->
             #callback data
       else
@@ -96,7 +96,7 @@ App.openstack =
         @_data = resp['tenant']
       )
     switch: (name) ->
-      rest.postRequest('/login/switch', '{"tenant_name" : "'+name+'"}', (resp)->)
+      rest.postRequest('/login/switch', {tenant_name:name}, (resp)->)
   subnets:
     _data: []
     get: (id) ->
@@ -296,7 +296,7 @@ App.openstack =
         @_data = resp['floatingips']
       )
     create: (ext_net) ->
-      rest.postRequest('/openstack/floating_ips', "{\"network\":\"#{ext_net.id}\"}", (resp) =>
+      rest.postRequest('/openstack/floating_ips', {network:ext_net.id}, (resp) =>
         @_data.push(resp['floatingip'])
       )
     destroy: (id) ->
@@ -304,7 +304,7 @@ App.openstack =
         @_data.splice(@_data.indexOf(@get(id)), 1)
       )
     update: (id, port) ->
-      rest.putRequest("/openstack/floating_ips/#{id}", "{\"port_id\":\"#{port}\"}", (resp) =>
+      rest.putRequest("/openstack/floating_ips/#{id}", {port_id:port}, (resp) =>
         @_data.splice(@_data.indexOf(@get(id)), 1)
         @_data.push(resp['floatingip'])
       )
@@ -312,12 +312,12 @@ App.openstack =
     _data: []
     get: -> @_data
     addRule: (sg, protocol, from, to, cidr) ->
-      data = "{
-        \"protocol\":\"#{protocol}\",
-        \"from\":\"#{from}\",
-        \"to\":\"#{to}\",
-        \"cidr\":\"#{cidr}\"
-      }"
+      data = {
+        protocol:protocol,
+        from:from,
+        to:to,
+        cidr:cidr
+      }
       rest.postRequest("/openstack/security_groups/#{sg}/rules", data, (resp) =>
         console.log resp
       )
@@ -325,7 +325,7 @@ App.openstack =
       rest.deleteRequest("/openstack/security_groups/#{sg.id}/rules/#{id}", (resp) =>
       )
     new: (name, description) ->
-      data = "{\"name\":\"#{name}\",\"description\":\"#{description}\"}"
+      data = {name:name, description:description}
       rest.postRequest('/openstack/security_groups', data, (resp) =>
         @_data.push(resp['security_group'])
       )
@@ -337,7 +337,7 @@ App.openstack =
     _data: []
     get: -> @_data
     new: (name) ->
-      data = "{\"name\":\"#{name}\"}"
+      data = {name:name}
       rest.postRequest('/openstack/keypairs', data, (resp) =>
         @_data.push(resp['keypair'])
       )

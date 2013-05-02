@@ -12,7 +12,7 @@ class Nodes.Subnet extends Nodes.Deployable
   # Deploy a new subnet
   #
   deploy: ->
-    rest.postRequest('/openstack/subnets', "{\"network_id\" : \"#{@network_id}\", \"cidr\" : \"#{@cidr}\"}", (resp) =>
+    rest.postRequest('/openstack/subnets', {network_id:@network_id, cidr:@cidr}, (resp) =>
       super()
       this.setDataFromOpenstackData(resp['subnet'])
     )

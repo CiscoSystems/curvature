@@ -6,7 +6,7 @@
       url: url,
       type: 'post',
       contentType: 'application/json; charset=utf-8',
-      data: data,
+      data: JSON.stringify(data),
       success: (resp) =>
         callback(resp)
       error: (resp) =>
@@ -18,7 +18,7 @@
       url: url,
       type: 'put',
       contentType: 'application/json; charset=utf-8',
-      data: data,
+      data: JSON.stringify(data),
       success: (resp) =>
         callback(resp)
       error: (resp) =>
@@ -30,7 +30,7 @@
       url: url,
       type: 'put',
       contentType: 'application/json; charset=utf-8',
-      data: data,
+      data: JSON.stringify(data),
       success: (resp) =>
         callback(resp)
       error: (resp) =>

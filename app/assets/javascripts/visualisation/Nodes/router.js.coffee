@@ -15,7 +15,7 @@ class Nodes.Router extends Nodes.Deployable
   # Deploy a new router to openstack
   #
   deploy: ->
-    rest.postRequest('/openstack/routers', "{\"name\" : \"#{@name}\", \"gateway\" : \"#{@gateway}\"}", (resp) =>
+    rest.postRequest('/openstack/routers', {name:@name, gateway:@gateway}, (resp) =>
       super()
       this.setDataFromOpenstackData(resp['router'])
     )

@@ -10,13 +10,13 @@ class Nodes.Container extends Nodes.Deployable
     ##CAll super somehwre
     promise = new $.Deferred()
     
-    if this.temp_id? 
+    if this.temp_id?
       oldTempID = this.temp_id
-    else 
+    else
       oldTempID = this.id
     
     if @deployStatus == "undeployed"
-      rest.postRequest('/donabe/deployed_containers', "{\"containerID\" : \"#{@id}\"}", (resp) =>
+      rest.postRequest('/donabe/deployed_containers', {containerID: @id}, (resp) =>
         this.setDataFromOpenstackData(resp['container'])
         super()
         

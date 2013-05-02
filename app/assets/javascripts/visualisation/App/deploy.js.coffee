@@ -101,7 +101,7 @@ class App.Deploy
   # @param link [Object] The link object that connects the volume and server
   #
   terminateAttachment: (server, volume, link) ->
-    rest.postRequest("/openstack/servers/#{server.id}/detach_volume", "{\"attachment_id\" : \"#{volume.attachment[0].id}\"}", (resp) =>
+    rest.postRequest("/openstack/servers/#{server.id}/detach_volume", {attachment_id:volume.attachment[0].id}, (resp) =>
       window.curvy.networkVisualisation.removeLink(link)
     )
 
@@ -126,7 +126,7 @@ class App.Deploy
   # @param link [Object] The link object that connects the volume and server
   #
   deployAttachment: (server, volume, link) ->
-    rest.postRequest("/openstack/servers/#{server.id}/attach_volume", "{\"volume_id\" : \"#{volume.id}\"}" , (resp) =>
+    rest.postRequest("/openstack/servers/#{server.id}/attach_volume", {volume_id:volume.id}, (resp) =>
       link.deployStatus = "deployed"
       curvy.networkVisualisation.links.linkActionFired(link)
       volume.deployStatus = "deployed"
@@ -182,7 +182,7 @@ class App.Deploy
   # @param link [Object] The link object that connects the network and router
   #
   deployGateway: (router, network, link) ->
-    rest.postRequest("/openstack/routers/#{router.id}/router_gateway", "{\"network_id\" : \"#{network.id}\"}" , (resp) =>
+    rest.postRequest("/openstack/routers/#{router.id}/router_gateway", {network_id:network.id}, (resp) =>
       router.setDataFromOpenstackData(resp['router'])
       link.deployStatus = "deployed"
       curvy.networkVisualisation.links.linkActionFired(link)
@@ -252,7 +252,7 @@ class App.Deploy
   # @param link [Object] The link object that connects the subnet and router
   #
   deployInterface: (subnet, router) ->
-    rest.postRequest("/openstack/routers/#{router.id}/router_interfaces", "{\"subnet_id\" : \"#{subnet.id}\"}", (resp) ->
+    rest.postRequest("/openstack/routers/#{router.id}/router_interfaces", {subnet_id:subnet.id}, (resp) ->
       resp
       )
 
@@ -298,7 +298,7 @@ class App.Deploy
   #
   deployNic: (network, server, link) ->
     if server.deployStatus is "deployed"
-      data = "{\"network_id\" : \"#{network.id}\",\"device_id\" : \"#{server.id}\"}"
+      data = {network_id:network.id, device_id:server.id}
       rest.postRequest("/openstack/ports", data, (resp) =>
         link.deployStatus = "deployed"
         curvy.networkVisualisation.links.linkActionFired(link)

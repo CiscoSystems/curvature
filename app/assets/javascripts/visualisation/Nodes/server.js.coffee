@@ -50,17 +50,14 @@ class Nodes.Server extends Nodes.Deployable
   # @return [String] The JSON
   #
   createData: ->
-    data = "{\"name\" : \"#{@name}\", \"image_ref\" : \"#{@image.id}\", \"flavor\": \"#{@flavor.id}\""
+    data = {name:@name, image_ref:@image.id, flavor:@flavor.id}
     if @newNICs.length > 0
       @noPortsDefined = false
-      data = "#{data},\"nics\":["
+      data.nics = []
       for nic, i in @newNICs
-        data = "#{data}," if i > 0
-        data = "#{data}{\"uuid\": \"#{nic}\" }"
-      data = "#{data}]"
-    data = "#{data},\"key_name\" : \"#{@key_name}\"" if @key_name && @key_name isnt "none"
-    data = "#{data},\"security_group\" : \"#{@security_group}\"" if @security_group && @security_group isnt "none"
-    data = "#{data}}"
+        data.nics.push({uuid:nic})
+    data.key_name = @key_name if @key_name && @key_name isnt "none"
+    data.security_group = @security_group if @security_group && @security_group isnt "none"
     return data
 
   # Deploy a Server
@@ -123,12 +120,12 @@ class Nodes.Server extends Nodes.Deployable
   # @param expected_result [String] The expected result of performing this action e.g. 'SUSPENDED'
   #
   action: (action, expected_result) ->
-    rest.postRequest("/openstack/servers/#{@id}/action", "{\"action\" : \"#{action}\"}", this.actionDataHandler(expected_result)) if @deployStatus == "deployed"
+    rest.postRequest("/openstack/servers/#{@id}/action", {action:action}, this.actionDataHandler(expected_result)) if @deployStatus == "deployed"
     
   # Get VNC Console
   #
   vnc: ->
-    rest.postRequest("/openstack/servers/#{@id}/action", "{\"action\" : \"vnc\"}", (resp) ->)
+    rest.postRequest("/openstack/servers/#{@id}/action", {action:vnc}, (resp) ->)
 
   # Create a snapshot of this server
   #
@@ -136,7 +133,7 @@ class Nodes.Server extends Nodes.Deployable
   #
   snapshot: (callback) ->
     d = new Date()
-    rest.postRequest("/openstack/servers/#{@id}", "{\"action\": \"snapshot\", \"imageName\" : \"#{@name}\", \"metadata\" : {}}", callback)
+    rest.postRequest("/openstack/servers/#{@id}", {action:snapshot, imageName:@name, metadata:{}}, callback)
 
   # Attach a volume to this server
   #
@@ -144,7 +141,7 @@ class Nodes.Server extends Nodes.Deployable
   # @param link [Object] The Link object connecting the server and volume
   #
   attachVolume: (volume, link) ->
-    rest.postRequest("/openstack/servers/#{@id}/attach_volume", "{\"volume_id\" : \"#{@volume.id}\"}", (resp) => link.setCommitted())
+    rest.postRequest("/openstack/servers/#{@id}/attach_volume", {volume_id:@volume.id}, (resp) => link.setCommitted())
 
   # Begin a poll until the status is the expected result
   #

@@ -20,7 +20,7 @@ class Nodes.Network extends Nodes.Deployable
   #
   deploy: ->
     if @deployStatus is "undeployed"
-      rest.postRequest('/openstack/networks',"{\"name\": \"#{@name}\"}", (resp) =>
+      rest.postRequest('/openstack/networks', {name:@name}, (resp) =>
         this.setDataFromOpenstackData(resp['network'])
         super()
       )
