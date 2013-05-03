@@ -228,7 +228,7 @@ class D3.ContainerVisualisation extends D3.Graph
       console.log JSON.stringify container
 
       if containerid?
-        return App.donabe.containers.save((JSON.stringify container), containerid)
+        return App.donabe.containers.save(container, containerid)
       else
-        return App.donabe.containers.add(JSON.stringify container)
+        return App.donabe.containers.add(container)
 
