@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class Ropenstack::Nova - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/ropenstack/nova.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">OpenstackService
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-action">#action</a>
+    
+    <li><a href="#method-i-attach_volume">#attach_volume</a>
+    
+    <li><a href="#method-i-create_server">#create_server</a>
+    
+    <li><a href="#method-i-delete_image">#delete_image</a>
+    
+    <li><a href="#method-i-delete_server">#delete_server</a>
+    
+    <li><a href="#method-i-detach_volume">#detach_volume</a>
+    
+    <li><a href="#method-i-flavors">#flavors</a>
+    
+    <li><a href="#method-i-images">#images</a>
+    
+    <li><a href="#method-i-quotas">#quotas</a>
+    
+    <li><a href="#method-i-servers">#servers</a>
+    
+    <li><a href="#method-i-servers_detailed">#servers_detailed</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Ropenstack.html">Ropenstack</a>
+  
+    <li><a href="../Ropenstack/Cinder.html">Ropenstack::Cinder</a>
+  
+    <li><a href="../Ropenstack/Glance.html">Ropenstack::Glance</a>
+  
+    <li><a href="../Ropenstack/Keystone.html">Ropenstack::Keystone</a>
+  
+    <li><a href="../Ropenstack/MalformedRequestError.html">Ropenstack::MalformedRequestError</a>
+  
+    <li><a href="../Ropenstack/NotFoundError.html">Ropenstack::NotFoundError</a>
+  
+    <li><a href="../Ropenstack/Nova.html">Ropenstack::Nova</a>
+  
+    <li><a href="../Ropenstack/OpenstackService.html">Ropenstack::OpenstackService</a>
+  
+    <li><a href="../Ropenstack/Quantum.html">Ropenstack::Quantum</a>
+  
+    <li><a href="../Ropenstack/Rest.html">Ropenstack::Rest</a>
+  
+    <li><a href="../Ropenstack/RopenstackError.html">Ropenstack::RopenstackError</a>
+  
+    <li><a href="../Ropenstack/TimeoutError.html">Ropenstack::TimeoutError</a>
+  
+    <li><a href="../Ropenstack/UnauthorisedError.html">Ropenstack::UnauthorisedError</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Ropenstack::Nova</h1>
+
+  <div id="description" class="description">
+    <ul><li>
+<p>Name: <a href="Nova.html">Nova</a></p>
+</li><li>
+<p>Description: Implementation of the <a href="Nova.html">Nova</a> API Client
+in Ruby</p>
+</li><li>
+<p>Author: Sam ‘Tehsmash’ Betts</p>
+</li><li>
+<p>Date: 01/15/2013</p>
+</li></ul>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-action" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">action</span><span
+            class="method-args">(id, act, *args)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Perform an action on a server on Openstack, by passing an id,  and an
+action, some actions require more data.</p>
+
+<p>E.g. action(id, “reboot”, “hard”)</p>
+          
+
+          
+          <div class="method-source-code" id="action-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">action</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">act</span>, *<span class="ruby-identifier">args</span>) 
+  <span class="ruby-identifier">data</span> = <span class="ruby-keyword">case</span> <span class="ruby-identifier">act</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;reboot&quot;</span> <span class="ruby-keyword">then</span> {<span class="ruby-string">'reboot'</span> =<span class="ruby-operator">&gt;</span>{<span class="ruby-string">&quot;type&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]}}     
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;vnc&quot;</span> <span class="ruby-keyword">then</span> {<span class="ruby-string">'os-getVNCConsole'</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-string">&quot;type&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;novnc&quot;</span> }} 
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;stop&quot;</span> <span class="ruby-keyword">then</span> {<span class="ruby-string">'os-stop'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'null'</span>}
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;start&quot;</span> <span class="ruby-keyword">then</span> {<span class="ruby-string">'os-start'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'null'</span>}
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;pause&quot;</span> <span class="ruby-keyword">then</span> {<span class="ruby-string">'pause'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'null'</span>}
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;unpause&quot;</span> <span class="ruby-keyword">then</span> {<span class="ruby-string">'unpause'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'null'</span>}
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;suspend&quot;</span> <span class="ruby-keyword">then</span> {<span class="ruby-string">'suspend'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'null'</span>}
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;resume&quot;</span> <span class="ruby-keyword">then</span> {<span class="ruby-string">'resume'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'null'</span>}
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;create_image&quot;</span> <span class="ruby-keyword">then</span> {<span class="ruby-string">'createImage'</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-string">'name'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>], <span class="ruby-string">'metadata'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>[<span class="ruby-value">1</span>]}} 
+    <span class="ruby-keyword">else</span> <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Invalid Action&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">post_request</span>(<span class="ruby-identifier">address</span>(<span class="ruby-string">&quot;/servers/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/action&quot;</span>), <span class="ruby-identifier">data</span>, <span class="ruby-ivar">@token</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- action-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- action-method -->
+
+    
+      <div id="method-i-attach_volume" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">attach_volume</span><span
+            class="method-args">(id, volume)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Attach a cinder volume to a server, by passing the server id and the volume
+id.</p>
+          
+
+          
+          <div class="method-source-code" id="attach_volume-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">attach_volume</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">volume</span>) 
+  <span class="ruby-identifier">data</span> = { <span class="ruby-string">'volumeAttachment'</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-string">'volumeId'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">volume</span>, <span class="ruby-string">'device'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;/dev/vdb&quot;</span> } }
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">post_request</span>(<span class="ruby-identifier">address</span>(<span class="ruby-string">&quot;/servers/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/os-volume_attachments&quot;</span>), <span class="ruby-identifier">data</span>, <span class="ruby-ivar">@token</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- attach_volume-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- attach_volume-method -->
+
+    
+      <div id="method-i-create_server" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_server</span><span
+            class="method-args">(name, image, flavor, network = nil, metadata = nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a server on OpenStack.</p>
+          
+
+          
+          <div class="method-source-code" id="create_server-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_server</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">image</span>, <span class="ruby-identifier">flavor</span>, <span class="ruby-identifier">network</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">metadata</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">data</span> = { 
+    <span class="ruby-string">&quot;server&quot;</span> =<span class="ruby-operator">&gt;</span> { 
+      <span class="ruby-string">&quot;name&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>,
+      <span class="ruby-string">&quot;imageRef&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">image</span>,
+      <span class="ruby-string">&quot;flavorRef&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">flavor</span>,
+    }   
+  }
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">network</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">data</span>[<span class="ruby-string">&quot;server&quot;</span>][<span class="ruby-string">&quot;networks&quot;</span>] = [{<span class="ruby-string">&quot;uuid&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">network</span>}]
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">post_request</span>(<span class="ruby-identifier">address</span>(<span class="ruby-string">&quot;/servers&quot;</span>), <span class="ruby-identifier">data</span>, <span class="ruby-ivar">@token</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_server-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_server-method -->
+
+    
+      <div id="method-i-delete_image" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_image</span><span
+            class="method-args">(id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Delete an image stored on Openstack through the nova endpoint</p>
+          
+
+          
+          <div class="method-source-code" id="delete_image-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_image</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-string">&quot;http://&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@location</span>.<span class="ruby-identifier">host</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;:&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@location</span>.<span class="ruby-identifier">port</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/v2/images/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">delete_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-ivar">@token</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_image-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_image-method -->
+
+    
+      <div id="method-i-delete_server" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_server</span><span
+            class="method-args">(id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Deletes a server from Openstack based on an id</p>
+          
+
+          
+          <div class="method-source-code" id="delete_server-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_server</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">delete_request</span>(<span class="ruby-identifier">address</span>(<span class="ruby-string">&quot;/servers/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">id</span>), <span class="ruby-ivar">@token</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_server-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_server-method -->
+
+    
+      <div id="method-i-detach_volume" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">detach_volume</span><span
+            class="method-args">(id, attachment)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Remove a cinder volume from a server, by passing the server id and the
+attachment id.</p>
+          
+
+          
+          <div class="method-source-code" id="detach_volume-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">detach_volume</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">attachment</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">delete_request</span>(<span class="ruby-identifier">address</span>(<span class="ruby-string">&quot;/servers/&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">id</span><span class="ruby-operator">+</span><span class="ruby-string">&quot;/os-volume_attachments/&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">volume</span>), <span class="ruby-ivar">@token</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- detach_volume-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- detach_volume-method -->
+
+    
+      <div id="method-i-flavors" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">flavors</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get a list of flavors that Servers can be</p>
+          
+
+          
+          <div class="method-source-code" id="flavors-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">flavors</span>()
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">get_request</span>(<span class="ruby-identifier">address</span>(<span class="ruby-string">&quot;/flavors/detail&quot;</span>), <span class="ruby-ivar">@token</span>)    
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- flavors-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- flavors-method -->
+
+    
+      <div id="method-i-images" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">images</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Retrieve a list of images from Openstack through the nova endpoint</p>
+          
+
+          
+          <div class="method-source-code" id="images-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">images</span>() 
+  <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-string">&quot;http://&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@location</span>.<span class="ruby-identifier">host</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;:9292/v2/images&quot;</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">get_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-ivar">@token</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- images-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- images-method -->
+
+    
+      <div id="method-i-quotas" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">quotas</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get a tenants compute quotas</p>
+          
+
+          
+          <div class="method-source-code" id="quotas-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">quotas</span>()
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">get_request</span>(<span class="ruby-identifier">address</span>(<span class="ruby-string">&quot;/limits&quot;</span>), <span class="ruby-ivar">@token</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- quotas-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- quotas-method -->
+
+    
+      <div id="method-i-servers" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            servers(id) &rarr; A single server with the id matching the parameter
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            servers() &rarr; All servers visible to the tenant making the request
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Gets a list of servers from OpenStack</p>
+          
+
+          
+          <div class="method-source-code" id="servers-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">servers</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">endpoint</span> = <span class="ruby-string">&quot;/servers&quot;</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">endpoint</span> = <span class="ruby-identifier">endpoint</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">get_request</span>(<span class="ruby-identifier">address</span>(<span class="ruby-identifier">endpoint</span>), <span class="ruby-ivar">@token</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- servers-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- servers-method -->
+
+    
+      <div id="method-i-servers_detailed" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">servers_detailed</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Gets a more detailed list of servers from openstack.</p>
+          
+
+          
+          <div class="method-source-code" id="servers_detailed-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/nova.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">servers_detailed</span>()
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">get_request</span>(<span class="ruby-identifier">address</span>(<span class="ruby-string">&quot;/servers/detail&quot;</span>), <span class="ruby-ivar">@token</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- servers_detailed-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- servers_detailed-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

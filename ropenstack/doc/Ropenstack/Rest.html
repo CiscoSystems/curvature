@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class Ropenstack::Rest - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/ropenstack/rest.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-build_headers">#build_headers</a>
+    
+    <li><a href="#method-i-build_http">#build_http</a>
+    
+    <li><a href="#method-i-delete_request">#delete_request</a>
+    
+    <li><a href="#method-i-do_request">#do_request</a>
+    
+    <li><a href="#method-i-error_manager">#error_manager</a>
+    
+    <li><a href="#method-i-get_request">#get_request</a>
+    
+    <li><a href="#method-i-post_request">#post_request</a>
+    
+    <li><a href="#method-i-put_request">#put_request</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Ropenstack.html">Ropenstack</a>
+  
+    <li><a href="../Ropenstack/Cinder.html">Ropenstack::Cinder</a>
+  
+    <li><a href="../Ropenstack/Glance.html">Ropenstack::Glance</a>
+  
+    <li><a href="../Ropenstack/Keystone.html">Ropenstack::Keystone</a>
+  
+    <li><a href="../Ropenstack/MalformedRequestError.html">Ropenstack::MalformedRequestError</a>
+  
+    <li><a href="../Ropenstack/NotFoundError.html">Ropenstack::NotFoundError</a>
+  
+    <li><a href="../Ropenstack/Nova.html">Ropenstack::Nova</a>
+  
+    <li><a href="../Ropenstack/OpenstackService.html">Ropenstack::OpenstackService</a>
+  
+    <li><a href="../Ropenstack/Quantum.html">Ropenstack::Quantum</a>
+  
+    <li><a href="../Ropenstack/Rest.html">Ropenstack::Rest</a>
+  
+    <li><a href="../Ropenstack/RopenstackError.html">Ropenstack::RopenstackError</a>
+  
+    <li><a href="../Ropenstack/TimeoutError.html">Ropenstack::TimeoutError</a>
+  
+    <li><a href="../Ropenstack/UnauthorisedError.html">Ropenstack::UnauthorisedError</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Ropenstack::Rest</h1>
+
+  <div id="description" class="description">
+    <ul><li>
+<p>Name: <a href="Rest.html">Rest</a></p>
+</li><li>
+<p>Description: A generic wrapper for basic rest functions with JSON data
+which return ruby hashes.</p>
+</li><li>
+<p>Author: Sam “Tehsmash” Betts</p>
+</li><li>
+<p>Date: 12/18/2012</p>
+</li></ul>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-build_headers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build_headers</span><span
+            class="method-args">(token)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Builds headers for requests which send JSON data, if a keystone token is
+supplied</p>
+
+<p>it adds the X-Auth-Token field with the keystone token. Returns a hash
+which represents the http headers in a format accepted by Net::HTTP.</p>
+          
+
+          
+          <div class="method-source-code" id="build_headers-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/rest.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build_headers</span>(<span class="ruby-identifier">token</span>)
+  <span class="ruby-identifier">headers</span> = {<span class="ruby-string">'Content-Type'</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'application/json'</span>}
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">nil?</span> 
+    <span class="ruby-identifier">headers</span>[<span class="ruby-string">'X-Auth-Token'</span>] = <span class="ruby-identifier">token</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">headers</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- build_headers-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- build_headers-method -->
+
+    
+      <div id="method-i-build_http" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build_http</span><span
+            class="method-args">(uri, timeout)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Build a HTTP object having been given a timeout and a URI object  Returns
+Net::HTTP object.</p>
+          
+
+          
+          <div class="method-source-code" id="build_http-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/rest.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build_http</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">timeout</span>)
+  <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
+  <span class="ruby-keyword">if</span>(<span class="ruby-identifier">timeout</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>) 
+          <span class="ruby-identifier">http</span>.<span class="ruby-identifier">open_timeout</span> = <span class="ruby-identifier">timeout</span>
+          <span class="ruby-identifier">http</span>.<span class="ruby-identifier">read_timeout</span> = <span class="ruby-identifier">timeout</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">http</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- build_http-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- build_http-method -->
+
+    
+      <div id="method-i-delete_request" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete_request</span><span
+            class="method-args">(uri, token = nil, manage_errors = true)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Wrapper function for delete requests, just provide a uri and it will return
+you a hash with the result data. For authenticated transactions a token can
+be provided. Implemented using the <a
+href="Rest.html#method-i-do_request">#do_request</a> method.</p>
+          
+
+          
+          <div class="method-source-code" id="delete_request-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/rest.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">token</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">manage_errors</span> = <span class="ruby-keyword">true</span>)
+  <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Delete</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">request_uri</span>, <span class="ruby-identifier">initheader</span> = <span class="ruby-identifier">build_headers</span>(<span class="ruby-identifier">token</span>))
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">do_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">request</span>, <span class="ruby-identifier">manage_errors</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete_request-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete_request-method -->
+
+    
+      <div id="method-i-do_request" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">do_request</span><span
+            class="method-args">(uri, request, manage_errors = true, timeout = 10)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The function which you call to perform a http request  using the request
+object given in the parameters. By default manage errors is true, so all
+responses are passed through the error manager which converts the into <a
+href="../Ropenstack.html">Ropenstack</a> errors.</p>
+          
+
+          
+          <div class="method-source-code" id="do_request-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/rest.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">do_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">request</span>, <span class="ruby-identifier">manage_errors</span> = <span class="ruby-keyword">true</span>, <span class="ruby-identifier">timeout</span> = <span class="ruby-value">10</span>)
+  <span class="ruby-keyword">begin</span> 
+    <span class="ruby-identifier">http</span> = <span class="ruby-identifier">build_http</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">timeout</span>)
+    <span class="ruby-keyword">if</span>(<span class="ruby-identifier">manage_errors</span>)
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">error_manager</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">http</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">request</span>))
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">http</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">request</span>)
+      <span class="ruby-keyword">return</span> { <span class="ruby-string">&quot;Success&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Ropenstack</span><span class="ruby-operator">::</span><span class="ruby-constant">TimeoutError</span>, <span class="ruby-node">&quot;It took longer than #{timeout} to connect to #{uri.to_s}&quot;</span>      
+  <span class="ruby-keyword">end</span>       
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- do_request-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- do_request-method -->
+
+    
+      <div id="method-i-error_manager" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">error_manager</span><span
+            class="method-args">(uri, response)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>All responses from openstack where any errors need to be caught are passed
+through this function. Unless a successful response is passed it will throw
+a <a href="../Ropenstack.html">Ropenstack</a> error.  If successful returns
+a hash of response body, unless response body is nil then it returns an
+empty hash.</p>
+          
+
+          
+          <div class="method-source-code" id="error_manager-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/rest.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">error_manager</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">response</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">response</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPSuccess</span> <span class="ruby-keyword">then</span>
+    <span class="ruby-comment"># This covers cases where the response may not validate as JSON.</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span> <span class="ruby-operator">==</span> <span class="ruby-string">'null'</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>)
+    <span class="ruby-keyword">end</span> 
+    <span class="ruby-keyword">return</span> {}
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPBadRequest</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Ropenstack</span><span class="ruby-operator">::</span><span class="ruby-constant">MalformedRequestError</span>, <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPNotFound</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Ropenstack</span><span class="ruby-operator">::</span><span class="ruby-constant">NotFoundError</span>, <span class="ruby-node">&quot;URI: #{uri} \n&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>       
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPUnauthorized</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Ropenstack</span><span class="ruby-operator">::</span><span class="ruby-constant">UnauthorisedError</span>, <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Ropenstack</span><span class="ruby-operator">::</span><span class="ruby-constant">RopenstackError</span>, <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- error_manager-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- error_manager-method -->
+
+    
+      <div id="method-i-get_request" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_request</span><span
+            class="method-args">(uri, token = nil, manage_errors = true)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Wrapper function for a get request, just provide a uri and it will return
+you a hash with the result data. For authenticated transactions a token can
+be provided. Implemented using the <a
+href="Rest.html#method-i-do_request">#do_request</a> method.</p>
+          
+
+          
+          <div class="method-source-code" id="get_request-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/rest.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">token</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">manage_errors</span> = <span class="ruby-keyword">true</span>)
+  <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Get</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">request_uri</span>, <span class="ruby-identifier">initheader</span> = <span class="ruby-identifier">build_headers</span>(<span class="ruby-identifier">token</span>))
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">do_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">request</span>, <span class="ruby-identifier">manage_errors</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_request-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_request-method -->
+
+    
+      <div id="method-i-post_request" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">post_request</span><span
+            class="method-args">(uri, body, token = nil, manage_errors = true)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Wrapper function for a put request, just provide a uri and a hash of the
+data to send, then it will return you a hash  with the result data. For
+authenticated transactions a token can be provided.</p>
+          
+
+          
+          <div class="method-source-code" id="post_request-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/rest.rb, line 126</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">post_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">token</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">manage_errors</span> = <span class="ruby-keyword">true</span>)
+  <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Post</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">request_uri</span>, <span class="ruby-identifier">initheader</span> = <span class="ruby-identifier">build_headers</span>(<span class="ruby-identifier">token</span>))
+  <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">to_json</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">do_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">request</span>, <span class="ruby-identifier">manage_errors</span>)    
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- post_request-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- post_request-method -->
+
+    
+      <div id="method-i-put_request" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">put_request</span><span
+            class="method-args">(uri, body, token = nil, manage_errors = true)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Wrapper function for a put request, just provide a uri and a hash of the
+data to send, then it will return you a hash  with the result data. For
+authenticated transactions a token can be provided. Implemented using the
+<a href="Rest.html#method-i-do_request">#do_request</a> method</p>
+          
+
+          
+          <div class="method-source-code" id="put_request-source">
+            <pre><span class="ruby-comment"># File lib/ropenstack/rest.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">put_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">token</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">manage_errors</span> = <span class="ruby-keyword">true</span>)
+  <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Put</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">request_uri</span>, <span class="ruby-identifier">initheader</span> = <span class="ruby-identifier">build_headers</span>(<span class="ruby-identifier">token</span>))
+  <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">to_json</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">do_request</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">request</span>, <span class="ruby-identifier">manage_errors</span>)    
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- put_request-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- put_request-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
