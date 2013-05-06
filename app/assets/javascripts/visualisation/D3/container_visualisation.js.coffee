@@ -73,22 +73,32 @@ class D3.ContainerVisualisation extends D3.Graph
       for x in App.donabe.containers.get()
         if (toString (x['id']) == toString (xcontainer['embedded_container_id']))
           innerContainer = x
+          console.log innerContainer
           break
 
-      for network in innerContainer['networks']
-        if network.endpoint == true
+      for originNetwork in innerContainer['networks'] ##MAKES EDITS
+        if originNetwork.endpoint == true
+          network= {}
+          $.extend(true, network, originNetwork)  
+          
           network.inContainerAsEndpoint = xcontainer.temp_id
           network.innerContainerID = network.temp_id
           #delete network.temp_id     
           this.nodes.newNode(new Nodes.Network(network))      
-      for router in innerContainer['routers']
-        if router.endpoint == true
+      for originRouter in innerContainer['routers']
+        if originRouter.endpoint == true
+          router= {}
+          $.extend(true, router, originRouter)
+          
           router.inContainerAsEndpoint = xcontainer.temp_id
           router.innerContainerID = router.temp_id
           #delete router.temp_id
           this.nodes.newNode(new Nodes.Router(router))
-      for vm in innerContainer['vms']
-        if vm.endpoint == true
+      for originVm in innerContainer['vms']
+        if originVm.endpoint == true
+          vm= {}
+          $.extend(true, vm, originVm)
+          
           vm.inContainerAsEndpoint = xcontainer.temp_id
           vm.innerContainerID = vm.temp_id
           #delete vm.temp_id
@@ -228,7 +238,7 @@ class D3.ContainerVisualisation extends D3.Graph
       console.log JSON.stringify container
 
       if containerid?
-        return App.donabe.containers.save((JSON.stringify container), containerid)
+        return App.donabe.containers.save(container, containerid)
       else
-        return App.donabe.containers.add(JSON.stringify container)
+        return App.donabe.containers.add(container)
 

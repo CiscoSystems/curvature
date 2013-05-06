@@ -83,22 +83,31 @@ class D3.GraphNodes
           $.extend(true, innerContainer, x)
           break
 
-      for network in innerContainer['networks']
-        if network.endpoint == true
+      for originNetwork in innerContainer['networks'] ##Makes Edits
+        if originNetwork.endpoint == true
+          network= {}
+          $.extend(true, network, originNetwork)
+          
           network.inContainerAsEndpoint = d.data['temp_id']
           network.innerContainerID = network.temp_id  
           this.newNode(new Nodes.Network(network))
           if @graph instanceof D3.Visualisation
             App.donabe.endpointsOnGraph.add(network)   
-      for router in innerContainer['routers']
-        if router.endpoint == true
+      for originRouter in innerContainer['routers']
+        if originRouter.endpoint == true
+          router= {}
+          $.extend(true, router, originRouter)
+          
           router.inContainerAsEndpoint = d.data['temp_id']
           router.innerContainerID = router.temp_id
           this.newNode(new Nodes.Router(router))
           if @graph instanceof D3.Visualisation
             App.donabe.endpointsOnGraph.add(router)
-      for vm in innerContainer['vms']
-        if vm.endpoint == true
+      for originVm in innerContainer['vms']
+        if originVm.endpoint == true
+          vm= {}
+          $.extend(true, vm, originVm)
+          
           vm.inContainerAsEndpoint = d.data['temp_id']
           vm.innerContainerID = vm.temp_id
           this.newNode(new Nodes.Server(vm))
@@ -363,7 +372,7 @@ class D3.GraphNodes
               curvy.showFloatingIpDialog(d.data)
             else if d.data instanceof Nodes.Server
               curvy.showServerDialog(d.data)
-            else if d.data instanceof Nodes.Container
+            else if d.data instanceof Nodes.Container && d.data.deployStatus != "undeployed"
               if _this.graph instanceof D3.LiveContainerVisualisation
                 document.liveContainer.displayLiveContainer(d.data.id)
               else

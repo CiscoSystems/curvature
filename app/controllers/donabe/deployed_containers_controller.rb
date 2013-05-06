@@ -7,7 +7,7 @@ class Donabe::DeployedContainersController < ApplicationController
 
   # Launch a new container 
   def create
-    response = get_request(URI.parse("http://"+Storage.find(cookies[:donabe_ip]).data+"/"+Storage.find(cookies[:current_tenant]).data+"/containers/"+params[:containerID]+"/deploy.json"), Storage.find(cookies[:current_token]).data)
+    response = get_request(URI.parse("http://"+Storage.find(cookies[:donabe_ip]).data+"/"+Storage.find(cookies[:current_tenant]).data+"/containers/"+params[:containerID].to_s+"/deploy.json"), Storage.find(cookies[:current_token]).data)
     json_respond response.body
   end
 

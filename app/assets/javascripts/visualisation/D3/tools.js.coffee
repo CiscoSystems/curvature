@@ -371,7 +371,7 @@ class D3.Tools
 
       # move the tools back to their original position
       tool = @graph.outerGroup.selectAll(".tool").data(@tools)
-        .attr("transform", (newNode) -> "translate(" + newNode.x + "," + newNode.y + ")")
+        .attr("transform", (d) -> "translate(" + d.x + "," + d.y + ")")
 
     # start the force direction
     @graph.force.start()
