@@ -1,4 +1,4 @@
-Curvature - Javascript based Visualisation Tool and Dashboard For OpenStack
+Curvature - JavaScript based Visualization Tool and Dashboard For OpenStack
 ==========================================================================
 
 To run your own copy of the software, take the folder Server and place it into where you wish to
@@ -9,58 +9,65 @@ Open the folder, and in a text editor of your choice open /Server/config/curvatu
 Replace the keystone ip and port with the access location of your keystone server and save.
 
 Now make sure you are in the /Server directory and run the command 'rails server' 
-(You can customise the port by adding "-p myport"  where "myport" is the actual port number you want to run the server on.)
+(You can customize the port by adding "-p myport"  where "myport" is the actual port number you want to run the server on.)
 (You can run the server in daemon mode by adding -d, server output is then stored under /logs)
-
 
 ----------------------------------
 
-Installing Rails  
+Installing Rails
+----------------
 
-Follow the instructions on the Ruby on Rails website. If you run into any problems, it is most likely that you need to install NodeJS, and the SQLite3 developement packages.  
+Follow the instructions on the Ruby on Rails website. If you run into any problems, it is most likely that you need to install the SQLite3 development packages.  
   
-sudo apt-get install nodejs libsqlite3-dev  
+sudo apt-get install libsqlite3-dev  
   
-then cd into the Server directory and  
+In the curvature directory run: 
   
 bundle install  
   
-bundle exec rake db:drop  
-bundle exec rake db:create  
-bundle exec rake db:migrate  
+(bundle exec) rake db:drop  
+(bundle exec) rake db:create  
+(bundle exec) rake db:migrate  
   
 rails server  
 
 ----------------------------------
 
-Developer Infomation  
-  
+Developer Information  
+---------------------
+
+### Overview  
+
 The project is built roughly as two distinct components, the Rails server, and our HTML5 frontend.
 
-The Rails server is responsible for handling all API calls to OpenStack itself, a required step for same-site-security issues. It also stores cookie, and template data in its database. Note that apart from cookie data, the server stores no infomation on the state of openstack itself and acts simply as a pass thru.  
+The Rails server is responsible for handling all API calls to OpenStack itself, a required step for same-site-security issues. It also stores cookie information for user login, but apart from that the server stores no infomation on the state of OpenStack itself and acts simply as a pass through.  
 
-The front end is everything you see on the page. Our system is built with minimum page refreshes, prefering instead to ajax data in on the fly. All deployment logic is built here (waiting for dependancies to go up and such), and is built 100% asychronously.  
+The HTML5 interface is what you see when loading the system in the browser, it is built with no refreshes in mind preferring instead to Ajax data in on the fly. All deployment logic is built here (waiting for dependencies to go up and keeping track of state), and is built 100% asynchronously.  
 
-Directory Structure  
+### Directory Structure  
 
 The directory is built like any other Rails project (which you probably know before jumping into this). Areas of particular interest.
 
-/Config 
+/config 
   - Contains all configuration files, most importantly curvature.yml and routes.rb
 
-/App/Controllers
-  - Contains the controllers for our views
-  - application_controller.rb logins_controller.rb, rest_controller.rb and quantum_rest_controller provide our API to the javascript frontend, everything else is for templateing. logins_controller.rb handles cookie data.
+/app/controllers
+  - Contains the controllers for handling the REST requests.
+  - Subdirectory OpenStack encapsulates 
 
-/App/Models
-  - Contains database schemas for cookies and templating.
+/app/models
+  - Contains rails model for the cookies named Storages, the file here defines the data structure for the model.
 
-/App/Views
-  - Contains our views, root page in logins, and our main page (sans resources) is in visualisation, everything else is for our API, or templating.
+/app/views
+  - Contains our HTML page templates for logins and our main page is in the /visualisation directory along with partials for better DRY programming.
 
-/Public
-  - Contains all static elements. For us is where all of our application resources and javascript sit, further explaination of this directory is in the folder itself.
+/app/assets
+  - Contains subdirectories for stylesheets and JavaScript which are acted on my sockets (the asset pipeline) to compile CoffeeScript and SCSS into their true forms. 
 
+/public
+  - Contains all static elements. In the current state only the error pages exist in here, for example 404.html
 
+Dependencies
+------------
 
-
+* ropenstack - A ruby Gem which abstracts the OpenStack APIs into an OO form.
