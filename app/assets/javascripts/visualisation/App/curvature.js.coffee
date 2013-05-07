@@ -261,6 +261,10 @@ class App.Curvature
     $("#ramSlider").progressbar(value: ramPer).children(".ui-progressbar-value").css("display", "block")
     $("#ramText").html("RAM Used : " + App.openstack.quotas.totalRAMUsed() + "MB/" + App.openstack.quotas.maxTotalRAMSize() + "MB")
  
+  # =====================================
+  # Floating IP, Security Groups, etc   =
+  # =====================================
+
   releaseButtonClick: (id, ext_net) =>
     return =>
       $.when(App.openstack.floatingIps.destroy(id)).done(=>
