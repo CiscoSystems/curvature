@@ -1,14 +1,13 @@
 Curvature - JavaScript based Visualization Tool and Dashboard For OpenStack
 ==========================================================================
 
-To run your own copy of the software, take the folder Server and place it into where you wish to
-launch the app.
+To run your own copy of the software, take the folder Server and place it into where you wish to launch the app. You will need to have installed Ruby On Rails to proceed, so follow the instructions below in order to do that.
 
 Open the folder, and in a text editor of your choice open /Server/config/curvature.yml 
 
-Replace the keystone ip and port with the access location of your keystone server and save.
+Replace the OpenStack Keystone IP Address and Port with the access location of the Keystone Server in your cluster and save the file.
 
-Now make sure you are in the /Server directory and run the command 'rails server' 
+To start the server make sure you are in the curvature root directory and run the command 'rails server' 
 (You can customize the port by adding "-p myport"  where "myport" is the actual port number you want to run the server on.)
 (You can run the server in daemon mode by adding -d, server output is then stored under /logs)
 
