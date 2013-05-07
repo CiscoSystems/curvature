@@ -11,8 +11,6 @@ To start the server make sure you are in the curvature root directory and run th
 (You can customize the port by adding "-p myport"  where "myport" is the actual port number you want to run the server on.)
 (You can run the server in daemon mode by adding -d, server output is then stored under /logs)
 
-----------------------------------
-
 Installing Rails
 ----------------
 
@@ -29,8 +27,6 @@ bundle install
 (bundle exec) rake db:migrate  
   
 rails server  
-
-----------------------------------
 
 Developer Information  
 ---------------------
