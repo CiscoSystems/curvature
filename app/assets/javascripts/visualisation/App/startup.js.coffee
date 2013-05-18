@@ -353,9 +353,9 @@ jQuery ->
   $("#LogoutButton").button()
 
   # Overview Tab Sliders 
-  $("#instancesSlider").progressbar value: 0
-  $("#cpusSlider").progressbar value: 0
-  $("#ramSlider").progressbar value: 0
+  #$("#instancesSlider").progressbar value: 0
+  #$("#cpusSlider").progressbar value: 0
+  #$("#ramSlider").progressbar value: 0
   
   $("#noNetworks").dialog
     autoOpen: false

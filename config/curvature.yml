@@ -1,10 +1,10 @@
 defaults: &defaults
   keystone:
-    ip: 171.71.119.10 
+    ip: 171.71.119.10
     port: 5000
   services:
-    ip: 
-    port: 
+    ip:
+    port:
 
 development:
   <<: *defaults

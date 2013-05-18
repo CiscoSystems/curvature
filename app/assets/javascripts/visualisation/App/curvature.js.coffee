@@ -3,17 +3,17 @@
 # up network tabs
 #
 class App.Curvature
-  # @property [Object] The instance of network visualisation to display networks 
+  # @property [Object] The instance of network visualisation to display networks
   networkVisualisation: Object
   # @property [Object] The instance of deploy
   deploy: Object
-  
+
   # Construct a new instance of Curvature and setup instance variables
   #
   constructor: () ->
     @networkVisualisation = new D3.Visualisation('D3Graph')
     @deploy = new App.Deploy()
-  
+
   # Code to restart the page on a change.
   #
   # Will repopulate the openstack data and redraw the page
@@ -52,9 +52,9 @@ class App.Curvature
         App.openstack.floatingIps.populate()
       ).then(() ->
         _this.networkTabs()
-    
+
         openstackPromises = [App.openstack.subnets.populate(), App.openstack.ports.populate()]
-    
+
         if App.openstack.services.get().indexOf("cinder") >= 0
           openstackPromises.push(App.openstack.volumes.populate())
 
@@ -66,13 +66,13 @@ class App.Curvature
             if App.openstack.services.get().indexOf("cinder") >= 0
               _this.setupVolumes()
             _this.networkVisualisation.displayAllNetworks()
-        
+
           )
         )
       )
-      
+
     )
-  
+
   # =============================================================================
   # =                              GUI Functionality                            =
   # =============================================================================
@@ -86,7 +86,7 @@ class App.Curvature
     else
       $('.nodeLabel').hide()
       $('#shLabels').text("Show Node Labels")
-      
+
   displayVNCConsole: (server) ->
     $.when(
       server.vnc()
@@ -127,7 +127,7 @@ class App.Curvature
 
     $("#menubar").menubar({autoExpand: true})
     $("#deployButton").button()
-    
+
 
   # ===============================================================
   # =                           Tenants                           =
@@ -251,16 +251,24 @@ class App.Curvature
   #
   displayQuotas: ->
     instancePer = (App.openstack.quotas.totalInstancesUsed() / App.openstack.quotas.maxTotalInstances()) * 100
-  
-    $("#instancesSlider").progressbar(value: instancePer).children(".ui-progressbar-value").css("display", "block")
+    $("#instancesSlider").data().used = instancePer
+    console.log @instancePie
+    if @instancePie is undefined
+      @instancePie = new D3.Quota("instancesSlider")
+    else
+      @instancePie.animate([{"percentage":instancePer},{"percentage":100 - instancePer}])
     $("#instanceText").html("Instances Used : " + App.openstack.quotas.totalInstancesUsed() + "/" + App.openstack.quotas.maxTotalInstances())
+
     cpuPer = (App.openstack.quotas.totalCoresUsed() / App.openstack.quotas.maxTotalCores()) * 100
-    $("#cpusSlider").progressbar(value: cpuPer).children(".ui-progressbar-value").css("display", "block")
+    $("#cpusSlider").data().used = cpuPer
+    new D3.Quota("cpusSlider")
     $("#cpusText").html("CPUs Used : " + App.openstack.quotas.totalCoresUsed() + "/" + App.openstack.quotas.maxTotalCores())
+
     ramPer = (App.openstack.quotas.totalRAMUsed() / App.openstack.quotas.maxTotalRAMSize()) * 100
-    $("#ramSlider").progressbar(value: ramPer).children(".ui-progressbar-value").css("display", "block")
+    $("#ramSlider").data().used = ramPer
+    new D3.Quota("ramSlider")
     $("#ramText").html("RAM Used : " + App.openstack.quotas.totalRAMUsed() + "MB/" + App.openstack.quotas.maxTotalRAMSize() + "MB")
- 
+
   # =====================================
   # Floating IP, Security Groups, etc   =
   # =====================================
