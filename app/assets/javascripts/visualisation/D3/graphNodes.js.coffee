@@ -371,8 +371,9 @@ class D3.GraphNodes
                 $("#liveContainerViewer").data('containerID', d.data.id)
                 $("#liveContainerViewer").dialog('open')
             else if d.data instanceof Nodes.Network
-              console.log d.data
-              console.log App.openstack.servers.get()
+              filterNode = (obj) ->
+                return (d, i) ->
+                  return obj is d.data
               if not d.data.collapsed
                 vmCount = 0
                 for vm in App.openstack.servers.get()
@@ -382,6 +383,9 @@ class D3.GraphNodes
                       _this.removeNode(vm)
                       d.data.collapsed = true
                 console.log vmCount
+                if vmCount > 0
+                  _this.graph.vis.selectAll(".vmCount").filter(filterNode d.data)[0][0].textContent = vmCount
+                  _this.graph.vis.selectAll(".svgpath").filter(filterNode d.data)[0][0].attributes[2].nodeValue = App.d3SVGs["collapsednetwork"]
               else
                 for vm in App.openstack.servers.get()
                   if vm.networks.length is 1
@@ -390,6 +394,8 @@ class D3.GraphNodes
                       _this.graph.links.newLink(vm, d.data, "deployed")
                       _this.graph.force.start()
                       d.data.collapsed = false
+                _this.graph.vis.selectAll(".vmCount").filter(filterNode d.data)[0][0].textContent = ""
+                _this.graph.vis.selectAll(".svgpath").filter(filterNode d.data)[0][0].attributes[2].nodeValue = App.d3SVGs["network"]
       )
 
       .on("mouseover", (d) ->
@@ -488,6 +494,14 @@ class D3.GraphNodes
           "translate(30,3)"
         else
           "translate(25,3)")
+    if data.data instanceof Nodes.Network
+      nodeEnter.append("svg:text")
+        .attr("class","vmCount")
+        .style("fill", "black")
+        .style("font-size","20")
+        .text("")
+        .attr("transform", "translate(26,38)")
+
 
   # Remove a specific node from the graph based on its data object
   #
