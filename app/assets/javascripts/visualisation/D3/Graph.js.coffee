@@ -140,6 +140,8 @@ class D3.Graph
     @tools = new D3.Tools(this,@toolbarBackground,@outerGroup)
     @tools.drawTools('tools')
 
+    @loading()
+
   # Setup the graph svg elements and add it to the div passed in the constructor
   #
   createVis: () ->
@@ -257,7 +259,22 @@ class D3.Graph
         .attr("y1", (d) -> d.source.y)
         .attr("x2", () => @mouse.x)
         .attr("y2", () => @mouse.y)
- 
+
+  loading: ->
+    @vis.append("text")
+      .style("fill", "black")
+      .attr("x", @w/2 - 60)
+      .attr("y", @h/2)
+      .style("font-size", "40")
+      .text("loading")
+      .transition()
+        .duration(3000)
+        .text("loading...")
+        .style("fill", "white")
+        .each("end", ->
+          d3.select(this).remove()
+        )
+
   # Remove all links connected to a node
   #
   # @param node [Object] The node object to have all its links removed
