@@ -7,13 +7,14 @@ class Nodes.Network extends Nodes.Deployable
   #
   constructor: (data, deployStatus) ->
     data.name = "Network" if not data.name?
+    data.collapsed = false
     super(data, "network", deployStatus)
-    
+
   # Call the Network.terminate function on this object
   #
   terminate: ->
     Network.terminate(@id)
-     
+
   # Create a new network
   #
   # @param name [String] The name of the new network

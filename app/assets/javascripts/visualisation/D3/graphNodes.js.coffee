@@ -370,6 +370,26 @@ class D3.GraphNodes
                 $("#liveContainerViewer").dialog('close')
                 $("#liveContainerViewer").data('containerID', d.data.id)
                 $("#liveContainerViewer").dialog('open')
+            else if d.data instanceof Nodes.Network
+              console.log d.data
+              console.log App.openstack.servers.get()
+              if not d.data.collapsed
+                vmCount = 0
+                for vm in App.openstack.servers.get()
+                  if vm.networks.length is 1
+                    if vm.networks[0] is d.data
+                      vmCount += 1
+                      _this.removeNode(vm)
+                      d.data.collapsed = true
+                console.log vmCount
+              else
+                for vm in App.openstack.servers.get()
+                  if vm.networks.length is 1
+                    if vm.networks[0] is d.data
+                      _this.newNode(vm)
+                      _this.graph.links.newLink(vm, d.data, "deployed")
+                      _this.graph.force.start()
+                      d.data.collapsed = false
       )
 
       .on("mouseover", (d) ->

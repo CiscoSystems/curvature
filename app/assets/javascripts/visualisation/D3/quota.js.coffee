@@ -50,11 +50,8 @@ class D3.Quota
       .transition()
         .duration(500)
         .attrTween("d", (a) ->
-          console.log self.current.value, a.value
           tween = d3.interpolate(self.current, a)
           self.current = tween(0)
-          console.log tween
-          console.log self.current
           (t) ->
             arc tween(t)
         )
