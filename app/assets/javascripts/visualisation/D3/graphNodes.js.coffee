@@ -393,6 +393,8 @@ class D3.GraphNodes
                       _this.newNode(vm)
                       _this.graph.links.newLink(vm, d.data, "deployed")
                       _this.graph.force.start()
+                      for i in [0..10] 
+                        _this.graph.force.tick()
                       d.data.collapsed = false
                 _this.graph.vis.selectAll(".vmCount").filter(filterNode d.data)[0][0].textContent = ""
                 _this.graph.vis.selectAll(".svgpath").filter(filterNode d.data)[0][0].attributes[2].nodeValue = App.d3SVGs["network"]

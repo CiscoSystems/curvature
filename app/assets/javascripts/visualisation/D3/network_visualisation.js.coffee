@@ -154,7 +154,7 @@ class D3.Visualisation extends D3.Graph
         this.links.newLink App.openstack.networks.external.get(router.external_gateway_info.network_id), router, 'deployed', 100  if router.external_gateway_info?
         
     @force.start()
-    for i in [0..6000] 
+    for i in [0..3000] 
       @force.tick()
     #@force.stop()
     
