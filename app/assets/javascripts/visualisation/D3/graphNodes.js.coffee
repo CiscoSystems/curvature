@@ -4,7 +4,7 @@ class D3.GraphNodes
 
   constructor: (@graph) ->
     @nodes = []
-    @currentlySelectedNode = null 
+    @currentlySelectedNode = null
 
   # Setup new node to be dragged onto graph
   # Will create a new instance of the node type and add it to
@@ -24,7 +24,7 @@ class D3.GraphNodes
         d.data.flavor = {id:'1'}
         # Condition data for donabe
         if d.data.image != undefined
-        	d.data.image_id = d.data.image.id
+          d.data.image_id = d.data.image.id
         if d.data.flavor.id != undefined
           d.data.flavor = d.data.flavor.id
         if d.data.image_name == undefined
@@ -67,16 +67,13 @@ class D3.GraphNodes
         n.gateway = null
         node = App.openstack.routers.add(n)
     else if d.data instanceof Nodes.Container
-      
-      
       d.data.temp_id = this.createUUID()
       if d.data.endpoint == undefined
         d.data.endpoint = false
       if @graph instanceof D3.ContainerVisualisation
         node = new Nodes.Container(d.data)
       else
-        node = App.donabe.deployed_containers.add(d.data)   
-      
+        node = App.donabe.deployed_containers.add(d.data)
       for x in App.donabe.containers.get()
         if x.id == d.data.id
           innerContainer = {}
@@ -87,17 +84,15 @@ class D3.GraphNodes
         if originNetwork.endpoint == true
           network= {}
           $.extend(true, network, originNetwork)
-          
           network.inContainerAsEndpoint = d.data['temp_id']
-          network.innerContainerID = network.temp_id  
+          network.innerContainerID = network.temp_id
           this.newNode(new Nodes.Network(network))
           if @graph instanceof D3.Visualisation
-            App.donabe.endpointsOnGraph.add(network)   
+            App.donabe.endpointsOnGraph.add(network)
       for originRouter in innerContainer['routers']
         if originRouter.endpoint == true
           router= {}
           $.extend(true, router, originRouter)
-          
           router.inContainerAsEndpoint = d.data['temp_id']
           router.innerContainerID = router.temp_id
           this.newNode(new Nodes.Router(router))
@@ -107,13 +102,11 @@ class D3.GraphNodes
         if originVm.endpoint == true
           vm= {}
           $.extend(true, vm, originVm)
-          
           vm.inContainerAsEndpoint = d.data['temp_id']
           vm.innerContainerID = vm.temp_id
           this.newNode(new Nodes.Server(vm))
           if @graph instanceof D3.Visualisation
             App.donabe.endpointsOnGraph.add(vm)
-      
 
     node # return node
 
@@ -121,13 +114,13 @@ class D3.GraphNodes
   #
   # This will listen to actions on node and update the graph according
   # to the current state of the node data
-  # 
+  #
   # @param obj the object which fired the action
   # @param action [Number] The action performed, matches against a node constant
   #
   nodeActionFired: (obj, action) ->
     switch action
-      when Nodes.Node.DATA_CHANGED 
+      when Nodes.Node.DATA_CHANGED
         d3Nodes = d3.selectAll('g.node') # Get all of the svg nodes
         d3Paths = d3Nodes.select('path') # Specifically get the paths of each node
         d3Nodes.each (d,i) ->
@@ -241,16 +234,15 @@ class D3.GraphNodes
                 _this.graph.tools.listOfTools.tools.pop()
                 unless _this.graph.tools.currentlyShowing isnt "tools"
                   _this.graph.tools.drawTools('tools')
-        
               _this.currentlySelectedNode = this
-  
+
               # set node color to blue indicating it is the selected node
               d3.select(this).style("fill","lightblue")
-      
+
               # Container for lines of text
               textContainer = _this.graph.nodeInfo.append("svg:text")
                 .attr('class', 'nodeInfo')
-      
+
               # create a new line of text
               noOfLines = 1
               newLine = (txt, xpos = 25) ->
@@ -261,7 +253,7 @@ class D3.GraphNodes
                   .attr('y',ypos + (linegap * noOfLines))
                   .text(txt)
                 noOfLines++
-        
+
               # Function to calculate a vms ip addresses
               addresses = (list) ->
                 str = ""
@@ -271,7 +263,7 @@ class D3.GraphNodes
                   for id, ip of network
                     str += ip.addr
                     newLine(str, 50)
-      
+
               # Function to calculate information from subnets
               subnets = (list) ->
                 for id in list
@@ -280,7 +272,7 @@ class D3.GraphNodes
                       str = "CIDR: " + sub.cidr
                       newLine(str, 50)
                       break
-      
+
               if d.data instanceof Nodes.Server
                 newLine("VM Name : " + d.data.name) unless d.data.name is ""
                 newLine("Image Name : " + App.openstack.images.get(d.data.image.id).name)
@@ -288,7 +280,7 @@ class D3.GraphNodes
                 newLine("Created on : " + d.data.created.split('T',1)) unless !d.data.hasOwnProperty('created')
                 newLine("IP Addresses : ") unless !d.data.hasOwnProperty('addresses')
                 addresses(d.data.addresses) unless !d.data.hasOwnProperty('addresses')
-          
+
                 # redraw tools if the current selected tab is tools so that
                 # VM specific tools will appear
                 _this.graph.tools.listOfTools.tools.push({svg:'vnc', name:'VNC'})
@@ -306,28 +298,28 @@ class D3.GraphNodes
                 newLine("Status : " + if d.data.hasOwnProperty("status") then d.data.status else "Undeployed")
                 newLine("Subnets : ") unless !d.data.hasOwnProperty('subnets')
                 subnets(d.data.subnets) unless !d.data.hasOwnProperty('subnets')
-            
+
               if d.data instanceof Nodes.Router
                 newLine("Name : " + d.data.name) unless d.data.name is ""
                 newLine("Status : " + if d.data.hasOwnProperty("status") then d.data.status else "Undeployed")
-          
+
               if d.data instanceof Nodes.ExternalNetwork
                 newLine("Name : " + d.data.name) unless d.data.name is ""
                 newLine("Status : " + if d.data.hasOwnProperty("status") then d.data.status else "Undeployed")
-          
+
               if d.data instanceof Nodes.Volume
                 newLine("Name : " + d.data.display_name) unless d.data.display_name is ""
                 newLine("Description : " + d.data.display_description) unless d.data.display_description is ""
                 newLine("Created on : " + d.data.created_at.split('T',1))
                 newLine("Size : " + d.data.size + "GB")
-              
+
               if d.data instanceof Nodes.Container
                 name = ""
                 for cont in App.donabe.containers.get()
                   if cont.id is d.data.container_id
                     name = cont.name
                 newLine("Name: " + name) unless name is ""
-      
+
             else
               # Remove vm Specific tools
               if _this.currentlySelectedNode isnt null and d3.select(_this.currentlySelectedNode).data()[0].data instanceof Nodes.Server
@@ -337,10 +329,9 @@ class D3.GraphNodes
 
               _this.currentlySelectedNode = null
         )
-    
-      
+
       # Show dialogs on double click
-      .on("dblclick", (d) -> 
+      .on("dblclick", (d) ->
         console.log d
         if _this.graph instanceof D3.ContainerVisualisation
           if d.data instanceof Nodes.Server
@@ -380,7 +371,7 @@ class D3.GraphNodes
                 $("#liveContainerViewer").data('containerID', d.data.id)
                 $("#liveContainerViewer").dialog('open')
       )
-    
+
       .on("mouseover", (d) ->
          _this.graph.vis.selectAll("line.link").filter(
             (z, i) ->
@@ -394,7 +385,7 @@ class D3.GraphNodes
          _this.graph.vis.selectAll("line.link").style("stroke-width","1px")
       )
     nodeEnter.append("svg:circle")
-      .attr("r", (d) -> 
+      .attr("r", (d) ->
         if d.data.inContainerAsEndpoint?
           10
         else if d.data instanceof Nodes.Server
@@ -421,14 +412,14 @@ class D3.GraphNodes
             "green"
           else if d.data.endpoint
             "blue"
-          else 
+          else
             "black"
         else if _this.graph instanceof D3.LiveContainerVisualisation
           if d.data.inContainerAsEndpoint == _this.graph.livecontainerid
             "blue"
           else if d.data.inContainerAsEndpoint?
             "green"
-          else 
+          else
             "black"
         else
           if d.data.inContainerAsEndpoint?
@@ -439,7 +430,7 @@ class D3.GraphNodes
               else "black"
       )
       .attr("d", (d) -> return App.d3SVGs[d.data.svg])
-      .attr("transform", (d) -> 
+      .attr("transform", (d) ->
         if d.data.inContainerAsEndpoint?
           "scale(0.5)translate(-16,-16)"
         else if d.data instanceof Nodes.Server
@@ -459,10 +450,10 @@ class D3.GraphNodes
       .attr("class", "nodeLabel")
       .style("display","none")
       .style("fill","black")
-      .text((d) -> 
+      .text((d) ->
         d.data.name
         )
-      .attr("transform", (d) -> 
+      .attr("transform", (d) ->
         if d.data.inContainerAsEndpoint?
           "translate(25,3)"
         else if d.data instanceof Nodes.Server
@@ -481,7 +472,7 @@ class D3.GraphNodes
   # Remove a specific node from the graph based on its data object
   #
   # @param data [Object] The data object for the node to be removed
-  #  
+  #
   removeNode: (obj) ->
     for n in @nodes
       if n.data is obj
@@ -510,6 +501,6 @@ class D3.GraphNodes
     s[14] = "4"
     s[19] = hexDigits.substr((s[19] & 0x3 | 0x8), 1)
     s[8] = s[13] = s[18] = s[23] = "-"
-    
+
     uuid = s.join("")
     return uuid
