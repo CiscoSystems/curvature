@@ -4,19 +4,23 @@
 
 #overviewsContainer{
   display:table-row;
-  height: 37px;
+  background-color: #E1F0F8;
   position: relative;
-}
-
-.overviewSlider {
-  position: relative;
-  width: 33.333%;
-  float: left;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 .overviewBarContainer {
   position: relative;
   height: 40px;
+  width: 33.333333%;
+  margin: 0 auto;
+  border-width: 1px;
+  /*border-top-style: solid;*/
+  border-bottom-style: solid;
+  border-color: #ACCFEB;
+  float: left;
 }
 
 .overviewBarLabel {
@@ -24,8 +28,8 @@
   top: 50%;
   height: 10px;
   margin-top: -7px;
-  text-align: center;
   font-weight: bold;
-  left: 0px;
+  color: #2178AC;
+  left: 35%;
   right: 0px;
 }
