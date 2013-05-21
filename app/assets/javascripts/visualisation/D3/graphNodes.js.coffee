@@ -378,7 +378,7 @@ class D3.GraphNodes
                 vmCount = 0
                 for vm in App.openstack.servers.get()
                   if vm.networks.length is 1
-                    if vm.networks[0] is d.data
+                    if vm.networks[0] is d.data and vm.deployStatus is "deployed"
                       vmCount += 1
                       _this.removeNode(vm)
                       d.data.collapsed = true
@@ -389,7 +389,7 @@ class D3.GraphNodes
               else
                 for vm in App.openstack.servers.get()
                   if vm.networks.length is 1
-                    if vm.networks[0] is d.data
+                    if vm.networks[0] is d.data and vm.deployStatus is "deployed"
                       _this.newNode(vm,false,d.x,d.y)
                       _this.graph.links.newLink(vm, d.data, "deployed")
                       _this.graph.force.start()
