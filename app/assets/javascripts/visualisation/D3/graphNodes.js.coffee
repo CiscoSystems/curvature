@@ -332,7 +332,6 @@ class D3.GraphNodes
 
       # Show dialogs on double click
       .on("dblclick", (d) ->
-        console.log d
         if _this.graph instanceof D3.ContainerVisualisation
           if d.data instanceof Nodes.Server
             $("#vm").dialog().data 'node',  d.data
@@ -382,7 +381,6 @@ class D3.GraphNodes
                       vmCount += 1
                       _this.removeNode(vm)
                       d.data.collapsed = true
-                console.log vmCount
                 if vmCount > 0
                   _this.graph.vis.selectAll(".vmCount").filter(filterNode d.data)[0][0].textContent = vmCount
                   _this.graph.vis.selectAll(".svgpath").filter(filterNode d.data)[0][0].attributes[2].nodeValue = App.d3SVGs["collapsednetwork"]
@@ -393,7 +391,7 @@ class D3.GraphNodes
                       _this.newNode(vm,false,d.x,d.y)
                       _this.graph.links.newLink(vm, d.data, "deployed")
                       _this.graph.force.start()
-                      _this.graph.force.tick()
+                      #_this.graph.forcetick()
                       d.data.collapsed = false
                 _this.graph.vis.selectAll(".vmCount").filter(filterNode d.data)[0][0].textContent = ""
                 _this.graph.vis.selectAll(".svgpath").filter(filterNode d.data)[0][0].attributes[2].nodeValue = App.d3SVGs["network"]
