@@ -16,6 +16,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# For browser detection
+gem 'useragent'
+
 gem 'jquery-rails'
 
 gem 'socky-authenticator'
