@@ -27,8 +27,7 @@ class LoginsController < ApplicationController
     user_agent = UserAgent.parse(request.user_agent)
     unless SupportedBrowsers.detect { |browser| user_agent >= browser }
       browser_name = user_agent.browser
-      if (browser_name.casecmp("safari") || browser_name.casecmp("firefox") || 
-browser_name.casecmp("chrome"))
+      if (browser_name.casecmp("safari") == 0 || browser_name.casecmp("firefox") == 0 || browser_name.casecmp("chrome") == 0)
         flash_string = "You appear to be using an unsupported version of " + browser_name + ". Please upgrade for the best experience."
       else
         flash_string = "You appear to be using an unsupported browser."
