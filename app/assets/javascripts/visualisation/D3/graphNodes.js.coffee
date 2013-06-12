@@ -383,7 +383,9 @@ class D3.GraphNodes
                       d.data.collapsed = true
                 if vmCount > 0
                   _this.graph.vis.selectAll(".vmCount").filter(filterNode d.data)[0][0].textContent = vmCount
-                  _this.graph.vis.selectAll(".svgpath").filter(filterNode d.data)[0][0].attributes[2].nodeValue = App.d3SVGs["collapsednetwork"]
+                  attrs = _this.graph.vis.selectAll(".svgpath").filter(filterNode d.data)[0][0].attributes
+                  for attr in attrs
+                    if attr.name is 'd' then attr.nodeValue = App.d3SVGs["collapsednetwork"]
               else
                 for vm in App.openstack.servers.get()
                   if vm.networks.length is 1
@@ -394,7 +396,9 @@ class D3.GraphNodes
                       #_this.graph.forcetick()
                       d.data.collapsed = false
                 _this.graph.vis.selectAll(".vmCount").filter(filterNode d.data)[0][0].textContent = ""
-                _this.graph.vis.selectAll(".svgpath").filter(filterNode d.data)[0][0].attributes[2].nodeValue = App.d3SVGs["network"]
+                attrs = _this.graph.vis.selectAll(".svgpath").filter(filterNode d.data)[0][0].attributes
+                for attr in attrs
+                  if attr.name is 'd' then attr.nodeValue = App.d3SVGs["network"]
       )
 
       .on("mouseover", (d) ->

@@ -125,18 +125,18 @@ class D3.Graph
       @hullset = []
       for i of hulls
         @hullset.push({group: i, network: idNetwork[i], path: d3.geom.hull(hulls[i])})
-      
+
       @hullset
-    
+
     @fill = d3.scale.category20()
-      
+
     @curve = d3.svg.line()
         .interpolate("cardinal-closed")
         .tension(.85)
-    
+
     this.createVis()
     this.forceDirection(0.05,70, -700)
-    
+
     @tools = new D3.Tools(this,@toolbarBackground,@outerGroup)
     @tools.drawTools('tools')
 
@@ -161,7 +161,6 @@ class D3.Graph
           @vis.attr("transform", "translate(" + d3.event.translate + ") scale(" + @zoom.scale() + ")")
           @translation.x = d3.event.translate[0]
           @translation.y = d3.event.translate[1]
-        
         ).on "dblclick.zoom", null
     #The background for capturing mouse events
     @outerGroup.append('svg:rect')
@@ -176,7 +175,7 @@ class D3.Graph
         )
     # Container for information about nodes
     @nodeInfo = @outerGroup.append("svg:g")
-    
+
     #Append g for nodes to sit on
     @vis = @outerGroup.append("svg:g")
       .on("mousemove", -> 
