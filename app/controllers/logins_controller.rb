@@ -1,7 +1,6 @@
 require 'net/http'
 require 'json'
 require 'uri'
-require 'ropenstack'
 
 ##Handles login and cookie data. Keystone initially returns only an unscoped token (a token with no tenant) that can
 ##only be used to retrive a list of tenants. Reauthenticating as one of those tenants will give you access to the
@@ -15,7 +14,28 @@ require 'ropenstack'
 class LoginsController < ApplicationController
   before_filter :check_login, :only => :show
 
+  ##Supported Browsers
+  Browser = Struct.new(:browser, :version)
+  SupportedBrowsers = [
+    Browser.new('Safari', '6.0.2'),
+    Browser.new('Firefox', '19.0.2'),
+    Browser.new('Chrome', '25.0.1364.160')
+  ]
+
   def show
+    @unsupported = false
+    user_agent = UserAgent.parse(request.user_agent)
+    unless SupportedBrowsers.detect { |browser| user_agent >= browser }
+      browser_name = user_agent.browser
+      if (browser_name.casecmp("safari") == 0 || browser_name.casecmp("firefox") == 0 || browser_name.casecmp("chrome") == 0)
+        flash_string = "You appear to be using an unsupported version of " + browser_name + ". Please upgrade for the best experience."
+      else
+        flash_string = "You appear to be using an unsupported browser."
+        @unsupported = true
+      end
+      flash[:unsupported] = flash_string
+    end
+
     respond_to do |format|
       format.html
     end

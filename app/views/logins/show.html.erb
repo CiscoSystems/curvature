@@ -12,6 +12,13 @@
                   <p class="notice"> <%= flash[:notice] %></p>
           <% end %>
           
+          <% if flash[:unsupported] %>
+                  <p class="error"> <%= flash[:unsupported] %></p>
+                  <% if @unsupported %>
+                  	<p class="error">Please upgrade to a <a href="http://www.google.com/chrome">modern browser</a> for the best experience.</p>
+                  <% end %>
+          <% end %>
+
           <%= form_tag(:controller => "logins", :action => "create") do %> 
                   <div class="field">
                           <%= label_tag(:username) %>
