@@ -153,8 +153,8 @@ class D3.Tools
           
           #VNC
           if d.data.svg is 'vnc'
-            _this.currentTool = 'vnc'
             curvy.displayVNCConsole(d3.select(_this.graph.nodes.currentlySelectedNode).data()[0].data)
+            _this.resetTools()
             
           else if _this.currentTool isnt d.data.svg
             _this.currentTool = d.data.svg
@@ -175,7 +175,7 @@ class D3.Tools
         toolEnter.on("dblclick", (d) ->
           #reset so no tool is selected
           tool.style("fill", "white")
-          if _this.currentTool isnt d.data.svg and _this.currentTool isnt "vnc"
+          if _this.currentTool isnt d.data.svg and d.data.svg isnt "vnc"
             _this.currentTool = d.data.svg
             _this.currentToolLocked = true
             # change the color of the selected tool

@@ -125,7 +125,7 @@ class Nodes.Server extends Nodes.Deployable
   # Get VNC Console
   #
   vnc: ->
-    rest.postRequest("/openstack/servers/#{@id}/action", {action:vnc}, (resp) ->)
+    rest.postRequest("/openstack/servers/#{@id}/action", {action:'vnc'}, (resp) ->)
 
   # Create a snapshot of this server
   #
