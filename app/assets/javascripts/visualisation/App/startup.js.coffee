@@ -8,14 +8,14 @@ window.onload = ->
 
 # Set generic Dialog Box
 #
-@genericDialog = (divId) ->
+@genericDialog = (divId, w= 350, h= 250) ->
   $("##{divId}").dialog
     autoOpen: false
     hide: "explode"
     show: "blind"
     modal: true
-    width: 350
-    height: 250
+    width: w
+    height: h
 
 # Initialise JQuery UI Elements
 #
@@ -24,8 +24,8 @@ jQuery ->
   genericDialog "dialog"
   genericDialog "import"
   genericDialog "manage"
-  genericDialog "editContainer"
-  genericDialog "vncConsole"
+  genericDialog "editContainer", 1000, 700
+  genericDialog "vncConsole", 800, 500
   genericDialog "aboutDialog"
   genericDialog "errorDialog"
 
@@ -264,8 +264,8 @@ jQuery ->
   $("#containerEditor").dialog
     autoOpen: false
     modal: true
-    width: 800,
-    height: 500,
+    width: 1000,
+    height: 700,
     buttons: [
       id: "updateContainerButton"
       text: "Update Container"
@@ -326,8 +326,8 @@ jQuery ->
   $("#liveContainerViewer").dialog
     autoOpen: false
     modal: true
-    width: 800,
-    height: 500,
+    width: 1000,
+    height: 700,
     buttons: [
       text: "Back"
       click: ->
