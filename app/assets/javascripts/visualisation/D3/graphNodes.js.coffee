@@ -260,9 +260,8 @@ class D3.GraphNodes
                 str = ""
                 # go through networks
                 for name, network of list
-                  str = name + " "
                   for id, ip of network
-                    str += ip.addr
+                    str = name + "   " + ip.addr
                     newLine(str, 50)
 
               # Function to calculate information from subnets
