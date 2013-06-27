@@ -250,25 +250,26 @@ class App.Curvature
   # Populate the overview quotas sliders
   #
   displayQuotas: ->
+    d3.selectAll(".piechart").remove()
     instancePer = (App.openstack.quotas.totalInstancesUsed() / App.openstack.quotas.maxTotalInstances()) * 100
     $("#instancesSlider").data().used = instancePer
     console.log @instancePie
-    if @instancePie is undefined
-      @instancePie = new D3.Quota("instancesSlider")
+    #if @instancePie is undefined
+    new D3.Quota("instancesSlider")
     #else
       #@instancePie.animate([{"percentage":instancePer},{"percentage":100 - instancePer}])
     $("#instanceText").html("Instances Used : " + App.openstack.quotas.totalInstancesUsed() + "/" + App.openstack.quotas.maxTotalInstances())
 
     cpuPer = (App.openstack.quotas.totalCoresUsed() / App.openstack.quotas.maxTotalCores()) * 100
     $("#cpusSlider").data().used = cpuPer
-    if @cpusPie is undefined
-      @cpusPie = new D3.Quota("cpusSlider")
+    #if @cpusPie is undefined
+    new D3.Quota("cpusSlider")
     $("#cpusText").html("CPUs Used : " + App.openstack.quotas.totalCoresUsed() + "/" + App.openstack.quotas.maxTotalCores())
 
     ramPer = (App.openstack.quotas.totalRAMUsed() / App.openstack.quotas.maxTotalRAMSize()) * 100
     $("#ramSlider").data().used = ramPer
-    if @ramPie is undefined
-      @ramPie = new D3.Quota("ramSlider")
+    #if @ramPie is undefined
+    new D3.Quota("ramSlider")
     $("#ramText").html("RAM Used : " + App.openstack.quotas.totalRAMUsed() + "MB/" + App.openstack.quotas.maxTotalRAMSize() + "MB")
 
   # =====================================
