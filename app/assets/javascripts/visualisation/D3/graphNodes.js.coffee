@@ -183,6 +183,7 @@ class D3.GraphNodes
       .style("fill", "white")
       .call(@graph.force.drag)
       .on("mousedown", (d) ->
+        console.log d.data
         if _this.graph.tools.currentTool is 'link'
           _this.graph.links.newTemporaryLink(d)
           _this.graph.links.drawTemporaryLinks()

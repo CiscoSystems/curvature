@@ -27,6 +27,7 @@ class App.Deploy
     this.populateDeployLists(App.openstack.subnets.get(), subnetsToBeDeleted, subnetsToBeCommitted)
     if App.openstack.services.get().indexOf("donabe") >= 0
       this.populateDeployLists(App.donabe.deployed_containers.get(), containersToBeDeleted, containersToBeCommitted)
+      console.log containersToBeDeleted
 
     # Populate links deploy and delete lists
     deployableLinks = this.populateLinkLists(window.curvy.networkVisualisation.links.links)
@@ -381,6 +382,8 @@ class App.Deploy
   #
   populateDeployLists: (list, deleted, committed) ->
     for deployable in list
+      console.log "ASDASDASD"
+      console.log deployable
       if !deployable.inContainerAsEndpoint?
         switch deployable.deployStatus
           when "marked" then deleted.push(deployable)
