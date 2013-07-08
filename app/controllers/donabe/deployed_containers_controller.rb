@@ -13,7 +13,7 @@ class Donabe::DeployedContainersController < ApplicationController
 
   # Undeploy a running container
   def destroy
-    response = get_request(URI.parse("http://"+Storage.find(cookies[:donabe_ip]).data+"/"+Storage.find(cookies[:current_tenant]).data+"/deployed_containers/"+params[:deployedContainerID]+"/destroy_deployed.json"), Storage.find(cookies[:current_token]).data)
+    response = get_request(URI.parse("http://"+Storage.find(cookies[:donabe_ip]).data+"/"+Storage.find(cookies[:current_tenant]).data+"/deployed_containers/"+params[:deployedContainerID].to_s+"/destroy_deployed.json"), Storage.find(cookies[:current_token]).data)
     json_respond response.body
 
   end
