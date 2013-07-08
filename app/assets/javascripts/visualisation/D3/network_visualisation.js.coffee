@@ -72,11 +72,13 @@ class D3.Visualisation extends D3.Graph
      # Draw containers
      
      activeContainers = [];
-     $.extend(true, activeContainers, App.donabe.deployed_containers.get());
+     ##$.extend(true, activeContainers, App.donabe.deployed_containers.get()); <--!!
+     activeContainers = App.donabe.deployed_containers.get()
      
      for activeContainer in activeContainers
        if not App.donabe.deployed_containers.inContainer(activeContainer['id'])
-         this.nodes.newNode(new Nodes.Container(activeContainer, 'deployed'))
+         activeContainer.deployStatus = 'deployed'
+         this.nodes.newNode(activeContainer)
  
          for originNetwork in activeContainer['networks']
            if originNetwork.endpoint == true

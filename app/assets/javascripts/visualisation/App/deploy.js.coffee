@@ -34,33 +34,39 @@ class App.Deploy
 
     # Run deploy!
     $.when.apply(this, this.deployContainers(containersToBeCommitted,deployableLinks)).done(=>
-      # Initialise link deploy lists 
-      interfacesToBeDestroyed = deployableLinks[0]
-      interfacesToBeCommitted = deployableLinks[1]
-      nicsToBeDestroyed = deployableLinks[2]
-      nicsToBeCommitted = deployableLinks[3]
-      gatewaysToBeDestroyed = deployableLinks[4]
-      gatewaysToBeCommitted = deployableLinks[5]
-      attachmentsToBeDestroyed = deployableLinks[6]
-      attachmentsToBeCommitted = deployableLinks[7]
-      $.when.apply(this, this.terminateAttachments(attachmentsToBeDestroyed)).done(=>
-        $.when.apply(this, this.terminateNics(nicsToBeDestroyed)).done(=>
-          $.when.apply(this, this.terminateNodes(serversToBeDeleted)).done(=>
-            $.when.apply(this, this.terminateNodes(routersToBeDeleted)).done(=>
-              $.when.apply(this, this.terminateNodes(networksToBeDeleted)).done(=>
-                $.when.apply(this, this.deployNodes(networksToBeCommitted)).done(=>
-                  for net in networksToBeCommitted
-                    sub = App.openstack.subnets.add({network_id:net.id, cidr:net.cidr})
-                    subnetsToBeCommitted.push(sub)
-                  $.when.apply(this, this.deployNodes(subnetsToBeCommitted)).done(=>
-                    $.when.apply(this, this.deployNodes(routersToBeCommitted)).done(=>
-                      $.when.apply(this, this.deployNics(nicsToBeCommitted)).done(=>
-                        $.when.apply(this, this.deployNodes(serversToBeCommitted)).done(=>
-                          tasks = this.terminateInterfaces(interfacesToBeDestroyed).concat(this.terminateGateways(gatewaysToBeDestroyed), this.terminateNics(nicsToBeDestroyed))
-                          $.when.apply(this, tasks).done(=>
-                            tasks = this.deployGateways(gatewaysToBeCommitted).concat(this.deployInterfaces(interfacesToBeCommitted), this.deployAttachments(attachmentsToBeCommitted))
+      $.when.apply(this, this.terminateContainers(containersToBeDeleted,deployableLinks)).done(=>
+        
+        console.log "....."
+        console.log containersToBeDeleted
+        
+        # Initialise link deploy lists 
+        interfacesToBeDestroyed = deployableLinks[0]
+        interfacesToBeCommitted = deployableLinks[1]
+        nicsToBeDestroyed = deployableLinks[2]
+        nicsToBeCommitted = deployableLinks[3]
+        gatewaysToBeDestroyed = deployableLinks[4]
+        gatewaysToBeCommitted = deployableLinks[5]
+        attachmentsToBeDestroyed = deployableLinks[6]
+        attachmentsToBeCommitted = deployableLinks[7]
+        $.when.apply(this, this.terminateAttachments(attachmentsToBeDestroyed)).done(=>
+          $.when.apply(this, this.terminateNics(nicsToBeDestroyed)).done(=>
+            $.when.apply(this, this.terminateNodes(serversToBeDeleted)).done(=>
+              $.when.apply(this, this.terminateNodes(routersToBeDeleted)).done(=>
+                $.when.apply(this, this.terminateNodes(networksToBeDeleted)).done(=>
+                  $.when.apply(this, this.deployNodes(networksToBeCommitted)).done(=>
+                    for net in networksToBeCommitted
+                      sub = App.openstack.subnets.add({network_id:net.id, cidr:net.cidr})
+                      subnetsToBeCommitted.push(sub)
+                    $.when.apply(this, this.deployNodes(subnetsToBeCommitted)).done(=>
+                      $.when.apply(this, this.deployNodes(routersToBeCommitted)).done(=>
+                        $.when.apply(this, this.deployNics(nicsToBeCommitted)).done(=>
+                          $.when.apply(this, this.deployNodes(serversToBeCommitted)).done(=>
+                            tasks = this.terminateInterfaces(interfacesToBeDestroyed).concat(this.terminateGateways(gatewaysToBeDestroyed), this.terminateNics(nicsToBeDestroyed))
                             $.when.apply(this, tasks).done(=>
-                              this.deployFinished()
+                              tasks = this.deployGateways(gatewaysToBeCommitted).concat(this.deployInterfaces(interfacesToBeCommitted), this.deployAttachments(attachmentsToBeCommitted))
+                              $.when.apply(this, tasks).done(=>
+                                 this.deployFinished()
+                              ).fail(this.deployFailed)
                             ).fail(this.deployFailed)
                           ).fail(this.deployFailed)
                         ).fail(this.deployFailed)
@@ -382,7 +388,6 @@ class App.Deploy
   #
   populateDeployLists: (list, deleted, committed) ->
     for deployable in list
-      console.log "ASDASDASD"
       console.log deployable
       if !deployable.inContainerAsEndpoint?
         switch deployable.deployStatus

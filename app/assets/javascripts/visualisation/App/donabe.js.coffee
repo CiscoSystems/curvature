@@ -94,7 +94,7 @@ App.donabe =
       rest.getRequest('/donabe/deployed_containers', (resp) =>
         @_data = []
         for container in resp['deployed_containers']
-          @_data.push(container)
+          this.add(container)
       )
     add: (data) ->
       n = new Nodes.Container(data, 'undeployed')
