@@ -20,7 +20,7 @@ class Nodes.Container extends Nodes.Deployable
         this.setDataFromOpenstackData(resp['container'])
         
         $.when(
-          App.donabe.deployed_containers.populate()
+          ##App.donabe.deployed_containers.populate()
           App.openstack.networks.populate()
           App.openstack.subnets.populate()
           App.openstack.ports.populate()
