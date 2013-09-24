@@ -12,9 +12,6 @@ body {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#003c87), color-stop(100%,#307bad));
 }
 
-#header {
-}
-
 #header h1 {
   float: left;
   padding-left: 20px;
@@ -28,32 +25,34 @@ body {
 }
 
 #main {
-  padding-left: 5px;
-  padding-top: 20px;
   padding-bottom: 20px;
   background-color: #d7ebf9;
-  border-radius: 0px 0px 15px 15px;
 }
 
 #nav {
-  float: left;
-  width: 124px;
+  margin-left: 145px;
+  position: absolute;
 }
 
 #nav ul {
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
   list-style-type:none;
-  margin:0px;
-  padding:0px;
 }
 
 #nav li {
-  padding: 2px 5px 2px 5px;
-  margin: 4px 0px;
-  background: linear-gradient(to bottom, #003c87 0%,#307bad 100%);
-  background: -webkit-linear-gradient(top, #003c87 0%,#307bad 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#003c87), color-stop(100%,#307bad));
-  border-radius: 5px;
+  display: inline;
+}
+
+#nav p {
+  display:inline;
+  padding-left:250px;
+}
+
+#nav a, #nav p {
   color: white;
+  padding-right: 20px;
 }
 
 #content {
@@ -61,13 +60,27 @@ body {
   padding: 0px;
   width: 845px;
   float: left;
+  margin-top:20px;
   margin-left:20px;
+  background: #307bad;
+}
+
+#content h1 {
+  margin-left: 20px;
+}
+
+#feed {
+  float: left;
+  margin-top: 20px;
+  margin-left:20px;
+  width: 360px;
+  background: #f0f;
+  border-radius: 15px 15px 15px 0px;
 }
 
 #slideshow {
-  height: 240px;
-  width: 620px;
-  background-color: black;
+  padding:20px;
+  height: 300px;
   margin-bottom: 10px;
 }
 
@@ -78,10 +91,21 @@ body {
 }
 
 .updates li {
-  background:  
+  margin: 20px;
+  background:  #fff;
+  -moz-box-shadow: 2px 2px 2px 2px #444;
+  -webkit-box-shadow: 2px 2px 2px 2px #444;
+  box-shadow: 2px 2px 2px 2px #444;
+  padding-bottom: 4px;
+}
+
+.updates p {
+  padding-left:15px;
 }
 
 .updates h2 {
+  padding-top: 10px;
+  padding-left: 15px;
   margin-top:0px;
 }
 

@@ -1,0 +1,7 @@
+<script>
+  FEED_URL = "https://github.com/CiscoSystems/curvature/commits/master.atom?login=Tehsmash&token=ffde533dcb756cb28929e22f07a3dea6"
+  var feed = new google.feeds.Feed(FEED_URL);
+  feed.load(function (data) {
+    console.log(data);
+  });
+</script>

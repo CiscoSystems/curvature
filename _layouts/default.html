@@ -1,33 +1,36 @@
 <html>
   <head>
     <title> {% if page.title %} {{ page.title }} | {% endif %} Curvature - The Advanced Dashboard </title>
-    <link rel="stylesheet" href="css/style.css" />
+    {% include imports %}
   </head>
   <body>
     <div id="header">
       <img src="images/logo.png" alt="curvature logo">
       <h1> Curvature - The Advanced Dashboard </h1>
     </div>
-    <div id="stripe"> </div>
-    <div id="main">
+    <div id="stripe">
       <div id="nav">
         <ul>
-          <li> Home </li>
-          <li> About the Project </li>
-          <li> Documentation </li>
-        </ul>
-        Related Projects:
-        <ul>
-          <li> Donabe </li>
+          <li><a> Home </a></li>
+          <li><a> About </a></li>
+          <li><a> Documentation</a></li>
+          <li><p> Related Projects: </p></li>
+          <li><a> Donabe</a></li>
         </ul>
       </div>
+    </div>
+    <div id="main">
       <div id="content">
         {{ content }}
+      </div>
+      <div id="feed">
+        <p> Recent Activity </p> <img src="images/feed-icon-14x14.png" alt="RSS feed">
+        {% include rssfeed.html %}
       </div>
       <div class="clear"> </div>
     </div>
     <div id="footer">
-      <p> Some footer information goes here like copyright or something </p>
+      <p> Some footer information goes here like copyright or something | Site Last Updated: {{ site.time }} </p> 
     </div>
   </body>
 </html>

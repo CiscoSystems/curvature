@@ -1,8 +1,10 @@
 ---
 layout: default
 ---
-<div id="slideshow"> 
+<div id="slideshow">
+  {% include screenshots.html %} 
 </div>
+<h1> News and Updates </h1>
 <ul class="updates">
   {% for post in site.posts limit:4 %}
   <li>
