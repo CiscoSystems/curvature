@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>  Curvature - The Advanced Dashboard </title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+<link rel="stylesheet" href="/assets/css/flexslider.css" />
+<script type="text/JavaScript" src="/assets/javascripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">google.load("feeds", "1");</script> 
+
+  </head>
+  <body>
+    <div id="header">
+      <img src="/images/logo.png" alt="curvature logo">
+      <h1> Curvature - The Advanced Dashboard </h1>
+    </div>
+    <div id="stripe">
+      <div id="nav">
+        <ul>
+          <li><a href="/index.html"> Home </a></li>
+          <li><a href="/about"> About </a></li>
+          <li><a href="/documentation"> Documentation </a></li>
+          <li><a href="http://github.com/CiscoSystems/curvature"> Code </a></li>
+          <li><a href="/archive"> Archive </a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div id="content">
+        <h1> Documentation </h1>
+
+      </div>
+      <div id="rightpane">
+        <div id="feed">
+          <p> Recent Activity </p> <img src="/images/feed-icon-14x14.png" alt="RSS feed">
+          <script>
+  FEED_URL = "https://github.com/CiscoSystems/curvature/commits/master.atom?login=Tehsmash&token=ffde533dcb756cb28929e22f07a3dea6"
+  var feed = new google.feeds.Feed(FEED_URL);
+  feed.load(function (data) {
+    console.log(data);
+  });
+</script>
+
+        </div>
+        <div id="related">
+          <p> Related Projects </p>
+          <ul>
+            <li> Donabe </li>
+          </ul>
+        </div>
+      </div>
+      <div class="clear"> </div>
+      <div id="footer">
+        <p> Some footer information goes here like copyright or something. Hosted by GitHub and powered by Jekyll. | Site Last Updated: 2013-09-25 16:34:18 +0100 </p> 
+      </div>
+    </div>
+  </body>
+</html>
