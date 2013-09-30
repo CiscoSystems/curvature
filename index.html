@@ -11,7 +11,7 @@ layout: default
   <h2> {{ post.title }} </h2>
   <h3> Post Summited on {{ post.date | date_to_string }} </h2>
     <p> {{ post.excerpt }} </p>
-    <a class="readmore" href="{{ post.url }}">Read More</a>
+    <a class="readmore" href="{{ site.url }}{{ post.url }}">Read More</a>
   </li>
   {% endfor %}
 </ul>
