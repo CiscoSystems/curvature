@@ -11,18 +11,30 @@ To start the server make sure you are in the curvature root directory and run th
 (You can customize the port by adding "-p myport"  where "myport" is the actual port number you want to run the server on.)
 (You can run the server in daemon mode by adding -d, server output is then stored under /logs)
 
-Installing Rails
-----------------
+Installing The Environment
+--------------------------
 
-Follow the instructions on the Ruby on Rails website. If you run into any problems, it is most likely that you need to install the SQLite3 development packages.  
+In order to install the correct version of ruby (1.9.3) we recommend using RVM simply type into a terminal:
+
+curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3 --gems=rails
+
+If curl is not installed run 
+
+sudo apt-get install curl
+
+In order to now use rvm restart your terminal and change your terminal preferences to run command as login shell. If using gnome-terminal in Ubuntu instructions on how to do this can be found here https://rvm.io/integration/gnome-terminal
+
+If you run into any problems, it is most likely that you need to install the SQLite3 development packages.  
   
 sudo apt-get install libsqlite3-dev  
+
+
   
 In the curvature directory run: 
   
 bundle install  
   
-(bundle exec) rake db:drop  
+#(bundle exec) rake db:drop  
 (bundle exec) rake db:create  
 (bundle exec) rake db:migrate  
   
@@ -66,3 +78,7 @@ Dependencies
 ------------
 
 * ropenstack - A ruby Gem which abstracts the OpenStack APIs into an OO form.
+* git
+* ruby 1.9.3
+* rails
+* curl

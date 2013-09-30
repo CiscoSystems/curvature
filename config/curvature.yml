@@ -1,6 +1,6 @@
 defaults: &defaults
   keystone:
-    ip: 171.71.119.10
+    ip: localhost 
     port: 5000
   services:
     ip:
