@@ -4,25 +4,8 @@
     {% include imports.html %}
   </head>
   <body>
-    <div id="header">
-      <div id="header-contents">
-        <img src="{{ site.url }}/images/logo.png" alt="curvature logo">
-        <h1> Curvature - The Advanced Dashboard </h1>
-        <div class="clear"></div>
-      </div>
-    </div>
-    <div id="stripe">
-      <div id="nav">
-        <ul>
-          <li><a href="{{ site.url }}/index.html">Home</a></li>
-          <li><a href="{{ site.url }}/about">About</a></li>
-          <li><a href="{{ site.url }}/documentation">Documentation</a></li>
-          <li><a href="http://github.com/CiscoSystems/curvature">Code</a></li>
-          <li><a href="#wiki">Wiki</a></li>
-          <li><a href="{{ site.url }}/index.html">Archive</a></li>
-        </ul>
-      </div>
-    </div>
+    {% include header.html %}
+    {% include navbar.html %}
     <div id="main">
       <div id="content">
         <h1>{{ page.title }}</h1>
@@ -37,14 +20,12 @@
         <div id="related">
           <h3> Related Projects </h3>
           <ul>
-            <li> Donabe </li>
+            <li><a href="http://ciscosystems.github.io/donabe">Donabe</a></li>
           </ul>
         </div>
       </div>
       <div class="clear"> </div>
-      <div id="footer">
-        <p> Some footer information goes here like copyright or something. Hosted by GitHub and powered by Jekyll. | Site Last Updated: {{ site.time | date_to_string }} </p> 
-      </div>
+      {% include footer.html %} 
     </div>
   </body>
 </html>

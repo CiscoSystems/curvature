@@ -186,6 +186,10 @@ body {
   list-style-type:none;
 }
 
+#related a {
+  color: white;
+}
+
 /* End Right Pane CSS */ 
 
 /* End Main CSS */
