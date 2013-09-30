@@ -8,7 +8,7 @@ title: Archive
   <h2> {{ post.title }} </h2>
   <h3> Post Summited on {{ post.date }} </h2>
     <p> {{ post.excerpt }} </p>
-    <a class="readmore" href="#readmore"> Read More </a>
+    <a class="readmore" href="{{ site.url }}{{ post.url }}">Read More</a>
   </li>
   {% endfor %}
 </ul>
