@@ -1,104 +1,104 @@
 body {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top:0px;
-  min-width: 900px;
+  min-width: 960px;
+  margin: 0px;
   font-family: "Lucida Grande",Lucida Sans,Arial,sans-serif;
-
+  background-color: #d7ebf9;
 }
 
-#stripe {
-  height: 40px;
-  margin-top: 100px;
-  background: linear-gradient(to bottom, #003c87 0%,#307bad 100%);
-  background: -webkit-linear-gradient(top, #003c87 0%,#307bad 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#003c87), color-stop(100%,#307bad));
+.clear {
+  clear:both;
+}
+
+/* Header CSS */
+
+#header {
+  background: white;
+  padding-top: 20px;
+  height: 80px;
+  width: 100%;
+}
+
+#header-contents {
+  width: 960px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #header h1 {
   float: left;
   padding-left: 20px;
-  margin-top: -55px;
 }
 
 #header img {
   float: left;
   width: 124px;
-  margin-top: -80px;
 }
 
-#main {
-  padding-bottom:10px;
-  background-color: #d7ebf9;
+/* End Header CSS */
+
+/* Nav CSS */
+
+#stripe {
+  height: 40px;
+  background: linear-gradient(to bottom, #003c87 0%,#307bad 100%);
+  background: -webkit-linear-gradient(top, #003c87 0%,#307bad 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#003c87), color-stop(100%,#307bad));
 }
 
 #nav {
-  margin-left: 125px;
-  width: 100%;
-  height: 40px;
-  position: absolute;
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #nav ul {
   margin: 0;
   padding: 0;
-  height:30px;
-  margin-top:10px;
   list-style-type:none;
 }
 
 #nav li {
-  height:40px;
-  display: inline;
+  float: left;
+  position: relative;
 }
 
 #nav a {
   text-decoration: none;
   color: white;
-  padding-top:10px;
-  padding-bottom:12px;
-  padding-left: 20px;
-  padding-right: 20px;
+  display: block;
+  line-height: 40px;
+  padding: 0px 20px;
 }
 
 #nav a:hover {
   background: #003c87;
 }
 
+/* End Nav CSS */ 
+
+/* Main CSS */
+
+#main {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #content {
   margin: 0px;
   padding: 0px;
-  width: 845px;
+  margin-top: 20px;
+  margin-right: 10px;
+  width: 690px;
   float: left;
-  margin-top:20px;
-  margin-left:20px;
   padding:20px;
   background: #307bad;
   border-radius: 15px 15px 15px 0px;
 }
 
 #content h1 {
-  padding-bottom: 10px;
+  padding: 0;
   margin: 0;
-}
-
-#rightpane {
-  float: left;
-  margin-top:20px;
-  margin-left:20px;
-  width: 320px;
-}
-
-#feed, #related {
-  color: white;
-  background: #003c87;
-  border-radius: 15px 15px 15px 0px;
-  margin-bottom: 20px;
-  padding: 10px;
-}
-
-#feed p, #related p {
-  margin:0;
 }
 
 #slideshow {
@@ -117,7 +117,7 @@ body {
   -webkit-box-shadow: 2px 2px 2px 2px #444;
   box-shadow: 2px 2px 2px 2px #444;
   padding-bottom: 10px;
-  margin-bottom:20px;
+  margin-top:20px;
   border-radius: 15px 15px 15px 0px;
 }
 
@@ -145,19 +145,57 @@ body {
   padding-left:15px;
 }
 
-.clear {
-  clear:both;
+/* Right Pane CSS */
+
+#rightpane {
+  float: left;
+  margin-top:20px;
+  margin-left: 10px;
+  width: 210px;
 }
 
-#footer p {
-  margin:0;
-  padding:0;
+#rightpane h3 {
+  margin: 0px;
+  font-size: 14px;
+  margin-bottom: 5px; 
 }
+
+#feed, #related {
+  color: white;
+  background: #003c87;
+  border-radius: 15px 15px 15px 0px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+#feed h3 {
+  float:left;
+}
+
+#feed img {
+  padding-left: 5px;
+  float:left;
+}
+
+#related h3 {
+}
+
+#related ul {
+  margin: 0;
+  padding: 0;
+  list-style-type:none;
+}
+
+/* End Right Pane CSS */ 
+
+/* End Main CSS */
+
+/* Footer CSS */ 
 
 #footer {
   font-size:10px;
-  margin:20px;
   padding:5px;
+  margin: 20px 0px;
   background:  #fff;
   -moz-box-shadow: 2px 2px 2px 2px #444;
   -webkit-box-shadow: 2px 2px 2px 2px #444;
@@ -165,3 +203,10 @@ body {
   border-radius: 15px 15px 15px 0px;
   text-align:center;
 }
+
+#footer p {
+  margin:0;
+  padding:0;
+}
+
+/* End Footer CSS */
