@@ -1,6 +1,16 @@
 Curvature - JavaScript based Visualization Tool and Dashboard For OpenStack
 ==========================================================================
 
+What is Curvature
+-----------------
+
+Curvature is an interactive visualization tool and dashboard for
+Openstack clouds. It uses javascript and is written using the Rails
+framework. It leverages Javascript libraries like D3. 
+
+Running Curvature
+-----------------
+
 To run your own copy of the software, take the folder Server and place it into where you wish to launch the app. You will need to have installed Ruby On Rails to proceed, so follow the instructions below in order to do that.
 
 Open the folder, and in a text editor of your choice open /Server/config/curvature.yml 
