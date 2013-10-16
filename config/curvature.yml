@@ -2,9 +2,6 @@ defaults: &defaults
   keystone:
     ip: localhost 
     port: 5000
-  services:
-    ip:
-    port:
 
 development:
   <<: *defaults
