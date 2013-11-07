@@ -78,7 +78,7 @@ module Ropenstack
           http.request(request)
           return { "Success" => true }
         end
-      rescue Timeout::Error
+      rescue
         raise Ropenstack::TimeoutError, "It took longer than #{timeout} to connect to #{uri.to_s}"	
       end	
     end
