@@ -8,46 +8,71 @@ Curvature is an interactive visualization tool and dashboard for
 Openstack clouds. It uses javascript and is written using the Rails
 framework. It leverages Javascript libraries like D3. 
 
-Running Curvature
------------------
-
-To run your own copy of the software, take the folder Server and place it into where you wish to launch the app. You will need to have installed Ruby On Rails to proceed, so follow the instructions below in order to do that.
-
-Open the folder, and in a text editor of your choice open /Server/config/curvature.yml 
-
-Replace the OpenStack Keystone IP Address and Port with the access location of the Keystone Server in your cluster and save the file.
-
-To start the server make sure you are in the curvature root directory and run the command 'rails server' 
-(You can customize the port by adding "-p myport"  where "myport" is the actual port number you want to run the server on.)
-(You can run the server in daemon mode by adding -d, server output is then stored under /logs)
-
 Installing The Environment
 --------------------------
 
 In order to install the correct version of ruby (1.9.3) we recommend using RVM simply type into a terminal:
 
+```
 curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3 --gems=rails
+```
 
-If curl is not installed run 
+If curl is not installed run:
 
+```
 sudo apt-get install curl
+```
 
 In order to now use rvm restart your terminal and change your terminal preferences to run command as login shell. If using gnome-terminal in Ubuntu instructions on how to do this can be found here https://rvm.io/integration/gnome-terminal
 
 If you run into any problems, it is most likely that you need to install the SQLite3 development packages.  
-  
-sudo apt-get install libsqlite3-dev  
 
-
+```
+sudo apt-get install libsqlite3-dev
+```
   
 In the curvature directory run: 
+
+```
+bundle install
+```
+
+After buundle has run successfully initialize the databse with:
+
+```
+rake db:create  
+rake db:migrate
+```
   
-bundle install  
-  
-(bundle exec) rake db:create  
-(bundle exec) rake db:migrate  
-  
-rails server  
+Running Curvature
+-----------------
+
+Using a text editor of your choice open /config/curvature.yml 
+
+Replace the OpenStack Keystone IP Address and Port with the location of the Keystone Server in your cluster and save the file.
+
+To start the server in development mode make sure you are in the curvature root directory and run:
+
+```
+rails server
+```
+
+By default the service will start on port 3000 but you can customize this with:
+
+```
+rail server -p myport
+```
+
+Replacing myport th the desired port number.
+
+You can also run in daemon mode with:
+
+```
+rails server -d
+```
+
+Logs will be saved to /log/development.log
+
 
 Developer Information  
 ---------------------
