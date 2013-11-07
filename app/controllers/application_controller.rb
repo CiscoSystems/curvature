@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
       code = 500
       message = "There has been an error on openstack."
     end	
-
+  
     exp = JSON.parse(exception.to_s)
 
     respond_to do |format|
