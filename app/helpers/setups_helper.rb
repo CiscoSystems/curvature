@@ -1,2 +1,2 @@
-module SetupHelper
+module SetupsHelper
 end
