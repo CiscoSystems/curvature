@@ -19,6 +19,7 @@ class SetupsController < ApplicationController
       File.open("config/curvature.yml", "w") { |file|
         file.write(config)
       }
+      APP_CONFIG['keystone'] = {}
       APP_CONFIG['keystone']['ip'] = @ip
       APP_CONFIG['keystone']['port'] = @port
     else
