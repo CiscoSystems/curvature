@@ -1,4 +1,4 @@
-.DS_Store
+DS_Store
 
 log/development.log
 log/production.log
@@ -16,3 +16,5 @@ db/development.sqlite3
 *.sqlite3
 
 .orig
+
+*.log
