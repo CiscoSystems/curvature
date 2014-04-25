@@ -22,8 +22,9 @@ class SetupsController < ApplicationController
       APP_CONFIG['keystone'] = {}
       APP_CONFIG['keystone']['ip'] = @ip
       APP_CONFIG['keystone']['port'] = @port
+      redirect_to login_url, :notice => "Curvature Keystone Config Completed!"
     else
-      #Error something something
+      redirect_to setups_url
     end
   end
 end
