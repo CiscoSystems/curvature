@@ -6,49 +6,50 @@ Precompile the Assets
 ---------------------
 Precompile all the static assets to prevent rails compiling them on every request. 
 
-  rake assets:precompile:all
+    rake assets:precompile:all
 
 
 Setup Apache
 ------------
 Install apache modules:
-  sudo a2enmod proxy
-  sudo a2enmod proxy_balancer
-  sudo a2enmod proxy_http
-  sudo a2enmod rewrite
+
+    sudo a2enmod proxy
+    sudo a2enmod proxy_balancer
+    sudo a2enmod proxy_http
+    sudo a2enmod rewrite
 
 Create an Apache Virtual Host, this configuration will use Apache to serve all the static files, and unicorn for all the non-static application work. 
 
-  <VirtualHost *:80>
-    ServerName domain.com
-    ServerAlias www.domain.com
+    <VirtualHost *:80>
+      ServerName domain.com
+      ServerAlias www.domain.com
 
-    # Point at curvatures public folder
-    DocumentRoot /opt/curvature/public
+      # Point at curvatures public folder
+      DocumentRoot /opt/curvature/public
 
-    RewriteEngine On
+      RewriteEngine On
 
-    <Proxy balancer://unicornservers>
-      BalancerMember http://127.0.0.1:3000
-    </Proxy>
+      <Proxy balancer://unicornservers>
+        BalancerMember http://127.0.0.1:3000
+      </Proxy>
 
-    # Redirect all non-static requests to unicorn.
-    RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
-    RewriteRule ^/(.*)$ balancer://unicornservers%{REQUEST_URI} [P,QSA,L]
+      # Redirect all non-static requests to unicorn.
+      RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
+      RewriteRule ^/(.*)$ balancer://unicornservers%{REQUEST_URI} [P,QSA,L]
 
-    ProxyPassReverse / balancer://unicornservers/
-    ProxyPreserveHost on
+      ProxyPassReverse / balancer://unicornservers/
+      ProxyPreserveHost on
 
-    <Proxy *>
-      Order deny,allow
-      Allow from all
-    </Proxy>
+      <Proxy *>
+        Order deny,allow
+        Allow from all
+      </Proxy>
 
-    # Custom log file locations
-    ErrorLog  /opt/curvature/log/error.log
-    CustomLog /opt/curvature/log/access.log combined
+      # Custom log file locations
+      ErrorLog  /opt/curvature/log/error.log
+      CustomLog /opt/curvature/log/access.log combined
 
-  </VirtualHost>
+    </VirtualHost>
 
 After setting up virtual hosts remember to restart apache. 
 
@@ -56,7 +57,7 @@ Starting Unicorn
 ----------------
 Start the unicorn application server. 
 
-  bundle exec unicorn -p 3000 -E production
+    bundle exec unicorn -p 3000 -E production
 
 
 Test Application Server
