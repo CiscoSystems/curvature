@@ -1,7 +1,5 @@
 defaults: &defaults
-  keystone:
-    ip: 127.0.0.1
-    port: 
+  no_config: true
 
 development:
   <<: *defaults

@@ -2,38 +2,41 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$("#port").change ->
-  console.log "Port Changed"
+window.onload = ->
 
-  port = $("#port").value
-  valid = true
+  $("#port").keyup ->
+    console.log "Port Changed"
 
-  for s in port
-    if !isFinite(s)
-      valid = false
+    port = document.getElementById("port").value
+    valid = true
+    console.log(port)
 
-  if valid
-    $("#submitBtn").toggle(true)
-  else
-    $("#submitBtn").toggle(false)
+    for s in port
+      if !isFinite(s)
+        valid = false
 
-  return
+    if valid
+      $("#submitBtn").toggle(true)
+    else
+      $("#submitBtn").toggle(false)
 
-$("#ipaddr").change ->
-  console.log "IP address changed"
+    return
 
-  validate = $("#ipaddr").value
+  $("#ipaddr").keyup ->
+    console.log "IP address changed"
 
-  if ValidateIPaddress validate
-    $("#submitBtn").toggle(true)
-  else
-    $("#submitBtn").toggle(false)
+    validate = document.getElementById("ipaddr").value
 
-  return
+    if ValidateIPaddress validate
+      $("#submitBtn").toggle(true)
+    else
+      $("#submitBtn").toggle(false)
 
-ValidateIPaddress = (inputText) ->
-  ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
-  if inputText.value.match(ipformat)
-    true
-  else
-    false
+    return
+
+  ValidateIPaddress = (inputText) ->
+    ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+    if inputText.match(ipformat)
+      true
+    else
+      false
