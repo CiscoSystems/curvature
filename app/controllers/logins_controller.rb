@@ -36,8 +36,12 @@ class LoginsController < ApplicationController
       flash[:unsupported] = flash_string
     end
 
-    respond_to do |format|
-      format.html
+    if(!APP_CONFIG.has_key?("keystone"))
+      redirect_to setup_url
+    else
+      respond_to do |format|
+        format.html
+      end
     end
   end
 

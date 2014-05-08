@@ -1,5 +1,7 @@
 defaults: &defaults
-  no_config: true
+  keystone:
+    ip: <%= @ip %>
+    port: <%= @port %>
 
 development:
   <<: *defaults

@@ -1,6 +1,8 @@
 Server::Application.routes.draw do
   resource :visualisation, :only => :show
 
+  resource :setup, :only => [:show, :create]
+
   namespace :network_designs do
   end
 

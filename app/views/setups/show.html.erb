@@ -1,0 +1,38 @@
+  <div id="login">
+
+          <img src="/assets/curvature_logo.png" style="display: block;margin-left:auto;margin-right:auto "></img>
+
+          <h2> Setup </h2>
+
+          <% if flash[:error] %>
+                  <p class="error"> <%= flash[:error] %></p>
+          <% end %>
+
+          <% if flash[:notice] %>
+                  <p class="notice"> <%= flash[:notice] %></p>
+          <% end %>
+
+          <% if flash[:unsupported] %>
+                  <p class="error"> <%= flash[:unsupported] %></p>
+                  <% if @unsupported %>
+                    <p class="error">Please upgrade to a <a href="http://www.google.com/chrome">modern browser</a> for the best experience.</p>
+                  <% end %>
+          <% end %>
+
+          <%= form_tag(:controller => "setups", :action => "create") do %>
+                  <div class="field">
+                          <%= label_tag("IP Address of Keystone") %> <br />
+                          <%= text_field_tag(:ipaddr, "127.0.0.1") %>
+                  </div> <br />
+                  <div class="field">
+                          <%= label_tag("Port Keystone is running on") %> <br />
+                          <%= text_field_tag(:port, "5000") %>
+                  </div>
+                  <div class="actions">
+                    <%= submit_tag "Finish Setup" , :class => "button blue" , :id => "submitBtn" %>
+                  </div>
+          <% end %>
+
+  </div>
+
+  <img id="ciscologo" src="/assets/cisco_logo.png">
