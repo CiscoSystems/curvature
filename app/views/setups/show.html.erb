@@ -21,12 +21,12 @@
 
           <%= form_tag(:controller => "setups", :action => "create") do %>
                   <div class="field">
-                          <%= label_tag(:ipaddr) %>
-                          <%= text_field_tag(:ipaddr) %>
-                  </div>
+                          <%= label_tag("IP Address of Keystone") %> <br />
+                          <%= text_field_tag(:ipaddr, "127.0.0.1") %>
+                  </div> <br />
                   <div class="field">
-                          <%= label_tag(:port) %> <br />
-                          <%= text_field_tag(:port) %>
+                          <%= label_tag("Port Keystone is running on") %> <br />
+                          <%= text_field_tag(:port, "5000") %>
                   </div>
                   <div class="actions">
                           <%= submit_tag "Finish Setup" , :class => "button blue" %>
