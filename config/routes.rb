@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :envrionments
 
-  resources :users
+  resources :users do
+    resources :environments
+  end
 
   resource :meta, :only => [:show]
 
@@ -11,7 +13,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'logins#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

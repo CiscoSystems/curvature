@@ -5,6 +5,9 @@ class CreateEnvrionments < ActiveRecord::Migration
       t.string :password
       t.string :ip
 
+      # reference the user table
+      t.references :user, index: true
+
       t.timestamps
     end
   end
