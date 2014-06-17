@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :envrionments
+
+  resources :users
+
+  resource :meta, :only => [:show]
+
+  resource :login, :except => [:update, :new, :edit]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
