@@ -17,17 +17,17 @@ ActiveRecord::Schema.define(version: 20140617141143) do
     t.string   "username"
     t.string   "password"
     t.string   "ip"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "storages", force: true do |t|
-    t.text     "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  add_index "envrionments", ["user_id"], name: "index_envrionments_on_user_id"
 
   create_table "users", force: true do |t|
+    t.string   "firstname"
+    t.string   "surname"
+    t.string   "email"
     t.string   "username"
     t.string   "password"
     t.datetime "created_at"
