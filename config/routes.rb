@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :envrionments
-
   resources :users do
     resources :environments
   end
