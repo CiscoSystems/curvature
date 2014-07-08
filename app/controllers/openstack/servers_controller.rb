@@ -26,7 +26,7 @@ class Openstack::ServersController < ApplicationController
   end
 
   def quotas
-    json_respond compute().quotas()
+    json_respond compute().limits()
   end
 
   def attach_volume

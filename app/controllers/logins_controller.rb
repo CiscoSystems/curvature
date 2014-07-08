@@ -68,6 +68,7 @@ class LoginsController < ApplicationController
       store(:current_token, identity.token())
 
       #Parse Service Catalog-----------------------------------------------------
+      logger.info(identity.services())
       store_services(identity.services(), identity.admin())
 
       #Redirect to the curvature dashboard after successfully logging in
@@ -81,7 +82,7 @@ class LoginsController < ApplicationController
   
   ##Reauthenticate and set new scoped token
   def switch
-    identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], get_data(:current_token))
+    identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], get_data(:current_token), "identityv2")
     identity.scope_token(params[:tenant_name])
     store_services(identity.services(), identity.admin())	
     store(:current_tenant, identity.token_metadata()["tenant"]["id"])
@@ -92,7 +93,7 @@ class LoginsController < ApplicationController
 
   ##Used to fill out tenant switching bar in interface.
   def tenants
-    identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], get_data(:current_token))
+    identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], get_data(:current_token), "identityv2")
     respond_to do |format|
       format.json { render :json => identity.tenant_list() }
     end
@@ -131,7 +132,7 @@ class LoginsController < ApplicationController
       else
         servs = "#{servs},#{service["type"]}"
       end
-      name = service["name"] + "_ip"
+      name = service["type"] + "_ip"
       store(name.to_sym, service["endpoints"][0]["publicURL"])
       logger.info service["endpoints"][0]["publicURL"]
     end
