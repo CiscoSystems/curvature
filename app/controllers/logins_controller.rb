@@ -36,6 +36,8 @@ class LoginsController < ApplicationController
       flash[:unsupported] = flash_string
     end
 
+    logger.info(APP_CONFIG)
+
     if(!APP_CONFIG.has_key?("identity"))
       redirect_to setup_url
     else
@@ -48,7 +50,7 @@ class LoginsController < ApplicationController
   ##Attempt login, store cookie, 
   def create
     begin
-      identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"])
+      identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], nil,"identityv2")
 
       identity.authenticate(params[:username], params[:password])
 

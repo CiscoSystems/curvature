@@ -19,7 +19,7 @@ class SetupsController < ApplicationController
       file.write(config)
     }
     APP_CONFIG['identity'] = {}
-    APP_CONFIG['identity']['ip'] = @ip
+    APP_CONFIG['identity']['ip'] = "http://" + @ip
     APP_CONFIG['identity']['port'] = @port
     redirect_to login_url, :notice => "Curvature Keystone Config Completed!"
   end

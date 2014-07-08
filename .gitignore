@@ -18,3 +18,5 @@ db/development.sqlite3
 .orig
 
 *.log
+
+*/curvature.yml
