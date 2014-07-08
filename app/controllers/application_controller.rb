@@ -131,39 +131,39 @@ class ApplicationController < ActionController::Base
   # ---------------------------------------------------------------------------
   
   ##
-  # Returns a Ropenstack nova object created with the users token and stored nova ip
+  # Returns a Ropenstack compute object created with the users token and stored compute ip
   # address
   #
-  def nova()
-    novaIP = URI.parse(Storage.find(cookies[:nova_ip]).data)
-    return Ropenstack::Nova.new(novaIP, Storage.find(cookies[:current_token]).data)
+  def compute()
+    computeIP = URI.parse(Storage.find(cookies[:compute_ip]).data)
+    return Ropenstack::Compute.new(computeIP, Storage.find(cookies[:current_token]).data)
   end
 
   ##
-  # Returns a Ropenstack cinder object created with the users token and stored cinder ip
+  # Returns a Ropenstack blockStorage object created with the users token and stored blockStorage ip
   # address
   #
-  def cinder()
-    cinderIP = URI.parse(Storage.find(cookies[:cinder_ip]).data)
-    return Ropenstack::Cinder.new(cinderIP, Storage.find(cookies[:current_token]).data)
+  def blockstorage()
+    blockStorageIP = URI.parse(Storage.find(cookies[:blockStorage_ip]).data)
+    return Ropenstack::BlockStorage.new(blockStorageIP, Storage.find(cookies[:current_token]).data)
   end
 
   ##
-  # Returns a Ropenstack quantum object created with the users token and stored quantum ip
+  # Returns a Ropenstack networking object created with the users token and stored networking ip
   # address
   #
-  def quantum()
-    quantumIP = URI.parse(Storage.find(cookies[:quantum_ip]).data)
-    return Ropenstack::Quantum.new(quantumIP, Storage.find(cookies[:current_token]).data)
+  def networking()
+    networkingIP = URI.parse(Storage.find(cookies[:networking_ip]).data)
+    return Ropenstack::Networking.new(networkingIP, Storage.find(cookies[:current_token]).data)
   end
 
   ##
-  # Returns a Ropenstack glance object created with the users token and stored glace ip
+  # Returns a Ropenstack image object created with the users token and stored glace ip
   # address
   #
-  def glance()
-    glanceIP = URI.parse(Storage.find(cookies[:glance_ip]).data)
-    return Ropenstack::Glance.new(glanceIP, Storage.find(cookies[:current_token]).data)
+  def image()
+    imageIP = URI.parse(Storage.find(cookies[:image_ip]).data)
+    return Ropenstack::Image.new(imageIP, Storage.find(cookies[:current_token]).data)
   end
 
   # --------------------------------------------------------------------------------
