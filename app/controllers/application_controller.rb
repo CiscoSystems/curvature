@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
   # address
   #
   def networking()
-    networkingIP = URI.parse(Storage.find(cookies[:networking_ip]).data)
+    networkingIP = URI.parse(Storage.find(cookies[:network_ip]).data)
     return Ropenstack::Networking.new(networkingIP, Storage.find(cookies[:current_token]).data)
   end
 
