@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resource :login, :except => [:update, :new, :edit]
 
+  get '/signup', to: 'users#new', as: :signup 
+
   root 'logins#show'
 
   namespace :openstack do 
