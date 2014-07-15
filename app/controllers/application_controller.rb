@@ -1,7 +1,6 @@
 require 'net/http'
 require 'json'
 require 'uri'
-require 'ropenstack'
 
 ##
 # Application controller, parent class to all other controllers, provides all methods which are used in
@@ -55,12 +54,12 @@ class ApplicationController < ActionController::Base
 
   ##
   # Build the headers required to make a rest request, specifiying content type
-  # and including the users token if it exists as the X-Auth-Token header.
+  # and including the users cookie if it exists as the X-Auth-Token header.
   #
   def build_headers(cookie)
     headers = {'Content-Type' =>'application/json'}
-    unless token.nil? 
-      headers['Cookie'] = token
+    unless cookie.nil? 
+      headers['Cookie'] = cookie
     end
     return headers
   end
@@ -89,9 +88,9 @@ class ApplicationController < ActionController::Base
   # Put request wrapper function
   # returns a HTTPResponse object
   #
-  def put_request(uri, body, token)
+  def put_request(uri, body, cookie)
     http = build_http(uri)
-    request = Net::HTTP::Put.new(uri.request_uri, initheader = build_headers(token))
+    request = Net::HTTP::Put.new(uri.request_uri, initheader = build_headers(cookie))
     request.body = body
     return http.request(request)		
   end
@@ -100,9 +99,9 @@ class ApplicationController < ActionController::Base
   # Post request wrapper function
   # returns a HTTPResponse object
   #
-  def post_request(uri, body, token)
+  def post_request(uri, body, cookie)
     http = build_http(uri)
-    request = Net::HTTP::Post.new(uri.request_uri, initheader = build_headers(token))
+    request = Net::HTTP::Post.new(uri.request_uri, initheader = build_headers(cookie))
     request.body = body
     return http.request(request)		
   end

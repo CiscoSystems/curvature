@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617141143) do
+ActiveRecord::Schema.define(version: 20140715120412) do
 
-  create_table "envrionments", force: true do |t|
+  create_table "environments", force: true do |t|
     t.string   "username"
     t.string   "password"
     t.string   "ip"
@@ -22,7 +22,13 @@ ActiveRecord::Schema.define(version: 20140617141143) do
     t.datetime "updated_at"
   end
 
-  add_index "envrionments", ["user_id"], name: "index_envrionments_on_user_id"
+  add_index "environments", ["user_id"], name: "index_environments_on_user_id"
+
+  create_table "storages", force: true do |t|
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "firstname"

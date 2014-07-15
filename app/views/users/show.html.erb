@@ -10,5 +10,19 @@
   <%= @user.password %>
 </p>
 
+<p>
+<strong> Environments: </strong>
+<table>
+  <% @user.environments.each do |environment| %>
+    <tr>
+      <td> <%= environment.ip %> </td>
+      <td> <%= environment.username %> </td>
+      <td> <%= environment.password %> </td>
+    </tr>
+  <% end %>
+</table>
+</p>
+
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

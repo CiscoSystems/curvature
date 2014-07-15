@@ -1,19 +1,20 @@
 <h1>Editing user</h1>
 
+<%= render 'form' %>
 
-
-
-
-
-
-
-
-
-
-
+<p> 
+<strong> Environments: </strong>
+<table>
+<% @user.environments.each do |environment| %>
+  <tr>
+    <td> <%= environment.ip %> </td>
+    <td> <%= environment.username %> </td>
+    <td> <%= environment.password %> </td>
+  </tr>
+<% end %> 
+</table>
 
 <%= render 'environments' %>
-<%= render 'form' %>
 
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>

@@ -1,2 +1,0 @@
-class EnvrionmentsController < ApplicationController
-end
