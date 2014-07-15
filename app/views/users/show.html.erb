@@ -15,6 +15,7 @@
 <table>
   <% @user.environments.each do |environment| %>
     <tr>
+      <td> <%= environment.name %> </td>
       <td> <%= environment.ip %> </td>
       <td> <%= environment.username %> </td>
       <td> <%= environment.password %> </td>

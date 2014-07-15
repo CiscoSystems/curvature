@@ -6,10 +6,14 @@ class EnvironmentsController < ApplicationController
   end
 
   def destroy
+    @user = User.find(params[:user_id])
+    @env = @user.environments.find(params[:id])
+    @env.destroy
+    redirect_to edit_user_path(params[:user_id])
   end
 
   private 
     def environment_params
-      params.require(:environment).permit(:ip, :username, :password)
+      params.require(:environment).permit(:ip, :username, :password, :name)
     end
 end
