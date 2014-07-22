@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Curvature as a Service (CaaS)</title>
+  <title>Curvature Keystone Login</title>
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="./icon.png" />
   <link rel="apple-touch-startup-image" href="./splash_screen.png" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="viewport" content="user-scalable=no, width=device-width" />
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "setups" %>
   <%= csrf_meta_tags %>
   <script>
     function BlockMove(event) {

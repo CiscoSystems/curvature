@@ -1,0 +1,57 @@
+/* ===================================================================================== */
+/* =                           General Structure of Page CSS                           = */
+/* ===================================================================================== */
+html, body {
+  min-width: 350px;
+  margin: 0;
+  padding: 0;
+  height:100%;
+  overflow: hidden;
+  visibility: hidden;
+  font-size: 9pt;
+  font-family:Arial, Helvetica, sans-serif;
+  color: #888888;
+  text-align: left; 
+}
+
+.wrap { /* Wrap for menu and graph containers */
+    height:100%;
+    width: 100%;
+    display: table;
+}
+
+/* Footer Used to determine d3 height*/
+.Footer{
+  height: 39px;
+  display:table-row;
+  background-color: #AFEEEE;
+}
+
+.rightTab { /* Keep a tab to the right */
+  float:right!important;
+}
+.rightTab label {
+  float: left; 
+	padding-right: 10px;
+	padding-top: 8px;
+	font-size: 12pt;
+	font-weight: normal;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+/* Help image */
+#controlsOverlay {
+  position: absolute;
+  margin-top: 50px;
+  left:50%;
+  margin-left:-280px;
+  visibility: hidden;
+}
+
+#ciscologo {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 110px;
+  height: 60px;
+}

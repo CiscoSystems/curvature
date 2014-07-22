@@ -1,0 +1,41 @@
+<div class="Menu">
+  <ul id="menubar">
+    <li>
+      <a href="#">Projects</a>
+      <ul id='projectList'>
+      </ul>
+    </li>
+    <li>
+      <a href="#">View</a>
+      <ul>
+        <li><a id='shOverview' href="#" onClick='curvy.showHideOverview()'>Hide the Overview Bars</a></li>
+        <li><a id='shLabels' href="#" onClick='curvy.showLabels()'>Show Node Labels</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Images</a>
+      <ul>
+        <li><a href="#" onClick="javascript:$('#addImageDialog').dialog('open');">Add New Image</a></li>
+      </ul>
+    </li>
+
+    <% if @containers %>
+      <li><a href="#">Containers</a><ul id='containerList'></ul></li>
+    <% end %>
+
+    <li>
+      <a href="#"> Security </a>
+      <ul>
+        <li><a href="#" onClick="curvy.showKeyPairDialog()"> Keypairs </a></li>
+        <li><a href="#" onClick="curvy.showSecurityGroupDialog()"> Security Groups </a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#" onClick="javascript:$('#aboutDialog').dialog('open');">About</a>
+    </li>
+  </ul>
+  <div class="rightTab" style="position:absolute;top:2px; right:4px">
+    <label id='currentProject'>Current Project - </label>
+    <button class="rightTab" id="LogoutButton" onClick="parent.location='/logout'">Logout</button>
+  </div>
+</div>

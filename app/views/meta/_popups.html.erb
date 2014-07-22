@@ -1,0 +1,204 @@
+<!-- Html for popups! -->
+<div id="dialog-confirm" title="Delete This Network?">
+  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+  This network will be removed forever! Are you sure?</p>
+</div>
+  
+<div id="newNetwork" title="New Network">
+  <input id="newNetworkName" value="name"/><br />
+  Please Enter CIDR:
+  <input id="newNetworkCIDR" value="10.0.0.0/24"/>
+</div>
+
+<div id="subnet" title="Enter CIDR">
+  Please Enter CIDR:
+  <input id="subnetCIDR" value="10.0.0.0/24"/>
+</div>
+
+<div id="vm" title="Enter VM Details">
+  Please Enter Name:
+  <input id="vmNAME" value=""/>
+  <br />Flavor:
+  <select id="vmFlavor">
+  </select>
+  <br />Keypair: 
+  <select id="vmKeypair">
+  </select>
+  <br />Security Group:
+  <select id="vmSecurityGroup">
+  </select>
+  <br />Floating IP Address: 
+  <select id="vmFloating">
+  </select> 
+  <button id="vmAssociate"> Associate </button> 
+  <br />
+  <table id="vmFloatingTable">
+    <thead class="ui-widget-header">
+      <tr>
+        <th> Floating IP Address </th>
+        <th> Fixed IP Address </th>
+        <th></th>
+      <tr>
+    </thead>
+    <tbody class="ui-widget-content">
+    </tbody>
+  </table>
+</div>
+
+<div id="router" title="Enter Router Details">
+  Please Enter Name:
+  <input id="routerNAME" value=""/>
+</div>
+
+<div id="vncConsole" title="VNC Console">
+</div>
+
+<div id="aboutDialog" title="About">
+  <%= image_tag "curvature_logo.png" %>
+  <div style='text-align:center'>
+    <h2>Version - Development</h2>
+  </div>
+</div>
+
+<div id="addImageDialog" title="Upload Image">
+  Name : <input id="imageName" value=""/><br/>
+  Image : <input type="file" id="imageInput"/><br/>
+  Format : <select id="imageFormat">
+             <option value="aki">AKI - Amazon Kernel Image</option>
+             <option value="ami">AMI - Amazon Machine Image</option>
+             <option value="ari">ARI - Amazon Ramdisk Image</option>
+             <option value="iso">ISO - Optical Disk Image</option>
+             <option value="qcow2">QCOW2 - QEMU Emulator</option>
+             <option value="raw">Raw</option>
+             <option value="vdi">VDI</option>
+             <option value="vhd">VHD</option>
+             <option value="vmdk">VMDK</option>
+           </select><br/>
+  Minimum Disk (GB) <input id="minDisk" value=""/><br/>
+  Minimum Ram (MB) <input id="minRam" value=""/><br/>
+  Public <input id="imagePublic" type="checkbox"/><br/>
+  <div id="newImageLoading" style="display:none;"><img src="/assets/loading.gif" width=30 height=30 /></div>
+  <script type="text/javascript">
+    //document.getElementById('imageInput').addEventListener('change', guessFormat, false);
+    
+  </script>
+</div>
+
+<div id="noNetworks" title="No Networks Found">
+  No Networks Found, please create one to begin.
+</div>
+
+<div id="containerEditor" title="Container Builder" class="D3containerEditor">
+  <div id="toolTabsContainer" class="toolTabsCSS">
+    <ul id="toolName">
+      <li><a href='#t' onClick='containerBuilder.tools.drawTools("tools")'>Tools</a></li>
+      <li><a href='#t' onClick='containerBuilder.tools.drawTools("images")'>Images</a></li>
+      <li><a href='#t' onClick='containerBuilder.tools.drawTools("networking")'>Networking</a></li>
+      <li><a href='#t' onClick='containerBuilder.tools.drawTools("containers")'>Containers</a></li>
+    </ul>
+    <div id='t'></div>
+  </div>
+</div>
+
+<div id="liveContainerViewer" title="Live Container Viewer" class="D3containerViewer">
+  <div id="toolTabsContainerViewer" class="toolTabsCSS">
+    <ul id="toolName">
+      <li><a href='#t' onClick='liveContainer.tools.drawTools("tools")'>Tools</a></li>
+      <li><a href='#t' onClick='liveContainer.tools.drawTools("images")'>Images</a></li>
+      <li><a href='#t' onClick='liveContainer.tools.drawTools("networking")'>Networking</a></li>
+      <li><a href='#t' onClick='liveContainer.tools.drawTools("containers")'>Containers</a></li>
+    </ul>
+    <div id='t'></div>
+  </div>
+</div>
+
+<div id="errorDialog" title="An error occured!">
+  <p id="errorMessage"> You'll see the error here! </p>
+  <a href="#" id="moreDetails"> More Details <i class="icon-caret-down"></i> </a>
+  <div id="errorDetails"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae velit ac magna posuere euismod vitae ac arcu. Aliquam erat volutpat. Aliquam vulputate ultrices lectus non molestie. Sed et sem aliquet velit aliquet condimentum. Mauris nec neque eros, vel commodo dui. Pellentesque elementum tellus felis, et eleifend odio. Duis lectus dolor, faucibus vitae ultricies et, convallis at mi. Praesent augue odio, tempor at consequat porta, euismod sit amet orci. Etiam massa augue, ultrices pellentesque interdum sed, pulvinar a dolor. Ut ullamcorper ipsum vel turpis semper quis iaculis ligula sagittis. Etiam porttitor laoreet lacus ac rhoncus. Maecenas in odio nisl. Aliquam nec orci massa. Pellentesque porta scelerisque magna a placerat. Ut mattis dui in diam aliquet interdum.</div>
+</div>
+
+<div id="floatingIpDialog" title="Allocate Floating IPs">
+  <table id="floatingIpTable" class="ui-widget">
+    <thead class="ui-widget-header">
+      <tr>
+        <th> Floating IP Address </th>
+        <th> Associated Instance </th>
+        <th></th>
+      <tr>
+    </thead>
+    <tbody class="ui-widget-content">
+    </tbody>
+  </table>
+  <button id="allocateFloatingIp"> Allocate New Floating IP </button>
+</div>
+
+<div id="keyPairDialog" title="Keypairs">
+  <table id="keyPairTable">
+    <thead class="ui-widget-header">
+      <tr>
+        <th> Name </th>
+        <th> Fingerprint </th>
+        <th></th>
+      <tr>
+    </thead>
+    <tbody class="ui-widget-content">
+    </tbody>
+    <tfoot class="ui-widget-footer">
+      <td> <input type="text" id="kpName"/> </td>
+      <td> <button id="newKPButton"> New KeyPair </button> </td>
+    </tfoot>
+  </table>
+  <iframe style="display:none" id="kpDownload"></iframe> 
+</div>
+
+<div id="securityGroupDialog" title="Security Groups">
+  <table id="securityGroupTable">
+    <thead class="ui-widget-header">
+      <tr>
+        <th> Name </th>
+        <th> Description </th>
+        <th></th>
+        <th></th>
+      <tr>
+    </thead>
+    <tbody class="ui-widget-content">
+    </tbody>
+    <tfoot class="ui-widget-footer">
+      <tr>
+        <td> <input type="text" id="sgName"/> </td>
+        <td> <input type="text" id="sgDescription"/> </td>
+        <td> <button id="newSGButton"> New Security Group </button> </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div id="securityRuleDialog" title="Security Group Rules">
+  <table id="securityRuleTable">
+    <thead class="ui-widget-header">
+      <tr>
+        <th> Protocol </th>
+        <th> From Port </th>
+        <th> To Port </th>
+        <th> CIDR </th>
+        <th></th>
+      <tr>
+    </thead>
+    <tbody class="ui-widget-content">
+    </tbody>
+    <tfoot class="ui-widget-footer">
+      <td> 
+        <select id="ruleProtocol"> 
+          <option value="tcp"> TCP </option>
+          <option value="udp"> UDP </option>
+          <option value="icmp"> ICMP </option>
+        </select>
+      </td>
+      <td> <input type="text" id="ruleFromPort"/> </td>
+      <td> <input type="text" id="ruleToPort"/> </td>
+      <td> <input type="text" id="ruleIpRange"/> </td>
+      <td> <button id="addNewSGRule"> Add New Rule </button> </td>
+    </tfoot>
+  </table>
+</div>

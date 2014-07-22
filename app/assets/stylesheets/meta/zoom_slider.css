@@ -1,0 +1,27 @@
+/* =================================================================== */
+/* =                           Zoom Slider                           = */
+/* =================================================================== */
+#slider {
+  position: absolute;
+  right: 0px;
+  width: 30px;
+  height: 200px;
+  margin-top: 60px;
+  margin-right: 20px;
+  margin-left: auto;
+  background-color: #5DB5E8;
+  cursor: default;
+  /* Curved Box */
+  -webkit-border-radius: 4px; /* Safari prototype */
+  -moz-border-radius: 4px; /* Gecko browsers */
+  border-radius: 4px; /* Everything else - limited support at the moment */
+  -webkit-box-shadow: 0px 0px 2px #000000;
+  -moz-box-shadow: 0px 0px 2px #000000;
+  box-shadow: 0px 0px 2px #000000;
+}
+
+#zoomSlider {
+  height: 180px;
+  margin: auto;
+  margin-top: 10px;
+}
