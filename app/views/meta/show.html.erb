@@ -1,43 +1,45 @@
-<div id="wrapper" class="wrap">
-  <%= render 'menubar' %>
-  <div id="overviewsContainer">
-    <div class="overviewSlider">
-      <div id="instancesSlider" class="overviewBarContainer" data-used='0'><div id="instanceText" class="overviewBarLabel">Instances Used</div></div>
-    </div>
-    <div class="overviewSlider">
-      <div id="cpusSlider" class="overviewBarContainer"><div id="cpusText" class="overviewBarLabel">CPUs Used</div></div>
-    </div>
-    <div class="overviewSlider">
-      <div id="ramSlider" class="overviewBarContainer"><div id="ramText" class="overviewBarLabel">RAM Used</div></div>
-    </div>
-  </div>
+<div id="graph" class="D3Graph" tabindex="0">
+</div>
 
-  <div id="graphTabs" class="GraphContainers">
-    <div id="graph" class="D3Graph" tabindex="0">
-      <button id="deployButton" onMouseDown="return curvy.deploy.start()">Deploy</button>
-      <div id="toolTabs" class="toolTabsCSS">
-        <ul id="toolName">
-          <li><a href='#t' onClick='curvy.networkVisualisation.tools.drawTools("tools")'>Tools</a></li>
-          <li><a href='#t' onClick='curvy.networkVisualisation.tools.drawTools("images")'>Images</a></li>
-          <li><a href='#t' onClick='curvy.networkVisualisation.tools.drawTools("networking")'>Network</a></li>
+<div id="username">
+  Blah blahblah
+</div>
 
-    <% if @containers %>
-      <li><a href='#t' onClick='curvy.networkVisualisation.tools.drawTools("containers")'>Containers</a></li>
-    <% end %>
+<button id="refreshButton" onMouseDown="return curvy.deploy.start()">Refresh</button>
 
-        </ul>
-        <div id='t' style="display:none;"></div>
-      </div>
+<button id="logoutButton">Logout</button>
 
-      <!--<div id="slider"><div id="zoomSlider"></div></div>-->
+<div id="toolTabs" class="toolTabsCSS">
+</div>
 
-      <div id="controlsOverlay">
-        <img src="/assets/Controls Overlay - Curvature.png">
-      </div>
-      <img id="ciscologo" src="/assets/cisco_logo.png">
-    </div>
-  </div>
+<img id="ciscologo" src="/assets/cisco_logo.png">
 
+<div id="overviewsDisplayer" class="overviewsHidden" onclick="displayOverviews()">
+  <<
+</div>
+<div id="overviewsContainer" class="overviewsHidden">
+</div>
+
+<script>
+  var overviewsOpen = false;
+  function displayOverviews() {
+    if(!overviewsOpen){
+      document.getElementById("overviewsDisplayer").className = "overviewsVisible";
+      document.getElementById("overviewsDisplayer").innerHTML = ">>";
+      document.getElementById("overviewsContainer").className = "overviewsVisible";
+      overviewsOpen = true;
+    }
+    else {
+      document.getElementById("overviewsDisplayer").className = "overviewsHidden";
+      document.getElementById("overviewsDisplayer").innerHTML = "<<";
+      document.getElementById("overviewsContainer").className = "overviewsHidden";
+      overviewsOpen = false;
+    }
+  }
+</script>
+
+<div class="footer">
+  Meta Curvature - (C) Cisco Systems 2014
 </div>
 
 <%= render 'popups' %>

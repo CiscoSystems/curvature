@@ -1,5 +1,130 @@
 /*
 *=require jquery-ui-1.10.1.custom
 *=require font-awesome
-*=require_tree ./visualisation
 */
+
+body {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  margin:0;
+  padding:0;
+}
+
+.footer{
+  position: absolute;
+  bottom: 0px;
+  background: #FFFFFF;
+}
+
+#ciscologo {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 110px;
+  height: 60px;
+}
+
+#graph{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+#refreshButton {
+  position: absolute;
+  width: 60px;
+  right: 100px;
+  top: 20px;
+}
+
+#logoutButton {
+  position: absolute;
+  width: 60px;
+  right: 20px;
+  top: 20px;
+}
+
+#username {
+  position: absolute;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding-top: 2px;
+  height: 21px;
+  right: 200px;
+  top: 20px;
+}
+
+#overviewsDisplayer {
+  position: absolute;
+  margin-right: 300px;
+  top: 100px;
+  width: 20px;
+  height: 20px;
+  background-color: #FF00FF;
+  transition: right 2s;
+}
+
+#overviewsContainer{
+  position: absolute;
+  height: auto;
+  width: 300px;
+  background-color: #E1F0F8;
+  top:50px;
+  bottom:0px;
+  text-align: center;
+  transition: right 2s;
+}
+
+.overviewsHidden {
+  right: -300px;
+}
+
+.overviewsVisible {
+  right: 0px;
+}
+
+/* Dialog Buttons */
+.ui-dialog .ui-dialog-buttonpane button {
+  font-size: 12px;
+}
+
+#dialog-confirm {
+  visibility:hidden;
+}
+
+#containerEditor{
+  width: 500px;
+  height: 500px;
+}
+
+#errorDetails {
+  border: 1px solid GRAY;
+  display: none;
+}
+
+.toolTabsCSS {
+  position: absolute;
+  width: 443px;
+  height: 30px;
+  margin-top: 33px;
+  margin-left: 20px;
+  text-align: center;
+  cursor: default;
+  background: transparent; 
+  border: none; 
+}
+
+#t {
+  display: none;
+  width: 0px;
+  height: 0px;
+}
+
+#t .ui-widget-content {
+  display: none;
+}
