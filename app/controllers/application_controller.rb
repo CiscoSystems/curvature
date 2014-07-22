@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_action :require_login
+
   private
 
   ##
@@ -106,45 +108,27 @@ class ApplicationController < ActionController::Base
     return http.request(request)		
   end
 
-  # --------------------------------------------------------------------------------
-  # :section: Cookies
-  # Functions to do with the management and storage of data in the cookie.
-  # --------------------------------------------------------------------------------
-
-  ##
-  # A utility function for getting the data out from the storages table using the id 
-  # stored in the cookie.
-  #
-  def get_data(key)
-    Storage.find(cookies[key]).data
-  end
-
-  ##
-  # Removed a peice of data stored in the cookie object and removes it from the 
-  # Storages model
-  #
-  def remove_store(key, value)
-    begin
-      @data = Storage.find(value)
-      @data.destroy
-      cookies.delete key
-    rescue
+  def sesh(name, value=nil)
+    unless cookies.has_key?(:sesh_id)
+      @sess = Storage.new
+      @sess.data = {}.to_json
+      @sess.save
     end
-    session[key] = nil
-  end
- 
-  ##
-  # Places data into the Storages table and places the id for that peice of data into
-  # the cookie with the key specified.
-  #
-  def store(key, data)
-    store = Storage.new
-    store.data = data
 
-    if store.save 
-      session[key] = store.id
-      cookies[key] = store.id
+    unless defined? @sess 
+      @sess = Storage.find(cookies[:sesh_id])
     end
+    
+    data = JSON.parse(@sess.data)
+
+    if value.nil? 
+      data[name]
+    else
+      data[name] = value
+      @sess.data = data.to_json
+      @sess.save
+    end 
+    cookies[:sesh_id] = @sess.id
   end
 
   # :section:
@@ -153,6 +137,12 @@ class ApplicationController < ActionController::Base
   # Returns true or false only based on if the user is logged in or not
   #
   def logged_in?
-    !!session[:current_token]
+    !!cookies[:sesh_id]
+  end
+
+  def require_login
+    unless logged_in?
+      redirect_to login_url
+    end
   end
 end
