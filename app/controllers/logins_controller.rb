@@ -48,6 +48,10 @@ class LoginsController < ApplicationController
       response = post_request(location, { :username => env.username, :password => env.password }.to_json, nil)
       # Store cookie from login request response. 
       sesh env.name, response.response['set-cookie']
+      # Switch to the right tenant
+      location = URI("http://" + env.ip + "/login/switch")
+      response = post_request(location, { :tenant_name => env.tenant }.to_json, (sesh env.name))
+      sesh env.name, response.response['set-cookie']
     end
   end
 end

@@ -15,6 +15,6 @@ class EnvironmentsController < ApplicationController
 
   private 
     def environment_params
-      params.require(:environment).permit(:ip, :username, :password, :name)
+      params.require(:environment).permit(:ip, :username, :password, :name, :tenant)
     end
 end

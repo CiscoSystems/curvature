@@ -5,10 +5,18 @@
 <p> 
 <strong> Environments: </strong>
 <table>
+  <tr>
+    <td> Name </td>
+    <td> IP </td>
+    <td> Tenant </td>
+    <td> Username </td>
+    <td> Password </td>
+  </tr>
 <% @user.environments.each do |environment| %>
   <tr>
     <td> <%= environment.name %> </td>
     <td> <%= environment.ip %> </td>
+    <td> <%= environment.tenant %> </td>
     <td> <%= environment.username %> </td>
     <td> <%= environment.password %> </td>
     <td> <%= link_to 'Delete', [environment.user, environment],
