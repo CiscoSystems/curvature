@@ -1,16 +1,16 @@
 <h1>Login</h1>
 
-<p>
 <%= form_tag do %>
-  <%= label_tag(:username, "Username:") %>
-  <%= text_field_tag(:username) %>
+  <div class="curvyform">
+    <%= label_tag(:username, "Username:") %>
+    <%= text_field_tag(:username) %>
 
-  <%= label_tag(:password, "Password:") %>
-  <%= text_field_tag(:password) %>
+    <%= label_tag(:password, "Password:") %>
+    <%= text_field_tag(:password) %>
 
-  <%= submit_tag("Login") %>
+    <%= submit_tag("Login") %>
+  </div>
 <% end %>
-</p>
 
 <p>
 Are you a new user? <a href="/signup"> Sign Up </a>

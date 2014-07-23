@@ -137,9 +137,6 @@ class D3.Graph
     this.createVis()
     this.forceDirection(0.05,70, -700)
 
-    @tools = new D3.Tools(this,@toolbarBackground,@outerGroup)
-    @tools.drawTools('tools')
-
     @loading()
 
   # Setup the graph svg elements and add it to the div passed in the constructor
@@ -186,17 +183,6 @@ class D3.Graph
         )
 
     #Background rectangle for toolbar
-    @toolbarBackground = @outerGroup.append("svg:g")
-    @toolbarBackground.append('svg:rect')
-      .attr('width', '445px')
-      .attr('height', '93px')
-      .attr('x','22')
-      .attr('y','35')
-      .attr("rx","5")
-      .attr("ry","5")
-      .attr('fill', '#7DC3F0')
-      .attr("stroke-width",1)
-      .attr("stroke", "#3492EF")
       
   # Setup force direction
   #
@@ -300,12 +286,6 @@ class D3.Graph
     
     # clear hulls
     @vis.selectAll(".hulls").remove()
-    
-    #reset tools
-    # TODO ADD CASE TO REMOVE VNC ON CLEAR GRAPH
-    unless @tools.currentlyShowing isnt "tools"
-      @tools.drawTools('tools')
-    @tools.resetTools()
     
     # Remove links
     @links.links.splice(0, @links.links.length)

@@ -28,12 +28,9 @@ class App.Curvature
 
       $.when(
         App.openstack.networks.populate()
-        App.openstack.floatingIps.populate()
+        #App.openstack.floatingIps.populate()
       ).then(() ->
         openstackPromises = [App.openstack.subnets.populate(), App.openstack.ports.populate()]
-
-        if App.openstack.services.get().indexOf("cinder") >= 0
-          openstackPromises.push(App.openstack.volumes.populate())
 
         $.when.apply(this, openstackPromises).then(() ->
           $.when(
@@ -223,31 +220,10 @@ class App.Curvature
       $("#overviewsContainer").hide()
       $("#shOverview").text "Show the Overview Bars"
 
-  # Populate the overview quotas sliders
-  #
+  ## TODO DISPLAY QUOTAS FOR ALL THE ENVIRONMENTS IN THE NEW SLIDER DOODAD
   displayQuotas: ->
-    d3.selectAll(".piechart").remove()
-    instancePer = (App.openstack.quotas.totalInstancesUsed() / App.openstack.quotas.maxTotalInstances()) * 100
-    $("#instancesSlider").data().used = instancePer
-    console.log @instancePie
-    #if @instancePie is undefined
-    new D3.Quota("instancesSlider")
-    #else
-      #@instancePie.animate([{"percentage":instancePer},{"percentage":100 - instancePer}])
-    $("#instanceText").html("Instances Used : " + App.openstack.quotas.totalInstancesUsed() + "/" + App.openstack.quotas.maxTotalInstances())
-
-    cpuPer = (App.openstack.quotas.totalCoresUsed() / App.openstack.quotas.maxTotalCores()) * 100
-    $("#cpusSlider").data().used = cpuPer
-    #if @cpusPie is undefined
-    new D3.Quota("cpusSlider")
-    $("#cpusText").html("CPUs Used : " + App.openstack.quotas.totalCoresUsed() + "/" + App.openstack.quotas.maxTotalCores())
-
-    ramPer = (App.openstack.quotas.totalRAMUsed() / App.openstack.quotas.maxTotalRAMSize()) * 100
-    $("#ramSlider").data().used = ramPer
-    #if @ramPie is undefined
-    new D3.Quota("ramSlider")
-    $("#ramText").html("RAM Used : " + App.openstack.quotas.totalRAMUsed() + "MB/" + App.openstack.quotas.maxTotalRAMSize() + "MB")
-
+    ## CODE GOES HERE
+    
   # =====================================
   # Floating IP, Security Groups, etc   =
   # =====================================

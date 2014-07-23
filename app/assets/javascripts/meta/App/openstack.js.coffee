@@ -14,79 +14,17 @@ App.setNetworkInformation = (device) ->
       device.networks.push(net) unless device.networks.indexOf(net) >= 0
 
 App.openstack =
-  tenants:
-    _data: []
-    get: -> @_data
-    populate: ->
-      @_data = []
-      rest.getRequest('/login/tenants', (resp) =>
-        for tenant in resp['tenants']
-          @_data.push(tenant)
-      )
-  flavors:
-    _data: []
-    get: -> @_data
-    populate: ->
-      @_data = []
-      rest.getRequest('/openstack/flavors', (resp) =>
-        for flavor in resp['flavors']
-          @_data.push(flavor)
-      )
-  images:
-    _data: []
-    get: (id) ->
-      # if an id is passed only return that one object otherwise return all objects of this type
-      if id?
-        for d in @_data
-          return d if d.id is id
-      else
-        @_data
-    populate: ->
-      @_data = []
-      rest.getRequest('/openstack/images', (resp) =>
-        for image in resp['images']
-          # Work out the svg to use for an image and add it into the data
-          image.svg = Nodes.Server.calculateImageSVG(image)
-          image.type = 'image'
-          @_data.push(image)
-      )
-    newImage: (name, f, disk_format, minDisk, minRam, isPublic) ->
-      if isPublic is "on"
-        isPublic = true
-      else
-        isPublic = false
-  
-      if f
-        json = {name:name, disk_format:disk_format, container_format:"bare", minDisk:minDisk, minRam:minRam, public:isPublic}
-        formData = new FormData()
-        formData.append "json", json
-    
-        $.each f[0].files, (i, file) ->
-          formData.append "image", file
-
-        $.ajax
-          url: "/openstack/images"
-          type: "POST"
-          cache: false
-          contentType: false
-          processData: false
-          data: JSON.stringify(formData)
-          #success: (data) ->
-            #callback data
-      else
-        alert "Failed to load image"
-
   quotas:
-    _deta: {}
-    totalInstancesUsed: -> @_data['totalInstancesUsed']
-    maxTotalInstances: -> @_data['maxTotalInstances']
-    totalCoresUsed: -> @_data['totalCoresUsed']
-    maxTotalCores: -> @_data['maxTotalCores']
-    totalRAMUsed: -> @_data['totalRAMUsed']
-    maxTotalRAMSize: -> @_data['maxTotalRAMSize']
+    _data: {}
+    totalInstancesUsed: (env) -> @_data[env]['limits']['absolute']['totalInstancesUsed']
+    maxTotalInstances: (env) -> @_data[env]['limits']['absolute']['maxTotalInstances']
+    totalCoresUsed: (env) -> @_data[env]['limits']['absolute']['totalCoresUsed']
+    maxTotalCores: (env) -> @_data[env]['limits']['absolute']['maxTotalCores']
+    totalRAMUsed: (env) -> @_data[env]['limits']['absolute']['totalRAMUsed']
+    maxTotalRAMSize: (env) -> @_data[env]['limits']['absolute']['maxTotalRAMSize']
     populate: ->
       rest.getRequest('/openstack/servers/quotas', (resp) =>
-        @_data = resp['limits']['absolute']
+        @_data = resp
       )
   currentTenant:
     _data: ""

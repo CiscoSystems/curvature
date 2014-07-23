@@ -36,6 +36,8 @@ Rails.application.routes.draw do
       get 'download', :on => :member
     end
     resources :networks, :subnets, :images, :only => [:index, :create, :destroy]
+    resources :floating_ips
+
     resources :flavors, :volumes, :only => :index
   end
 end
