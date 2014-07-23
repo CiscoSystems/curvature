@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   resource :meta, :only => [:show]
 
-  resource :login, :except => [:update, :new, :edit]
+  resource :login, :except => [:new, :edit, :update] do
+    get 'refresh', :on => :collection
+  end
 
   get '/logout', to: 'logins#destroy', as: :logout
 

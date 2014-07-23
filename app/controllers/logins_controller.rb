@@ -31,6 +31,12 @@ class LoginsController < ApplicationController
     end
   end
 
+  def refresh
+    @user = User.find(sesh :current_user)
+    environments_signin
+    redirect_to meta_url
+  end
+
   private
 
   def environments_signin

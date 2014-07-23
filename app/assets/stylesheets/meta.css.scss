@@ -42,6 +42,13 @@ body {
   top: 20px;
 }
 
+.settingsButtonForm button {
+  position: absolute;
+  width: 60px;
+  right: 180px;
+  top: 20px;
+}
+
 #logoutButton {
   position: absolute;
   width: 60px;
@@ -55,7 +62,7 @@ body {
   margin-bottom: 2px;
   padding-top: 2px;
   height: 21px;
-  right: 200px;
+  right: 300px;
   top: 20px;
 }
 
@@ -117,6 +124,12 @@ body {
   cursor: default;
   background: transparent; 
   border: none; 
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
 }
 
 #t {

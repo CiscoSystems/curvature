@@ -2,6 +2,7 @@ class EnvironmentsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @environment = @user.environments.create(environment_params)
+    sesh :new_environments, true
     redirect_to edit_user_path(params[:user_id])
   end
 

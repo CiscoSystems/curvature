@@ -11,8 +11,9 @@
   <input id="logoutButton" type="submit" value="Logout">
 </form>
 
-<div id="toolTabs" class="toolTabsCSS">
-</div>
+<%= button_to [:edit, @user], form_class:"settingsButtonForm", method: :get do %>
+  Settings
+<% end %>
 
 <img id="ciscologo" src="/assets/cisco_logo.png">
 
