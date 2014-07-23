@@ -22,12 +22,14 @@ class LoginsController < ApplicationController
     @user = User.find_by username: params[:username]
 
     # Check user login information
-    if @user.password == params[:password]  
-      # Set cookie current user id.
-      sesh :current_user, @user.id
-      # Sign into every environment this user has setup
-      environments_signin
-      redirect_to meta_url
+    if @user.nil? or @user.password != params[:password]
+        redirect_to login_url
+    else
+        # Set cookie current user id.
+        sesh :current_user, @user.id
+        # Sign into every environment this user has setup
+        environments_signin
+        redirect_to meta_url
     end
   end
 
