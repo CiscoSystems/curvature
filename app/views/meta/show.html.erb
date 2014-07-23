@@ -7,7 +7,9 @@
 
 <button id="refreshButton" onMouseDown="return curvy.deploy.start()">Refresh</button>
 
-<button id="logoutButton">Logout</button>
+<form action="/logout">
+  <input id="logoutButton" type="submit" value="Logout">
+</form>
 
 <div id="toolTabs" class="toolTabsCSS">
 </div>
@@ -21,6 +23,8 @@
 </div>
 
 <script>
+  var appPage = true
+
   var overviewsOpen = false;
   function displayOverviews() {
     if(!overviewsOpen){

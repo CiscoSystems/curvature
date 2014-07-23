@@ -4,13 +4,18 @@ class LoginsController < ApplicationController
   skip_before_action :require_login, only: [:show, :create]
 
   def destroy
-    @user.environments.each do |env|
-      response = post_request(env.url+"/logout", {})
-    end
+    @user = User.find(sesh :current_user)
+
+    ## TODO clean up environment logins
+    #@user.environments.each do |env|
+    #  location = URI("http://" + env.ip + "/logout")
+    #  response = post_request(location, {})
+    #end
   
     ## TODO: call storages clean up
 
-    cookies[:sesh_id] = nil
+    cookies.delete :sesh_id
+    redirect_to login_url
   end
 
   def create

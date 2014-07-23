@@ -11,8 +11,11 @@ class Openstack::ServersController < ApplicationController
   end
 
   def quotas
-    json_respond for_each_environment do |env|
-      get_request(env.url+"servers/quotas", get_data(cookie[env.name]))
+    response = for_each_environment do |env|
+      location = URI("http://" + env.ip + "/openstack/servers/quotas")
+      get_request(location, (sesh env.name)).body
     end
+    puts response
+    json_respond response
   end
 end

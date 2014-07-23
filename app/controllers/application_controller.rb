@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   #
   def for_each_environment
     response = {}
-    user = User.find(session[:user_id])
+    user = User.find(sesh :current_user)
     user.environments.each do |env|  
       response[env.name] = yield env
     end
@@ -109,6 +109,10 @@ class ApplicationController < ActionController::Base
   end
 
   def sesh(name, value=nil)
+    unless name.is_a? Symbol
+      name = name.parameterize.underscore.to_sym
+    end
+
     unless cookies.has_key?(:sesh_id)
       @sess = Storage.new
       @sess.data = {}.to_json
@@ -119,16 +123,15 @@ class ApplicationController < ActionController::Base
       @sess = Storage.find(cookies[:sesh_id])
     end
     
-    data = JSON.parse(@sess.data)
+    data = JSON.parse(@sess.data, :symbolize_names => true)
 
-    if value.nil? 
-      data[name]
-    else
+    unless value.nil? 
       data[name] = value
       @sess.data = data.to_json
       @sess.save
     end 
     cookies[:sesh_id] = @sess.id
+    data[name]
   end
 
   # :section:

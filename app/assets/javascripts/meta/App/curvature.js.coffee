@@ -22,37 +22,14 @@ class App.Curvature
     @networkVisualisation.clearGraph()
     _this = this
     $.when(
-      App.openstack.tenants.populate(),
-      App.openstack.flavors.populate(),
-      App.openstack.images.populate(),
       App.openstack.quotas.populate(),
-      App.openstack.currentTenant.populate(),
-      App.openstack.services.populate(),
-      App.openstack.keypairs.populate(),
-      App.openstack.securityGroups.populate()
     ).then( () ->
-      $('body,html').css('visibility','visible')
-      console.log App.openstack.services.get()
-      _this.setupTenants()
-      _this.setupFlavorsDropdown()
-      _this.setupImages()
       _this.displayQuotas()
-      if App.openstack.services.get().indexOf("donabe") >= 0
-          donabeActive = true
 
-      if donabeActive
-        $.when(
-          App.donabe.containers.populate()
-          App.donabe.deployed_containers.populate()
-        ).then( () ->
-          _this.setupContainers()
-        )
       $.when(
         App.openstack.networks.populate()
         App.openstack.floatingIps.populate()
       ).then(() ->
-        _this.networkTabs()
-
         openstackPromises = [App.openstack.subnets.populate(), App.openstack.ports.populate()]
 
         if App.openstack.services.get().indexOf("cinder") >= 0
@@ -70,7 +47,6 @@ class App.Curvature
           )
         )
       )
-
     )
 
   # =============================================================================

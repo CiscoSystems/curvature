@@ -1,6 +1,9 @@
-window.onload = ->
-  @curvy = new App.Curvature()
-  curvy.restartPage()
+@windowready = ->
+  if appPage? or appPage
+    @curvy = new App.Curvature()
+    @curvy.restartPage()
+
+window.onload = @windowready
 
 # ========================================================================================
 # =                           Jquery UI element initialisation                           =
@@ -28,6 +31,9 @@ jQuery ->
   genericDialog "vncConsole", 800, 500
   genericDialog "aboutDialog"
   genericDialog "errorDialog"
+  
+  $(document).ready(windowready)
+  $(document).on("page:load", windowready);
 
   $('#moreDetails').on("click", ->
     $('#errorDetails').toggle('blind')
