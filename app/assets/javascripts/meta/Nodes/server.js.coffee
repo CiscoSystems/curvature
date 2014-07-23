@@ -12,12 +12,7 @@ class Nodes.Server extends Nodes.Deployable
   # @param deployStatus [String] Is the node deployed, undeployed or marked for deletion
   #
   constructor: (data, deployStatus) ->
-    if data.image != undefined
-      imgSvg = Nodes.Server.calculateImageSVG(App.openstack.images.get(data.image.id))
-    else if data.image_name != undefined
-      imgSvg = Nodes.Server.calculateImageSVG(data.image_name)
-    else
-      imgSvg = "undefined"
+    imgSvg = "undefined"
 
     if !data.networks?
       data.networks = []
