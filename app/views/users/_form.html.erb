@@ -1,37 +1,24 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<div class="container">
+  <%= form_for @user, html: { class:"form-edit", role:"form"} do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.text_field :firstname, :class => "form-control", :type => "string", :placeholder => "Firstname"%>
+    <%= f.text_field :surname, :class => "form-control", :type => "string", :placeholder => "Surname"%>
+    <%= f.text_field :email, :class => "form-control", :type => "email", :placeholder => "Email"%>
+    <%= f.text_field :username, :class => "form-control", :type => "string", :placeholder => "Username"%>
+    <%= f.text_field :password, :class => "form-control", :type => "password", :placeholder => "Password"%>
+
+
+    <button class="btn btn-lg btn-primary btn-block" name="commit" type="submit"><%= var %> User</button>
   <% end %>
-
-  <div class="field">
-    <%= f.label :firstname %><br>
-    <%= f.text_field :firstname %>
-  </div>
-  <div class="field">
-    <%= f.label :surname %><br>
-    <%= f.text_field :surname %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :username %><br>
-    <%= f.text_field :username %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.text_field :password %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
