@@ -55,17 +55,17 @@ class LoginsController < ApplicationController
       identity.authenticate(params[:username], params[:password])
 
       #Set user id---------------------------------------------------------------
-      store(:current_user_id, identity.user()["id"])
-      store(:current_token, identity.token())
+      sesh :current_user_id, identity.user()["id"]
+      sesh :current_token, identity.token()
 
       #Get Default Tenant--------------------------------------------------------
       tenant_data = identity.tenant_list()
-      store(:current_tenant, tenant_data["tenants"][0]["id"])
-      store(:current_tenant_name, tenant_data["tenants"][0]["name"])
+      sesh :current_tenant, tenant_data["tenants"][0]["id"]
+      sesh :current_tenant_name, tenant_data["tenants"][0]["name"]
 
       #Use this to get a scoped token--------------------------------------------
       identity.scope_token(tenant_data["tenants"][0]["name"])		
-      store(:current_token, identity.token())
+      sesh :current_token, identity.token()
 
       #Parse Service Catalog-----------------------------------------------------
       logger.info(identity.services())
@@ -82,32 +82,32 @@ class LoginsController < ApplicationController
   
   ##Reauthenticate and set new scoped token
   def switch
-    identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], get_data(:current_token), "identityv2")
+    identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], (sesh :current_token), "identityv2")
     identity.scope_token(params[:tenant_name])
     store_services(identity.services(), identity.admin())	
-    store(:current_tenant, identity.token_metadata()["tenant"]["id"])
-    store(:current_tenant_name, identity.token_metadata()["tenant"]["name"])
-    store(:current_token, identity.token())
+    sesh :current_tenant, identity.token_metadata()["tenant"]["id"]
+    sesh :current_tenant_name, identity.token_metadata()["tenant"]["name"]
+    sesh :current_token, identity.token()
     redirect_to visualisation_url
   end
 
   ##Used to fill out tenant switching bar in interface.
   def tenants
-    identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], get_data(:current_token), "identityv2")
+    identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], (sesh :current_token), "identityv2")
     respond_to do |format|
       format.json { render :json => identity.tenant_list() }
     end
   end
 
   def current
-    current_name = Storage.find(cookies[:current_tenant_name]).data
+    current_name = sesh :current_tenant_name
     respond_to do |format|
       format.json { render :json => {"tenant" => current_name} }
     end
   end  
 
   def services
-    servs = Storage.find(cookies[:services]).data
+    servs = sesh :services
     respond_to do |format|
       format.json { render :json => { "services" => servs } }
     end
@@ -115,7 +115,7 @@ class LoginsController < ApplicationController
 
   ##Logout/destroy tokens
   def destroy
-    clear_storages()
+    cookies.delete :sesh_id
     flash.keep
     redirect_to root_url, :notice => "You have logged out successfully!" 
   end
@@ -133,22 +133,13 @@ class LoginsController < ApplicationController
         servs = "#{servs},#{service["type"]}"
       end
       name = service["type"] + "_ip"
-      store(name.to_sym, service["endpoints"][0]["publicURL"])
+      sesh name.to_sym, service["endpoints"][0]["publicURL"]
       logger.info service["endpoints"][0]["publicURL"]
     end
     if admin
       servs = "#{servs},admin"
     end
-    store(:services, servs)
-  end
-
-  def clear_storages()
-    known_keys = ["current_token", "current_tenant", "current_tenant_name", "current_user_id", "services"]
-    cookies.each do |key, value|
-      if known_keys.include?(key) || key[-3..-1].eql?("_ip")
-        remove_store(key.to_sym, value) 
-      end
-    end
+    sesh :services, servs
   end
 
   def check_login

@@ -135,8 +135,8 @@ class ApplicationController < ActionController::Base
   # address
   #
   def compute()
-    computeIP = URI.parse(Storage.find(cookies[:compute_ip]).data)
-    return Ropenstack::Compute.new(computeIP, Storage.find(cookies[:current_token]).data)
+    computeIP = URI.parse(sesh :compute_ip)
+    return Ropenstack::Compute.new(computeIP, (sesh :current_token))
   end
 
   ##
@@ -144,8 +144,8 @@ class ApplicationController < ActionController::Base
   # address
   #
   def blockstorage()
-    blockStorageIP = URI.parse(Storage.find(cookies[:blockStorage_ip]).data)
-    return Ropenstack::BlockStorage.new(blockStorageIP, Storage.find(cookies[:current_token]).data)
+    blockStorageIP = URI.parse(sesh :blockStorage_ip)
+    return Ropenstack::BlockStorage.new(blockStorageIP, (sesh :current_token))
   end
 
   ##
@@ -153,8 +153,8 @@ class ApplicationController < ActionController::Base
   # address
   #
   def networking()
-    networkingIP = URI.parse(Storage.find(cookies[:network_ip]).data)
-    return Ropenstack::Networking.new(networkingIP, Storage.find(cookies[:current_token]).data)
+    networkingIP = URI.parse(sesh :network_ip)
+    return Ropenstack::Networking.new(networkingIP, (sesh :current_token))
   end
 
   ##
@@ -162,8 +162,8 @@ class ApplicationController < ActionController::Base
   # address
   #
   def image()
-    imageIP = URI.parse(Storage.find(cookies[:image_ip]).data)
-    return Ropenstack::Image.new(imageIP, Storage.find(cookies[:current_token]).data)
+    imageIP = URI.parse(sesh :image_ip)
+    return Ropenstack::Image.new(imageIP, (sesh :current_token))
   end
 
   # --------------------------------------------------------------------------------
@@ -171,40 +171,31 @@ class ApplicationController < ActionController::Base
   # Functions to do with the management and storage of data in the cookie.
   # --------------------------------------------------------------------------------
 
-  ##
-  # A utility function for getting the data out from the storages table using the id 
-  # stored in the cookie.
-  #
-  def get_data(key)
-    Storage.find(cookies[key]).data
-  end
-
-  ##
-  # Removed a peice of data stored in the cookie object and removes it from the 
-  # Storages model
-  #
-  def remove_store(key, value)
-    begin
-      @data = Storage.find(value)
-      @data.destroy
-      cookies.delete key
-    rescue
+  ## Session/Cookie management :D 
+  def sesh(name, value=nil)
+    unless name.is_a? Symbol
+      name = name.parameterize.underscore.to_sym
     end
-    session[key] = nil
-  end
- 
-  ##
-  # Places data into the Storages table and places the id for that peice of data into
-  # the cookie with the key specified.
-  #
-  def store(key, data)
-    store = Storage.new
-    store.data = data
 
-    if store.save 
-      session[key] = store.id
-      cookies[key] = store.id
+    unless cookies.has_key?(:sesh_id)
+      @sess = Storage.new
+      @sess.data = {}.to_json
+      @sess.save
     end
+
+    unless defined? @sess 
+      @sess = Storage.find(cookies[:sesh_id])
+    end
+    
+    data = JSON.parse(@sess.data, :symbolize_names => true)
+
+    unless value.nil? 
+      data[name] = value
+      @sess.data = data.to_json
+      @sess.save
+    end 
+    cookies[:sesh_id] = @sess.id
+    data[name]
   end
 
   # :section:
@@ -213,6 +204,6 @@ class ApplicationController < ActionController::Base
   # Returns true or false only based on if the user is logged in or not
   #
   def logged_in?
-    !!session[:current_token]
+    !!cookies[:sesh_id]
   end
 end

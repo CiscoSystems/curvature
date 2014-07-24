@@ -5,7 +5,7 @@ class Openstack::KeypairsController < ApplicationController
 
   def create
     keypair = compute().create_keypair(params[:name])
-    store(params[:name].to_sym, keypair['keypair']['private_key'])
+    sesh params[:name].to_sym, keypair['keypair']['private_key']
     json_respond keypair 
   end
 
@@ -18,6 +18,6 @@ class Openstack::KeypairsController < ApplicationController
   end
 
   def download
-    send_data get_data(params[:id].to_sym), :filename => "#{params[:id]}.pem"
+    send_data (sesh params[:id].to_sym), :filename => "#{params[:id]}.pem"
   end
 end

@@ -5,7 +5,7 @@ class Openstack::NetworksController < ApplicationController
   end
 
   def create
-    json_respond networking().create_network(params[:name], get_data(:current_tenant))
+    json_respond networking().create_network(params[:name], (sesh :current_tenant))
   end
 
   def show
