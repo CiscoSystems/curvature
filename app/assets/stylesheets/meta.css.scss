@@ -49,13 +49,6 @@ body {
   top: 20px;
 }
 
-#logoutButton {
-  position: absolute;
-  width: 60px;
-  right: 20px;
-  top: 20px;
-}
-
 #usernameDisplay {
   position: absolute;
   margin-top: 2px;
@@ -140,4 +133,10 @@ table {
 
 #t .ui-widget-content {
   display: none;
+}
+
+#refreshButton {
+  position: absolute;
+  margin-top: 50px;
+  margin-right: 30px;
 }

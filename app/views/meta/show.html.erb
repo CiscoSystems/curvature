@@ -1,19 +1,10 @@
+<%= render 'menubar' %>
+
 <div id="graph" class="D3Graph" tabindex="0">
 </div>
 
-<div id="usernameDisplay">
-  Blah blahblah
-</div>
 
 <button id="refreshButton" onMouseDown="return curvy.deploy.start()">Refresh</button>
-
-<form action="/logout">
-  <input id="logoutButton" type="submit" value="Logout">
-</form>
-
-<%= button_to [:edit, @user], form_class:"settingsButtonForm", method: :get do %>
-  Settings
-<% end %>
 
 <img id="ciscologo" src="/assets/cisco_logo.png">
 
