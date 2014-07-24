@@ -1,14 +1,15 @@
-  <div class="container">
-    <form class="form-signin" role="form">
-      <h2 class="form-signin-heading">Please sign in</h2>
+<div class="container">
+  <%= form_tag({:controller => "logins", :action => "create"},
+                :method => "post", :class => "form-signin", :role => "form") do %>
+    <h2 class="form-signin-heading">Please sign in</h2>
 
-      <input type="string" class="form-control" name="username" placeholder="Username" required autofocus>
-      <input type="password" class="form-control" name="password" placeholder="Password" required>
+    <input type="string" class="form-control" name="username" placeholder="Username" required autofocus>
+    <input type="password" class="form-control" name="password" placeholder="Password" required>
 
-      <button class="btn btn-lg btn-primary btn-block" name="commit" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" name="commit" type="submit">Sign in</button>
+  <% end %>
+</div>
 
-    </form>
-  </div>
 
 <p>
 Are you a new user? <a href="/signup"> Sign Up </a>

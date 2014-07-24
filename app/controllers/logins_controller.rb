@@ -23,7 +23,6 @@ class LoginsController < ApplicationController
 
     # Check user login information
     if @user.nil? or @user.password != params[:password]
-        logger.debug "No user information passed"
         redirect_to login_url
     else
         # Set cookie current user id.
