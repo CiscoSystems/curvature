@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140723165417) do
+ActiveRecord::Schema.define(version: 20140724123208) do
 
   create_table "environments", force: true do |t|
     t.string   "username"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140723165417) do
     t.string   "tenant"
   end
 
+  add_index "environments", ["name"], name: "index_environments_on_name", unique: true
   add_index "environments", ["user_id"], name: "index_environments_on_user_id"
 
   create_table "storages", force: true do |t|
