@@ -1,0 +1,8 @@
+<%= form_for [@user, @user.environments.build], html: { class:"form-edit", role:"form"} do |f| %>
+  <%= f.text_field :name, :class => "form-control", :type => "string", :placeholder => "Name" %>
+  <%= f.text_field :ip, :class => "form-control", :type => "string", :placeholder => "IP(:Port)"  %>
+  <%= f.text_field :tenant, :class => "form-control", :type => "string", :placeholder => "Tenant"  %>
+  <%= f.text_field :username, :class => "form-control", :type => "string", :placeholder => "Username"  %>
+  <%= f.text_field :password, :class => "form-control", :type => "password", :placeholder => "Password"  %>
+  <button class="btn btn-lg btn-primary btn-block" name="commit" type="submit">Add Environment</button>
+<% end %>

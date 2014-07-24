@@ -1,0 +1,25 @@
+<div id="env-table">
+  <strong> Environments: </strong>
+  <table class="table table-striped">
+    <tr>
+      <td> Name </td>
+      <td> IP </td>
+      <td> Tenant </td>
+      <td> Username </td>
+      <td> Password </td>
+      <td></td>
+    </tr>
+  <% @user.environments.each do |environment| %>
+    <tr>
+      <td> <%= environment.name %> </td>
+      <td> <%= environment.ip %> </td>
+      <td> <%= environment.tenant %> </td>
+      <td> <%= environment.username %> </td>
+      <td> <%= environment.password %> </td>
+      <td> <%= link_to 'Delete', [environment.user, environment],
+                     method: :delete,
+                    data: { confirm: 'Are you sure?' } %> </td>
+    </tr>
+  <% end %> 
+  </table>
+<div>
