@@ -2,7 +2,7 @@ require 'net/http'
 require 'json'
 require 'uri'
 
-##Handles login and cookie data. Keystone initially returns only an unscoped token (a token with no tenant) that can
+##Handles login and cookie data. Identity initially returns only an unscoped token (a token with no tenant) that can
 ##only be used to retrive a list of tenants. Reauthenticating as one of those tenants will give you access to the
 ##components of openstack that tenant has access too.
 
@@ -36,7 +36,9 @@ class LoginsController < ApplicationController
       flash[:unsupported] = flash_string
     end
 
-    if(!APP_CONFIG.has_key?("keystone"))
+    logger.info(APP_CONFIG)
+
+    if(!APP_CONFIG.has_key?("identity"))
       redirect_to setup_url
     else
       respond_to do |format|
@@ -48,25 +50,26 @@ class LoginsController < ApplicationController
   ##Attempt login, store cookie, 
   def create
     begin
-      keystone = Ropenstack::Keystone.new(APP_CONFIG["keystone"]["ip"], APP_CONFIG["keystone"]["port"])
+      identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], nil,"identityv2")
 
-      keystone.authenticate(params[:username], params[:password])
+      identity.authenticate(params[:username], params[:password])
 
       #Set user id---------------------------------------------------------------
-      store(:current_user_id, keystone.user()["id"])
-      store(:current_token, keystone.token())
+      sesh :current_user_id, identity.user()["id"]
+      sesh :current_token, identity.token()
 
       #Get Default Tenant--------------------------------------------------------
-      tenant_data = keystone.tenant_list()
-      store(:current_tenant, tenant_data["tenants"][0]["id"])
-      store(:current_tenant_name, tenant_data["tenants"][0]["name"])
+      tenant_data = identity.tenant_list()
+      sesh :current_tenant, tenant_data["tenants"][0]["id"]
+      sesh :current_tenant_name, tenant_data["tenants"][0]["name"]
 
       #Use this to get a scoped token--------------------------------------------
-      keystone.scope_token(tenant_data["tenants"][0]["name"])		
-      store(:current_token, keystone.token())
+      identity.scope_token(tenant_data["tenants"][0]["name"])		
+      sesh :current_token, identity.token()
 
       #Parse Service Catalog-----------------------------------------------------
-      store_services(keystone.services(), keystone.admin())
+      logger.info(identity.services())
+      store_services(identity.services(), identity.admin())
 
       #Redirect to the curvature dashboard after successfully logging in
       redirect_to visualisation_url	
@@ -79,32 +82,32 @@ class LoginsController < ApplicationController
   
   ##Reauthenticate and set new scoped token
   def switch
-    keystone = Ropenstack::Keystone.new(APP_CONFIG["keystone"]["ip"], APP_CONFIG["keystone"]["port"], get_data(:current_token))
-    keystone.scope_token(params[:tenant_name])
-    store_services(keystone.services(), keystone.admin())	
-    store(:current_tenant, keystone.token_metadata()["tenant"]["id"])
-    store(:current_tenant_name, keystone.token_metadata()["tenant"]["name"])
-    store(:current_token, keystone.token())
+    identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], (sesh :current_token), "identityv2")
+    identity.scope_token(params[:tenant_name])
+    store_services(identity.services(), identity.admin())	
+    sesh :current_tenant, identity.token_metadata()["tenant"]["id"]
+    sesh :current_tenant_name, identity.token_metadata()["tenant"]["name"]
+    sesh :current_token, identity.token()
     redirect_to visualisation_url
   end
 
   ##Used to fill out tenant switching bar in interface.
   def tenants
-    keystone = Ropenstack::Keystone.new(APP_CONFIG["keystone"]["ip"], APP_CONFIG["keystone"]["port"], get_data(:current_token))
+    identity = Ropenstack::Identity.new(APP_CONFIG["identity"]["ip"], APP_CONFIG["identity"]["port"], (sesh :current_token), "identityv2")
     respond_to do |format|
-      format.json { render :json => keystone.tenant_list() }
+      format.json { render :json => identity.tenant_list() }
     end
   end
 
   def current
-    current_name = Storage.find(cookies[:current_tenant_name]).data
+    current_name = sesh :current_tenant_name
     respond_to do |format|
       format.json { render :json => {"tenant" => current_name} }
     end
   end  
 
   def services
-    servs = Storage.find(cookies[:services]).data
+    servs = sesh :services
     respond_to do |format|
       format.json { render :json => { "services" => servs } }
     end
@@ -112,7 +115,7 @@ class LoginsController < ApplicationController
 
   ##Logout/destroy tokens
   def destroy
-    clear_storages()
+    cookies.delete :sesh_id
     flash.keep
     redirect_to root_url, :notice => "You have logged out successfully!" 
   end
@@ -124,28 +127,19 @@ class LoginsController < ApplicationController
     first = true
     services.each do |service|
       if first
-        servs = "#{service["name"]}"
+        servs = "#{service["type"]}"
         first = false
       else
-        servs = "#{servs},#{service["name"]}"
+        servs = "#{servs},#{service["type"]}"
       end
-      name = service["name"] + "_ip"
-      store(name.to_sym, service["endpoints"][0]["publicURL"])
+      name = service["type"] + "_ip"
+      sesh name.to_sym, service["endpoints"][0]["publicURL"]
       logger.info service["endpoints"][0]["publicURL"]
     end
     if admin
       servs = "#{servs},admin"
     end
-    store(:services, servs)
-  end
-
-  def clear_storages()
-    known_keys = ["current_token", "current_tenant", "current_tenant_name", "current_user_id", "services"]
-    cookies.each do |key, value|
-      if known_keys.include?(key) || key[-3..-1].eql?("_ip")
-        remove_store(key.to_sym, value) 
-      end
-    end
+    sesh :services, servs
   end
 
   def check_login

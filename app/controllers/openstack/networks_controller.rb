@@ -1,18 +1,18 @@
 # Networks Controller
 class Openstack::NetworksController < ApplicationController
   def index
-    json_respond quantum().networks()
+    json_respond networking().networks()
   end
 
   def create
-    json_respond quantum().create_network(params[:name], get_data(:current_tenant))
+    json_respond networking().create_network(params[:name], (sesh :current_tenant))
   end
 
   def show
   end
 
   def destroy
-    quan = quantum()
+    quan = networking()
     ports = quan.ports()
     ports["ports"].each do |port|
       if port["status"] == "DOWN" and port['network_id'] == params[:id]

@@ -1,5 +1,5 @@
 class Openstack::VolumesController < ApplicationController
   def index
-    json_respond cinder().volumes()
+    json_respond blockstorage().volumes()
   end
 end

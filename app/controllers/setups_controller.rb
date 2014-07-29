@@ -2,7 +2,7 @@ class SetupsController < ApplicationController
   before_filter :verify_config
 
   def verify_config
-    if(APP_CONFIG.has_key?("keystone"))
+    if(APP_CONFIG.has_key?("identity"))
       raise ActionController::RoutingError.new('Not Found')
     end
   end
@@ -12,19 +12,15 @@ class SetupsController < ApplicationController
   end
 
   def create
-    if(File.exists?("config/curvature.yml"))
-      @ip = params[:ipaddr]
-      @port = params[:port]
-      config = render_to_string "curvature.yml", :layout => false
-      File.open("config/curvature.yml", "w") { |file|
-        file.write(config)
-      }
-      APP_CONFIG['keystone'] = {}
-      APP_CONFIG['keystone']['ip'] = @ip
-      APP_CONFIG['keystone']['port'] = @port
-      redirect_to login_url, :notice => "Curvature Keystone Config Completed!"
-    else
-      redirect_to setups_url
-    end
+    @ip = params[:ipaddr]
+    @port = params[:port]
+    config = render_to_string "curvature.yml", :layout => false
+    File.open("config/curvature.yml", "w") { |file|
+      file.write(config)
+    }
+    APP_CONFIG['identity'] = {}
+    APP_CONFIG['identity']['ip'] = "http://" + @ip
+    APP_CONFIG['identity']['port'] = @port
+    redirect_to login_url, :notice => "Curvature Keystone Config Completed!"
   end
 end

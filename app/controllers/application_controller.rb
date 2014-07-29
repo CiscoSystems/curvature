@@ -131,39 +131,39 @@ class ApplicationController < ActionController::Base
   # ---------------------------------------------------------------------------
   
   ##
-  # Returns a Ropenstack nova object created with the users token and stored nova ip
+  # Returns a Ropenstack compute object created with the users token and stored compute ip
   # address
   #
-  def nova()
-    novaIP = URI.parse(Storage.find(cookies[:nova_ip]).data)
-    return Ropenstack::Nova.new(novaIP, Storage.find(cookies[:current_token]).data)
+  def compute()
+    computeIP = URI.parse(sesh :compute_ip)
+    return Ropenstack::Compute.new(computeIP, (sesh :current_token))
   end
 
   ##
-  # Returns a Ropenstack cinder object created with the users token and stored cinder ip
+  # Returns a Ropenstack blockStorage object created with the users token and stored blockStorage ip
   # address
   #
-  def cinder()
-    cinderIP = URI.parse(Storage.find(cookies[:cinder_ip]).data)
-    return Ropenstack::Cinder.new(cinderIP, Storage.find(cookies[:current_token]).data)
+  def blockstorage()
+    blockStorageIP = URI.parse(sesh :blockStorage_ip)
+    return Ropenstack::BlockStorage.new(blockStorageIP, (sesh :current_token))
   end
 
   ##
-  # Returns a Ropenstack quantum object created with the users token and stored quantum ip
+  # Returns a Ropenstack networking object created with the users token and stored networking ip
   # address
   #
-  def quantum()
-    quantumIP = URI.parse(Storage.find(cookies[:quantum_ip]).data)
-    return Ropenstack::Quantum.new(quantumIP, Storage.find(cookies[:current_token]).data)
+  def networking()
+    networkingIP = URI.parse(sesh :network_ip)
+    return Ropenstack::Networking.new(networkingIP, (sesh :current_token))
   end
 
   ##
-  # Returns a Ropenstack glance object created with the users token and stored glace ip
+  # Returns a Ropenstack image object created with the users token and stored glace ip
   # address
   #
-  def glance()
-    glanceIP = URI.parse(Storage.find(cookies[:glance_ip]).data)
-    return Ropenstack::Glance.new(glanceIP, Storage.find(cookies[:current_token]).data)
+  def image()
+    imageIP = URI.parse(sesh :image_ip)
+    return Ropenstack::Image.new(imageIP, (sesh :current_token))
   end
 
   # --------------------------------------------------------------------------------
@@ -171,40 +171,31 @@ class ApplicationController < ActionController::Base
   # Functions to do with the management and storage of data in the cookie.
   # --------------------------------------------------------------------------------
 
-  ##
-  # A utility function for getting the data out from the storages table using the id 
-  # stored in the cookie.
-  #
-  def get_data(key)
-    Storage.find(cookies[key]).data
-  end
-
-  ##
-  # Removed a peice of data stored in the cookie object and removes it from the 
-  # Storages model
-  #
-  def remove_store(key, value)
-    begin
-      @data = Storage.find(value)
-      @data.destroy
-      cookies.delete key
-    rescue
+  ## Session/Cookie management :D 
+  def sesh(name, value=nil)
+    unless name.is_a? Symbol
+      name = name.parameterize.underscore.to_sym
     end
-    session[key] = nil
-  end
- 
-  ##
-  # Places data into the Storages table and places the id for that peice of data into
-  # the cookie with the key specified.
-  #
-  def store(key, data)
-    store = Storage.new
-    store.data = data
 
-    if store.save 
-      session[key] = store.id
-      cookies[key] = store.id
+    unless cookies.has_key?(:sesh_id)
+      @sess = Storage.new
+      @sess.data = {}.to_json
+      @sess.save
     end
+
+    unless defined? @sess 
+      @sess = Storage.find(cookies[:sesh_id])
+    end
+    
+    data = JSON.parse(@sess.data, :symbolize_names => true)
+
+    unless value.nil? 
+      data[name] = value
+      @sess.data = data.to_json
+      @sess.save
+    end 
+    cookies[:sesh_id] = @sess.id
+    data[name]
   end
 
   # :section:
@@ -213,6 +204,6 @@ class ApplicationController < ActionController::Base
   # Returns true or false only based on if the user is logged in or not
   #
   def logged_in?
-    !!session[:current_token]
+    !!cookies[:sesh_id]
   end
 end

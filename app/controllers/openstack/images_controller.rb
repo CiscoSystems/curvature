@@ -7,7 +7,7 @@ class Openstack::ImagesController < ApplicationController
   # Returns all the images accessible to the tenant making the request
   #
   def index
-    json_respond nova().images()
+    json_respond compute().images()
   end
 
   ##
@@ -22,7 +22,7 @@ class Openstack::ImagesController < ApplicationController
     end
 
     json_respond( 
-      glance().upload_image_from_file(
+      image().upload_image_from_file(
         json["name"], json["disk_format"],
         json["container_format"], json["minDisk"],
         json["minRam"], isPublic, params[:image]
@@ -35,6 +35,6 @@ class Openstack::ImagesController < ApplicationController
   # Delete an image given an id 
   #
   def destroy
-    json_respond nova().delete_image(params[:imageID])
+    json_respond compute().delete_image(params[:imageID])
   end
 end

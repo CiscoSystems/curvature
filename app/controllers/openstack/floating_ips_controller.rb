@@ -1,10 +1,10 @@
 class Openstack::FloatingIpsController < ApplicationController
   def index
-    json_respond quantum().floating_ips()
+    json_respond networking().floating_ips()
   end
 
   def create
-    json_respond quantum().create_floating_ip(params[:network])
+    json_respond networking().create_floating_ip(params[:network])
   end
 
   def show
@@ -15,10 +15,10 @@ class Openstack::FloatingIpsController < ApplicationController
     if port == "null"
       port = nil
     end
-    json_respond quantum().update_floating_ip(params[:id], port)
+    json_respond networking().update_floating_ip(params[:id], port)
   end
 
   def destroy
-    json_respond quantum().delete_floating_ip(params[:id])
+    json_respond networking().delete_floating_ip(params[:id])
   end
 end
