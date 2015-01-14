@@ -128,7 +128,7 @@ class D3.Graph
 
       @hullset
 
-    @fill = d3.scale.category20()
+    @fill = d3.scale.category10()
 
     @curve = d3.svg.line()
         .interpolate("cardinal-closed")
