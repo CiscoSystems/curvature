@@ -1,6 +1,17 @@
 Curvature - JavaScript based Visualization Tool and Dashboard For OpenStack
 ==========================================================================
 
+END OF LIFE
+-----------
+
+**The logic from the Curvature Visualizations has now been merged into Horizon,
+the official OpenStack Dashboard project (https://github.com/openstack/horizon).
+Therefore, this repository is no longer maintained and all future development will
+happen in the Horizon repository.**
+
+
+
+
 What is Curvature
 -----------------
 
